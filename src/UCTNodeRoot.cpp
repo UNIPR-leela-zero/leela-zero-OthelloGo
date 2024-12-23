@@ -68,6 +68,7 @@ void UCTNode::kill_superkos(const GameState& state) {
             KoState mystate = state;
             mystate.play_move(move);
 
+            // Checks if the superko rule was broken.
             if (mystate.superko()) {
                 // Don't delete nodes for now, just mark them invalid.
                 child->invalidate();
@@ -94,12 +95,17 @@ void UCTNode::kill_superkos(const GameState& state) {
         end(m_children));
 }
 
+// Dirichlet noise technique: stochastic exploration during the node
+// selection phase of the search tree.  Guarantees greater
+// diversification in exploring game states.
 void UCTNode::dirichlet_noise(const float epsilon, const float alpha) {
     auto child_cnt = m_children.size();
 
+    // Contains the samples of each child's Dirichlet distribution.
     auto dirichlet_vector = std::vector<float>{};
     std::gamma_distribution<float> gamma(alpha, 1.0f);
     for (size_t i = 0; i < child_cnt; i++) {
+        // For each child a sample of the gamma distribution is generated.
         dirichlet_vector.emplace_back(gamma(Random::get_Rng()));
     }
 
@@ -112,20 +118,28 @@ void UCTNode::dirichlet_noise(const float epsilon, const float alpha) {
         return;
     }
 
+    // The vector is normalized.
     for (auto& v : dirichlet_vector) {
         v /= sample_sum;
     }
 
     child_cnt = 0;
+    // For each child calculate a new policy value using the Dirichlet
+    // noise formula.
     for (auto& child : m_children) {
         auto policy = child->get_policy();
         auto eta_a = dirichlet_vector[child_cnt++];
+        // Mix the original policy value with the Dirichlet noise
+        // based on epsilon's value.
         policy = policy * (1 - epsilon) + epsilon * eta_a;
         child->set_policy(policy);
     }
 }
 
+// Select a random child node based on the number of visits.
 void UCTNode::randomize_first_proportionally() {
+    // Keeps track of the cumulative sum of the proportional
+    // probabilities of each child during each loop iteration.
     auto accum = 0.0;
     auto norm_factor = 0.0;
     auto accum_vector = std::vector<double>{};
@@ -136,18 +150,25 @@ void UCTNode::randomize_first_proportionally() {
             norm_factor = visits;
             // Nonsensical options? End of game?
             if (visits <= cfg_random_min_visits) {
+                // The child node has number of visits less than the
+                // minimum threshold.
                 return;
             }
         }
         if (visits > cfg_random_min_visits) {
+            // Calculate the proportional accumulation of the current child.
             accum += std::pow(visits / norm_factor, 1.0 / cfg_random_temp);
             accum_vector.emplace_back(accum);
         }
     }
 
+    // Distribution between 0 and the proportional accumulation.
     auto distribution = std::uniform_real_distribution<double>{0.0, accum};
+    // Random numbers of the distribution.
     auto pick = distribution(Random::get_Rng());
     auto index = size_t{0};
+    // Look for the index of the first element that goes over the
+    // random number "pick".
     for (size_t i = 0; i < accum_vector.size(); i++) {
         if (pick < accum_vector[i]) {
             index = i;
@@ -166,6 +187,7 @@ void UCTNode::randomize_first_proportionally() {
     std::iter_swap(begin(m_children), begin(m_children) + index);
 }
 
+// Returns a pointer to the first child node that doesn't represent "PASS".
 UCTNode* UCTNode::get_nopass_child(FastState& state) const {
     for (const auto& child : m_children) {
         /* If we prevent the engine from passing, we must bail out when
@@ -205,12 +227,15 @@ void UCTNode::prepare_root_node(Network& network, const int color,
                                 GameState& root_state) {
     float root_eval;
     const auto had_children = has_children();
+    // If it's expandable create child nodes.
     if (expandable()) {
         create_children(network, nodes, root_state, root_eval);
     }
+    // If it already has children, calculate the evaluation.
     if (had_children) {
         root_eval = get_net_eval(color);
     } else {
+        // The node was just expanded so calculate the evaluation.
         root_eval = (color == FastBoard::BLACK ? root_eval : 1.0f - root_eval);
     }
     Utils::myprintf("NN eval=%f\n", root_eval);

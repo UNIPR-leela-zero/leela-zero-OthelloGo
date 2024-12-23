@@ -40,6 +40,10 @@
 
 using namespace Utils;
 
+// The FullBoard class extends FastBoard.
+
+
+// Removes an entire group of stones.
 int FullBoard::remove_string(const int i) {
     int pos = i;
     int removed = 0;
@@ -68,6 +72,9 @@ int FullBoard::remove_string(const int i) {
     return removed;
 }
 
+// Creates a unique hash for the current board state in order to check
+// for the ko rule.  (You can't immediately repeat a previous
+// gamestate)
 std::uint64_t FullBoard::calc_ko_hash() const {
     auto res = Zobrist::zobrist_empty;
 
@@ -81,6 +88,9 @@ std::uint64_t FullBoard::calc_ko_hash() const {
     return res;
 }
 
+// More general hash of the board state which takes into account
+// prisoners, the last move made, and the current player to move.  You
+// can apply a function to transform the values before hashing.
 template <class Function>
 std::uint64_t FullBoard::calc_hash(const int komove, Function transform) const {
     auto res = Zobrist::zobrist_empty;
@@ -108,6 +118,7 @@ std::uint64_t FullBoard::calc_hash(const int komove) const {
     return calc_hash(komove, [](const auto vertex) { return vertex; });
 }
 
+// Calls calc_hash after applying a symmetry transformation.
 std::uint64_t FullBoard::calc_symmetry_hash(const int komove,
                                             const int symmetry) const {
     return calc_hash(komove, [this, symmetry](const auto vertex) {
@@ -136,6 +147,7 @@ void FullBoard::set_to_move(const int tomove) {
     FastBoard::set_to_move(tomove);
 }
 
+// Updates the board when a new piece is added.
 int FullBoard::update_board(const int color, const int i) {
     assert(i != FastBoard::PASS);
     assert(m_state[i] == EMPTY);

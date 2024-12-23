@@ -55,19 +55,24 @@ TimeControl::TimeControl(const int maintime, const int byotime,
 std::string TimeControl::stones_left_to_text_sgf(const int color) const {
     auto s = std::string{};
     // We must be in byo-yomi before interpreting stones.
+    // Byo-yomi: additional time.
     if (m_inbyo[color]) {
         const auto c = color == FastBoard::BLACK ? "OB[" : "OW[";
         if (m_byostones) {
+            // Byo-yomi based on the number of stones.
             s += c + std::to_string(m_stones_left[color]) + "]";
         } else if (m_byoperiods) {
             // KGS extension.
+            // Byo-yomi based on periods.
             s += c + std::to_string(m_periods_left[color]) + "]";
         }
     }
     return s;
 }
 
+// Play time in text.
 std::string TimeControl::to_text_sgf() const {
+    // There is no byo-yomi.
     if (m_byotime != 0 && m_byostones == 0 && m_byoperiods == 0) {
         return ""; // Infinite time.
     }
@@ -102,12 +107,14 @@ std::shared_ptr<TimeControl> TimeControl::make_from_text_sgf(
     const std::string& maintime, const std::string& byoyomi,
     const std::string& black_time_left, const std::string& white_time_left,
     const std::string& black_moves_left, const std::string& white_moves_left) {
+    // Main game time in centiseconds.
     const auto maintime_centis = std::stoi(maintime) * 100;
     auto byotime = 0;
     auto byostones = 0;
     auto byoperiods = 0;
     if (!byoyomi.empty()) {
         std::smatch m;
+        // Defines the regex to recognize possible byo-yomi syntaxes.
         const auto re_canadian = std::regex{"(\\d+)/(\\d+) Canadian"};
         const auto re_byoyomi = std::regex{"(\\d+)x(\\d+) byo-yomi"};
         if (std::regex_match(byoyomi, m, re_canadian)) {
@@ -122,12 +129,14 @@ std::shared_ptr<TimeControl> TimeControl::make_from_text_sgf(
     }
     const auto timecontrol_ptr = std::make_shared<TimeControl>(
         maintime_centis, byotime, byostones, byoperiods);
+    // Black still has some time left.
     if (!black_time_left.empty()) {
         const auto time = std::stoi(black_time_left) * 100;
         const auto stones =
             black_moves_left.empty() ? 0 : std::stoi(black_moves_left);
         timecontrol_ptr->adjust_time(FastBoard::BLACK, time, stones);
     }
+    // white still has some time left.
     if (!white_time_left.empty()) {
         const auto time = std::stoi(white_time_left) * 100;
         const auto stones =
@@ -158,6 +167,7 @@ void TimeControl::start(const int color) {
 
 void TimeControl::stop(const int color) {
     Time stop;
+    // Move time duration.
     int elapsed_centis = Time::timediff_centis(m_times[color], stop);
 
     assert(elapsed_centis >= 0);
@@ -299,10 +309,13 @@ void TimeControl::adjust_time(const int color, const int time,
 
 size_t TimeControl::opening_moves(const int boardsize) const {
     auto num_intersections = boardsize * boardsize;
+    // Number of expected opening moves.
     auto fast_moves = num_intersections / 6;
     return fast_moves;
 }
 
+// Number of expected moves left, based on the dimension of the board
+// and the number of played moves.
 int TimeControl::get_moves_expected(const int boardsize,
                                     const size_t movenum) const {
     auto board_div = 5;
@@ -319,6 +332,7 @@ int TimeControl::get_moves_expected(const int boardsize,
     // Don't think too long in the opening.
     auto fast_moves = opening_moves(boardsize);
     if (movenum < fast_moves) {
+        // Played moves is less than the number of exepcted opening moves.
         return (base_remaining + fast_moves) - movenum;
     } else {
         return base_remaining;

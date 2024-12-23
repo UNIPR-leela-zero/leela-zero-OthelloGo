@@ -46,6 +46,9 @@ void SMP::Lock::lock() {
     // Test and Test-and-Set reduces memory contention
     // However, just trying to Test-and-Set first improves performance in almost
     // all cases
+
+    // The thread continues to test if the mutex is available until it
+    // is able to acquire it safely.
     while (m_mutex->m_lock.exchange(true, std::memory_order_acquire)) {
         while (m_mutex->m_lock.load(std::memory_order_relaxed)) {}
     }
@@ -53,15 +56,21 @@ void SMP::Lock::lock() {
 }
 
 void SMP::Lock::unlock() {
+    // Verifies if the current block already has the lock.
     assert(m_owns_lock);
+    // Resets the value of m_lock to false atomically and with the
+    // memory order std::memory_order_release.
+    // The previous value of m_lock is memorized in lock_held.
     auto lock_held = m_mutex->m_lock.exchange(false, std::memory_order_release);
 
     // If this fails it means we are unlocking an unlocked lock
 #ifdef NDEBUG
     (void)lock_held;
 #else
+    // Makes sure that the lock was actually held.
     assert(lock_held);
 #endif
+    // The block no longer owns the mutex.
     m_owns_lock = false;
 }
 

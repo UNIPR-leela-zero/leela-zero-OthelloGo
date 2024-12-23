@@ -33,11 +33,18 @@
 
 #include "Random.h"
 
+// Zobrist Hash: tecnique used to efficiently generate a unique hash
+// value for every possible game configuration.  Used in tabletop
+// games for position search.
+
+
 std::array<std::array<std::uint64_t, FastBoard::NUM_VERTICES>,     4> Zobrist::zobrist;
 std::array<std::uint64_t, FastBoard::NUM_VERTICES>                    Zobrist::zobrist_ko;
 std::array<std::array<std::uint64_t, FastBoard::NUM_VERTICES * 2>, 2> Zobrist::zobrist_pris;
 std::array<std::uint64_t, 5>                                          Zobrist::zobrist_pass;
 
+// Generates random values and assings them to each cell of the two
+// matrices and the two vectors.
 void Zobrist::init_zobrist(Random& rng) {
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < FastBoard::NUM_VERTICES; j++) {

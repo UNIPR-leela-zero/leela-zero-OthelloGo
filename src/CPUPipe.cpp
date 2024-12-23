@@ -27,6 +27,9 @@
     work.
 */
 
+// Possible forward pipe that extends the ForwardPipe interface which
+// is used in the network to do forward propagation.
+
 #include "config.h"
 
 #ifdef __APPLE__
@@ -56,10 +59,13 @@ using ConstEigenMatrixMap =
     Eigen::Map<const Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>;
 #endif
 
+// Initializes the CPU Pipe.
 void CPUPipe::initialize(int channels) {
     m_input_channels = channels;
 }
 
+// Applies a winograd transformation on the input data "in" and stores
+// the transformed data in the vector V.
 void CPUPipe::winograd_transform_in(const std::vector<float>& in,
                                     std::vector<float>& V, const int C) {
     constexpr auto W = BOARD_SIZE;
@@ -182,6 +188,8 @@ void CPUPipe::winograd_transform_in(const std::vector<float>& in,
     }
 }
 
+// Performs matrix multiplication using the data transofrmed by the
+// winograd transformation.
 void CPUPipe::winograd_sgemm(const std::vector<float>& U,
                              const std::vector<float>& V,
                              std::vector<float>& M,
@@ -205,10 +213,13 @@ void CPUPipe::winograd_sgemm(const std::vector<float>& U,
         C_mat.noalias() =
             ConstEigenMatrixMap<float>(V.data() + offset_v, P, C)
             * ConstEigenMatrixMap<float>(U.data() + offset_u, K, C).transpose();
+        // Piece that performs the multiplication.
 #endif
     }
 }
 
+// Reverses the winograd transformation after the matrix
+// multiplication to obtain the output from the channels.
 void CPUPipe::winograd_transform_out(const std::vector<float>& M,
                                      std::vector<float>& Y, const int K) {
     constexpr auto W = BOARD_SIZE;
@@ -222,6 +233,8 @@ void CPUPipe::winograd_transform_out(const std::vector<float>& M,
     //     0.0f, SQ2 / 2.0f, -SQ2 / 2.0f,  SQ2,        -SQ2,        0.0f,
     //     0.0f, 1.0f / 2.0f, 1.0f / 2.0f, 2.0f,        2.0f,       0.0f,
     //     0.0f, SQ2 / 4.0f, -SQ2 / 4.0f,  2.0f * SQ2, -2.0f * SQ2, 1.0f};
+
+    // This lambda function reverses the winograd transformation.
     const auto multiply_at = [](float& o0, float& o1, float& o2, float& o3,
                                 const float i0, const float i1,
                                 const float i2, const float i3,
@@ -237,6 +250,8 @@ void CPUPipe::winograd_transform_out(const std::vector<float>& M,
         o3 = t1m2 + t3m4 + t3m4 + i5;
     };
 
+    // Iterates for every channel in the output and reverses the
+    // winograd transformation to obtain the actual output.
     for (auto k = 0; k < K; k++) {
         for (auto block_x = 0; block_x < WTILES; block_x++) {
             const auto x = WINOGRAD_M * block_x;
@@ -283,6 +298,8 @@ void CPUPipe::winograd_transform_out(const std::vector<float>& M,
     }
 }
 
+// Takes the inputs and calls the winograd transformation pipeline to
+// get the output of the convolutional layers.
 void CPUPipe::winograd_convolve3(const int outputs,
                                  const std::vector<float>& input,
                                  const std::vector<float>& U,
@@ -298,6 +315,7 @@ void CPUPipe::winograd_convolve3(const int outputs,
     winograd_transform_out(M, output, outputs);
 }
 
+// Applies a traditional convolution function.
 template <unsigned int filter_size>
 void convolve(const size_t outputs,
               const std::vector<float>& input,
@@ -349,6 +367,7 @@ void convolve(const size_t outputs,
     }
 }
 
+// Applies batch normalization to input vectors.
 template <size_t spatial_size>
 void batchnorm(const size_t channels,
                std::vector<float>& data,
@@ -376,6 +395,14 @@ void batchnorm(const size_t channels,
     }
 }
 
+// Does the forwarding in the convolutional network: it applies
+// convolution to the input data, applies batch normalization to the
+// output, then for each pair of convolutional layers in the residual
+// tower it applies batch normalization to the first convolutional
+// layer output. Then it applies it again to the output of the second
+// convolutional layer and finally adds the original input to the
+// output.  After all this it applies the fully connected
+// convolutional layers to obtain policy and value outputs.
 void CPUPipe::forward(const std::vector<float>& input,
                       std::vector<float>& output_pol,
                       std::vector<float>& output_val) {
@@ -421,12 +448,15 @@ void CPUPipe::forward(const std::vector<float>& input,
             m_weights->m_batchnorm_means[i + 1].data(),
             m_weights->m_batchnorm_stddevs[i + 1].data(), res.data());
     }
+    // Computes the fully connected convolutional layers.
     convolve<1>(Network::OUTPUTS_POLICY, conv_out, m_conv_pol_w, m_conv_pol_b,
                 output_pol);
     convolve<1>(Network::OUTPUTS_VALUE, conv_out, m_conv_val_w, m_conv_val_b,
                 output_val);
 }
 
+// Sets up the weights, seperating the ones for the policy and the
+// value head from the convolutional layer ones.
 void CPUPipe::push_weights(const unsigned int /*filter_size*/,
                            const unsigned int /*channels*/,
                            const unsigned int outputs,

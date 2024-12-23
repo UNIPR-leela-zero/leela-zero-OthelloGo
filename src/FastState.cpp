@@ -74,6 +74,7 @@ void FastState::reset_board() {
     board.reset_board(board.get_boardsize());
 }
 
+// Checks if the move is legal.
 bool FastState::is_move_legal(const int color, const int vertex) const {
     return !cfg_analyze_tags.is_to_avoid(color, vertex, m_movenum)
            && (vertex == FastBoard::PASS || vertex == FastBoard::RESIGN
@@ -86,6 +87,7 @@ void FastState::play_move(const int vertex) {
     play_move(board.m_tomove, vertex);
 }
 
+// Plays the move.
 void FastState::play_move(const int color, const int vertex) {
     board.m_hash ^= Zobrist::zobrist_ko[m_komove];
     if (vertex == FastBoard::PASS) {

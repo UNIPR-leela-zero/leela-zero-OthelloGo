@@ -39,6 +39,9 @@
 #include "GTP.h"
 #include "Utils.h"
 
+// This class only generates random numbers.
+
+
 Random& Random::get_Rng() {
     static thread_local Random s_rng{0};
     return s_rng;

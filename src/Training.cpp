@@ -97,6 +97,7 @@ std::istream& operator>>(std::istream& stream, TimeStep& timestep) {
 
 std::string OutputChunker::gen_chunk_name() const {
     auto base = std::string{m_basename};
+    // File name m_basename + current chunk number + ".gz".
     base.append("." + std::to_string(m_chunk_count) + ".gz");
     return base;
 }
@@ -108,6 +109,7 @@ OutputChunker::~OutputChunker() {
     flush_chunks();
 }
 
+// Adds a string to the internal buffer.
 void OutputChunker::append(const std::string& str) {
     m_buffer.append(str);
     m_game_count++;
@@ -116,17 +118,21 @@ void OutputChunker::append(const std::string& str) {
     }
 }
 
+// Handles chunk saving in the output file.
 void OutputChunker::flush_chunks() {
     if (m_compress) {
         auto chunk_name = gen_chunk_name();
         auto out = gzopen(chunk_name.c_str(), "wb9");
 
         auto in_buff_size = m_buffer.size();
+        // Allocate memory for a temporary buffer.
         auto in_buff = std::make_unique<char[]>(in_buff_size);
+        // Copy the data in the internal buffer to the temporary buffer.
         memcpy(in_buff.get(), m_buffer.data(), in_buff_size);
 
         auto comp_size = gzwrite(out, in_buff.get(), in_buff_size);
         if (!comp_size) {
+            // Writing was unsuccessful.
             throw std::runtime_error("Error in gzip output");
         }
         Utils::myprintf("Writing chunk %d\n", m_chunk_count);
@@ -149,12 +155,17 @@ void Training::clear_training() {
 }
 
 TimeStep::NNPlanes Training::get_planes(const GameState* const state) {
+    // Responsible for plane generation.
     const auto input_data = Network::gather_features(state, 0);
 
+    // Create a vector of planes.
     auto planes = TimeStep::NNPlanes{};
+    // Adjust the vector size based on the network's input channels.
     planes.resize(Network::INPUT_CHANNELS);
 
+    // Iterate through all input channels.
     for (auto c = size_t{0}; c < Network::INPUT_CHANNELS; c++) {
+        // Iterate through the elements (intersections) of each channel.
         for (auto idx = 0; idx < NUM_INTERSECTIONS; idx++) {
             planes[c][idx] = bool(input_data[c * NUM_INTERSECTIONS + idx]);
         }
@@ -166,12 +177,14 @@ void Training::record(Network& network, const GameState& state,
                       const UCTNode& root) {
     auto step = TimeStep{};
     step.to_move = state.board.get_to_move();
+    // Elaborate the game state to obtain input data for the network.
     step.planes = get_planes(&state);
 
     const auto result = network.get_output(&state, Network::Ensemble::DIRECT,
                                            Network::IDENTITY_SYMMETRY);
     step.net_winrate = result.winrate;
 
+    // Get the best root child for the current player.
     const auto& best_node = root.get_best_root_child(step.to_move);
     step.root_uct_winrate = root.get_eval(step.to_move);
     step.child_uct_winrate = best_node.get_eval(step.to_move);
@@ -194,6 +207,7 @@ void Training::record(Network& network, const GameState& state,
         return;
     }
 
+    // Calculates the probability by scanning the root's children.
     for (const auto& child : root.get_children()) {
         auto prob = static_cast<float>(child->get_visits() / sum_visits);
         auto move = child->get_move();
@@ -208,30 +222,37 @@ void Training::record(Network& network, const GameState& state,
     m_data.emplace_back(step);
 }
 
+// Writes the training data in chunks to the specified file, while
+// also specifiying the winner's color.
 void Training::dump_training(const int winner_color,
                              const std::string& filename) {
     auto chunker = OutputChunker{filename, true};
     dump_training(winner_color, chunker);
 }
 
+// Writes the training data in the output file.
 void Training::save_training(const std::string& filename) {
     auto flags = std::ofstream::out;
     auto out = std::ofstream{filename, flags};
     save_training(out);
 }
 
+// Opens an input file and loads the data.
 void Training::load_training(const std::string& filename) {
     auto flags = std::ifstream::in;
     auto in = std::ifstream{filename, flags};
     load_training(in);
 }
 
+// Writes data directly on the output stream.
 void Training::save_training(std::ofstream& out) {
     out << m_data.size() << ' ';
     for (const auto& step : m_data) {
         out << step;
     }
 }
+
+// Reads data from a given input stream.
 void Training::load_training(std::ifstream& in) {
     int steps;
     in >> steps;
@@ -242,6 +263,7 @@ void Training::load_training(std::ifstream& in) {
     }
 }
 
+// Converts training data into a textual representation.
 void Training::dump_training(const int winner_color, OutputChunker& outchunk) {
     auto training_str = std::string{};
     for (const auto& step : m_data) {
@@ -300,6 +322,7 @@ void Training::dump_debug(OutputChunker& outchunk) {
         out << cfg_resignpct << " " << cfg_weightsfile << std::endl;
         debug_str.append(out.str());
     }
+    // Scans the steps and writes them to debug_str.
     for (const auto& step : m_data) {
         auto out = std::stringstream{};
         out << step.net_winrate
@@ -319,7 +342,11 @@ void Training::process_game(GameState& state, size_t& train_pos,
     auto counter = size_t{0};
     state.rewind();
 
+    // Continue until there are no more available moves and until the
+    // counter isn't >= the number of total moves in the tree_moves
+    // vector.
     do {
+        // Information on the next move.
         auto to_move = state.get_to_move();
         auto move_vertex = tree_moves[counter];
         auto move_idx = size_t{0};
@@ -339,6 +366,8 @@ void Training::process_game(GameState& state, size_t& train_pos,
             move_idx = NUM_INTERSECTIONS; // PASS
         }
 
+        // Contains the information about game state and the
+        // probability associated to the move.
         auto step = TimeStep{};
         step.to_move = to_move;
         step.planes = get_planes(&state);
@@ -370,10 +399,12 @@ void Training::dump_supervised(const std::string& sgf_name,
 
     Time start;
     for (auto gamecount = size_t{0}; gamecount < gametotal; gamecount++) {
+        // Creates an SGFTree.
         auto sgftree = std::make_unique<SGFTree>();
         try {
             sgftree->load_from_string(games[gamecount]);
         } catch (...) {
+            // Game loading failed, continue onto the next step.
             continue;
         };
 
@@ -385,6 +416,7 @@ void Training::dump_supervised(const std::string& sgf_name,
                 gamecount, train_pos, elapsed_s, int(train_pos / elapsed_s));
         }
 
+        // Extract the main sequence.
         auto tree_moves = sgftree->get_mainline();
         // Empty game or couldn't be parsed?
         if (tree_moves.size() == 0) {

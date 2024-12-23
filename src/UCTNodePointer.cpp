@@ -51,6 +51,7 @@ void UCTNodePointer::decrement_tree_size(const size_t sz) {
     m_tree_size -= sz;
 }
 
+// Deallocates pointer's memory and reduces the tree's size.
 UCTNodePointer::~UCTNodePointer() {
     auto sz = sizeof(UCTNodePointer);
     auto v = m_data.load();
@@ -62,6 +63,7 @@ UCTNodePointer::~UCTNodePointer() {
 }
 
 UCTNodePointer::UCTNodePointer(UCTNodePointer&& n) {
+    //Exchange values between n and the new node.
     auto nv = std::atomic_exchange(&n.m_data, INVALID);
     auto v = std::atomic_exchange(&m_data, nv);
 #ifdef NDEBUG
@@ -74,9 +76,13 @@ UCTNodePointer::UCTNodePointer(UCTNodePointer&& n) {
 
 UCTNodePointer::UCTNodePointer(const std::int16_t vertex, const float policy) {
     std::uint32_t i_policy;
+    // Converts vertex in 16 bit unsigned integer so that it can be
+    // represented on 2 bytes.
     auto i_vertex = static_cast<std::uint16_t>(vertex);
     std::memcpy(&i_policy, &policy, sizeof(i_policy));
 
+    // Moves i_policy by 32 bits (to the top part of m_data).
+    // Moves i_vertix by 16 bits (to the central part of m_data).
     m_data = (static_cast<std::uint64_t>(i_policy) << 32)
            | (static_cast<std::uint64_t>(i_vertex) << 16);
     increment_tree_size(sizeof(UCTNodePointer));
@@ -102,6 +108,7 @@ UCTNode* UCTNodePointer::release() {
 void UCTNodePointer::inflate() const {
     while (true) {
         auto v = m_data.load();
+        // The node is already inflated.
         if (is_inflated(v)) return;
 
         auto v2 = reinterpret_cast<std::uint64_t>(

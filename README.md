@@ -4,7 +4,7 @@ Versione modificata di Leela Zero per il gioco dell’Othello/Reversi.
 
 ## 📌 Obiettivo
 
-- Adattare Leela Zero a Othello
+- Permettere all'utente di giocare sia a Go che ad Othello.
 - Allenare una rete neurale
 - Collaborare via Pull Request
 

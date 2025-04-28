@@ -1,6 +1,6 @@
 # Leela Zero Go-Othello (Progetto Unipr)
 
-Versione modificata di Leela Zero per il gioco dell’Othello/Reversi.
+Versione modificata di Leela Zero per il gioco dell’Othello/Go.
 
 ## 📌 Obiettivo
 

@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/cmake_install.cmake",
+		"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/cmake_install.cmake",
+		"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock/cmake_install.cmake",
+		"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock/gtest/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

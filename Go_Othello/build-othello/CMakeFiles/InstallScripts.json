@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-othello/cmake_install.cmake",
+		"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-othello/gtest/cmake_install.cmake",
+		"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-othello/gtest/googlemock/cmake_install.cmake",
+		"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-othello/gtest/googlemock/gtest/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

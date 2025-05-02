@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DCURRENT_GAME=GAME_GO
 
-CXX_INCLUDES = -I/Users/riccardoghizzoni/Desktop/leela-zero-unito/src -I/Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Eigen -I/opt/homebrew/include -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -I/System/Library/Frameworks/Accelerate.framework/Versions/Current/Headers
+CXX_INCLUDES = -I/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src -I/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Eigen -I/opt/homebrew/include -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -I/System/Library/Frameworks/Accelerate.framework/Versions/Current/Headers -I/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO
 
 CXX_FLAGSarm64 = -Wall -Wextra -ffast-math -flto -march=native -Wno-ignored-attributes -Wno-maybe-uninitialized       -Wno-mismatched-tags -g -O3 -DNDEBUG -std=gnu++17 -arch arm64
 

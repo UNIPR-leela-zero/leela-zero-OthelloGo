@@ -57,10 +57,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito
+CMAKE_SOURCE_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go
+CMAKE_BINARY_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -78,7 +78,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Run CPack packaging tool for source..."
-	/opt/homebrew/bin/cpack --config ./CPackSourceConfig.cmake /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CPackSourceConfig.cmake
+	/opt/homebrew/bin/cpack --config ./CPackSourceConfig.cmake /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -152,9 +152,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -272,149 +272,461 @@ gtest_main/fast:
 	$(MAKE) $(MAKESILENT) -f gtest/googlemock/gtest/CMakeFiles/gtest_main.dir/build.make gtest/googlemock/gtest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
-src/CPUPipe.o: src/CPUPipe.cpp.o
-.PHONY : src/CPUPipe.o
+src/GO/CPUPipeGo.o: src/GO/CPUPipeGo.cpp.o
+.PHONY : src/GO/CPUPipeGo.o
 
 # target to build an object file
-src/CPUPipe.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/CPUPipe.cpp.o
-.PHONY : src/CPUPipe.cpp.o
+src/GO/CPUPipeGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.o
+.PHONY : src/GO/CPUPipeGo.cpp.o
 
-src/CPUPipe.i: src/CPUPipe.cpp.i
-.PHONY : src/CPUPipe.i
+src/GO/CPUPipeGo.i: src/GO/CPUPipeGo.cpp.i
+.PHONY : src/GO/CPUPipeGo.i
 
 # target to preprocess a source file
-src/CPUPipe.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/CPUPipe.cpp.i
-.PHONY : src/CPUPipe.cpp.i
+src/GO/CPUPipeGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.i
+.PHONY : src/GO/CPUPipeGo.cpp.i
 
-src/CPUPipe.s: src/CPUPipe.cpp.s
-.PHONY : src/CPUPipe.s
+src/GO/CPUPipeGo.s: src/GO/CPUPipeGo.cpp.s
+.PHONY : src/GO/CPUPipeGo.s
 
 # target to generate assembly for a file
-src/CPUPipe.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/CPUPipe.cpp.s
-.PHONY : src/CPUPipe.cpp.s
+src/GO/CPUPipeGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.s
+.PHONY : src/GO/CPUPipeGo.cpp.s
 
-src/FastBoard.o: src/FastBoard.cpp.o
-.PHONY : src/FastBoard.o
+src/GO/FastBoardGo.o: src/GO/FastBoardGo.cpp.o
+.PHONY : src/GO/FastBoardGo.o
 
 # target to build an object file
-src/FastBoard.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/FastBoard.cpp.o
-.PHONY : src/FastBoard.cpp.o
+src/GO/FastBoardGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.o
+.PHONY : src/GO/FastBoardGo.cpp.o
 
-src/FastBoard.i: src/FastBoard.cpp.i
-.PHONY : src/FastBoard.i
+src/GO/FastBoardGo.i: src/GO/FastBoardGo.cpp.i
+.PHONY : src/GO/FastBoardGo.i
 
 # target to preprocess a source file
-src/FastBoard.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/FastBoard.cpp.i
-.PHONY : src/FastBoard.cpp.i
+src/GO/FastBoardGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.i
+.PHONY : src/GO/FastBoardGo.cpp.i
 
-src/FastBoard.s: src/FastBoard.cpp.s
-.PHONY : src/FastBoard.s
+src/GO/FastBoardGo.s: src/GO/FastBoardGo.cpp.s
+.PHONY : src/GO/FastBoardGo.s
 
 # target to generate assembly for a file
-src/FastBoard.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/FastBoard.cpp.s
-.PHONY : src/FastBoard.cpp.s
+src/GO/FastBoardGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.s
+.PHONY : src/GO/FastBoardGo.cpp.s
 
-src/FastState.o: src/FastState.cpp.o
-.PHONY : src/FastState.o
+src/GO/FastStateGo.o: src/GO/FastStateGo.cpp.o
+.PHONY : src/GO/FastStateGo.o
 
 # target to build an object file
-src/FastState.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/FastState.cpp.o
-.PHONY : src/FastState.cpp.o
+src/GO/FastStateGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.o
+.PHONY : src/GO/FastStateGo.cpp.o
 
-src/FastState.i: src/FastState.cpp.i
-.PHONY : src/FastState.i
+src/GO/FastStateGo.i: src/GO/FastStateGo.cpp.i
+.PHONY : src/GO/FastStateGo.i
 
 # target to preprocess a source file
-src/FastState.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/FastState.cpp.i
-.PHONY : src/FastState.cpp.i
+src/GO/FastStateGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.i
+.PHONY : src/GO/FastStateGo.cpp.i
 
-src/FastState.s: src/FastState.cpp.s
-.PHONY : src/FastState.s
+src/GO/FastStateGo.s: src/GO/FastStateGo.cpp.s
+.PHONY : src/GO/FastStateGo.s
 
 # target to generate assembly for a file
-src/FastState.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/FastState.cpp.s
-.PHONY : src/FastState.cpp.s
+src/GO/FastStateGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.s
+.PHONY : src/GO/FastStateGo.cpp.s
 
-src/FullBoard.o: src/FullBoard.cpp.o
-.PHONY : src/FullBoard.o
+src/GO/FullBoardGo.o: src/GO/FullBoardGo.cpp.o
+.PHONY : src/GO/FullBoardGo.o
 
 # target to build an object file
-src/FullBoard.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/FullBoard.cpp.o
-.PHONY : src/FullBoard.cpp.o
+src/GO/FullBoardGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.o
+.PHONY : src/GO/FullBoardGo.cpp.o
 
-src/FullBoard.i: src/FullBoard.cpp.i
-.PHONY : src/FullBoard.i
+src/GO/FullBoardGo.i: src/GO/FullBoardGo.cpp.i
+.PHONY : src/GO/FullBoardGo.i
 
 # target to preprocess a source file
-src/FullBoard.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/FullBoard.cpp.i
-.PHONY : src/FullBoard.cpp.i
+src/GO/FullBoardGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.i
+.PHONY : src/GO/FullBoardGo.cpp.i
 
-src/FullBoard.s: src/FullBoard.cpp.s
-.PHONY : src/FullBoard.s
+src/GO/FullBoardGo.s: src/GO/FullBoardGo.cpp.s
+.PHONY : src/GO/FullBoardGo.s
 
 # target to generate assembly for a file
-src/FullBoard.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/FullBoard.cpp.s
-.PHONY : src/FullBoard.cpp.s
+src/GO/FullBoardGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.s
+.PHONY : src/GO/FullBoardGo.cpp.s
 
-src/GTP.o: src/GTP.cpp.o
-.PHONY : src/GTP.o
+src/GO/GTPGo.o: src/GO/GTPGo.cpp.o
+.PHONY : src/GO/GTPGo.o
 
 # target to build an object file
-src/GTP.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GTP.cpp.o
-.PHONY : src/GTP.cpp.o
+src/GO/GTPGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/GTPGo.cpp.o
+.PHONY : src/GO/GTPGo.cpp.o
 
-src/GTP.i: src/GTP.cpp.i
-.PHONY : src/GTP.i
+src/GO/GTPGo.i: src/GO/GTPGo.cpp.i
+.PHONY : src/GO/GTPGo.i
 
 # target to preprocess a source file
-src/GTP.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GTP.cpp.i
-.PHONY : src/GTP.cpp.i
+src/GO/GTPGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/GTPGo.cpp.i
+.PHONY : src/GO/GTPGo.cpp.i
 
-src/GTP.s: src/GTP.cpp.s
-.PHONY : src/GTP.s
+src/GO/GTPGo.s: src/GO/GTPGo.cpp.s
+.PHONY : src/GO/GTPGo.s
 
 # target to generate assembly for a file
-src/GTP.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GTP.cpp.s
-.PHONY : src/GTP.cpp.s
+src/GO/GTPGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/GTPGo.cpp.s
+.PHONY : src/GO/GTPGo.cpp.s
 
-src/GameState.o: src/GameState.cpp.o
-.PHONY : src/GameState.o
+src/GO/GameStateGo.o: src/GO/GameStateGo.cpp.o
+.PHONY : src/GO/GameStateGo.o
 
 # target to build an object file
-src/GameState.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GameState.cpp.o
-.PHONY : src/GameState.cpp.o
+src/GO/GameStateGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.o
+.PHONY : src/GO/GameStateGo.cpp.o
 
-src/GameState.i: src/GameState.cpp.i
-.PHONY : src/GameState.i
+src/GO/GameStateGo.i: src/GO/GameStateGo.cpp.i
+.PHONY : src/GO/GameStateGo.i
 
 # target to preprocess a source file
-src/GameState.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GameState.cpp.i
-.PHONY : src/GameState.cpp.i
+src/GO/GameStateGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.i
+.PHONY : src/GO/GameStateGo.cpp.i
 
-src/GameState.s: src/GameState.cpp.s
-.PHONY : src/GameState.s
+src/GO/GameStateGo.s: src/GO/GameStateGo.cpp.s
+.PHONY : src/GO/GameStateGo.s
 
 # target to generate assembly for a file
-src/GameState.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GameState.cpp.s
-.PHONY : src/GameState.cpp.s
+src/GO/GameStateGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.s
+.PHONY : src/GO/GameStateGo.cpp.s
+
+src/GO/KoStateGo.o: src/GO/KoStateGo.cpp.o
+.PHONY : src/GO/KoStateGo.o
+
+# target to build an object file
+src/GO/KoStateGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.o
+.PHONY : src/GO/KoStateGo.cpp.o
+
+src/GO/KoStateGo.i: src/GO/KoStateGo.cpp.i
+.PHONY : src/GO/KoStateGo.i
+
+# target to preprocess a source file
+src/GO/KoStateGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.i
+.PHONY : src/GO/KoStateGo.cpp.i
+
+src/GO/KoStateGo.s: src/GO/KoStateGo.cpp.s
+.PHONY : src/GO/KoStateGo.s
+
+# target to generate assembly for a file
+src/GO/KoStateGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.s
+.PHONY : src/GO/KoStateGo.cpp.s
+
+src/GO/NNCacheGo.o: src/GO/NNCacheGo.cpp.o
+.PHONY : src/GO/NNCacheGo.o
+
+# target to build an object file
+src/GO/NNCacheGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.o
+.PHONY : src/GO/NNCacheGo.cpp.o
+
+src/GO/NNCacheGo.i: src/GO/NNCacheGo.cpp.i
+.PHONY : src/GO/NNCacheGo.i
+
+# target to preprocess a source file
+src/GO/NNCacheGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.i
+.PHONY : src/GO/NNCacheGo.cpp.i
+
+src/GO/NNCacheGo.s: src/GO/NNCacheGo.cpp.s
+.PHONY : src/GO/NNCacheGo.s
+
+# target to generate assembly for a file
+src/GO/NNCacheGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.s
+.PHONY : src/GO/NNCacheGo.cpp.s
+
+src/GO/NetworkGo.o: src/GO/NetworkGo.cpp.o
+.PHONY : src/GO/NetworkGo.o
+
+# target to build an object file
+src/GO/NetworkGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.o
+.PHONY : src/GO/NetworkGo.cpp.o
+
+src/GO/NetworkGo.i: src/GO/NetworkGo.cpp.i
+.PHONY : src/GO/NetworkGo.i
+
+# target to preprocess a source file
+src/GO/NetworkGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.i
+.PHONY : src/GO/NetworkGo.cpp.i
+
+src/GO/NetworkGo.s: src/GO/NetworkGo.cpp.s
+.PHONY : src/GO/NetworkGo.s
+
+# target to generate assembly for a file
+src/GO/NetworkGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.s
+.PHONY : src/GO/NetworkGo.cpp.s
+
+src/GO/OpenCLGo.o: src/GO/OpenCLGo.cpp.o
+.PHONY : src/GO/OpenCLGo.o
+
+# target to build an object file
+src/GO/OpenCLGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.o
+.PHONY : src/GO/OpenCLGo.cpp.o
+
+src/GO/OpenCLGo.i: src/GO/OpenCLGo.cpp.i
+.PHONY : src/GO/OpenCLGo.i
+
+# target to preprocess a source file
+src/GO/OpenCLGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.i
+.PHONY : src/GO/OpenCLGo.cpp.i
+
+src/GO/OpenCLGo.s: src/GO/OpenCLGo.cpp.s
+.PHONY : src/GO/OpenCLGo.s
+
+# target to generate assembly for a file
+src/GO/OpenCLGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.s
+.PHONY : src/GO/OpenCLGo.cpp.s
+
+src/GO/OpenCLSchedulerGo.o: src/GO/OpenCLSchedulerGo.cpp.o
+.PHONY : src/GO/OpenCLSchedulerGo.o
+
+# target to build an object file
+src/GO/OpenCLSchedulerGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.o
+.PHONY : src/GO/OpenCLSchedulerGo.cpp.o
+
+src/GO/OpenCLSchedulerGo.i: src/GO/OpenCLSchedulerGo.cpp.i
+.PHONY : src/GO/OpenCLSchedulerGo.i
+
+# target to preprocess a source file
+src/GO/OpenCLSchedulerGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.i
+.PHONY : src/GO/OpenCLSchedulerGo.cpp.i
+
+src/GO/OpenCLSchedulerGo.s: src/GO/OpenCLSchedulerGo.cpp.s
+.PHONY : src/GO/OpenCLSchedulerGo.s
+
+# target to generate assembly for a file
+src/GO/OpenCLSchedulerGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.s
+.PHONY : src/GO/OpenCLSchedulerGo.cpp.s
+
+src/GO/SGFTreeGo.o: src/GO/SGFTreeGo.cpp.o
+.PHONY : src/GO/SGFTreeGo.o
+
+# target to build an object file
+src/GO/SGFTreeGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.o
+.PHONY : src/GO/SGFTreeGo.cpp.o
+
+src/GO/SGFTreeGo.i: src/GO/SGFTreeGo.cpp.i
+.PHONY : src/GO/SGFTreeGo.i
+
+# target to preprocess a source file
+src/GO/SGFTreeGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.i
+.PHONY : src/GO/SGFTreeGo.cpp.i
+
+src/GO/SGFTreeGo.s: src/GO/SGFTreeGo.cpp.s
+.PHONY : src/GO/SGFTreeGo.s
+
+# target to generate assembly for a file
+src/GO/SGFTreeGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.s
+.PHONY : src/GO/SGFTreeGo.cpp.s
+
+src/GO/TimeControlGo.o: src/GO/TimeControlGo.cpp.o
+.PHONY : src/GO/TimeControlGo.o
+
+# target to build an object file
+src/GO/TimeControlGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.o
+.PHONY : src/GO/TimeControlGo.cpp.o
+
+src/GO/TimeControlGo.i: src/GO/TimeControlGo.cpp.i
+.PHONY : src/GO/TimeControlGo.i
+
+# target to preprocess a source file
+src/GO/TimeControlGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.i
+.PHONY : src/GO/TimeControlGo.cpp.i
+
+src/GO/TimeControlGo.s: src/GO/TimeControlGo.cpp.s
+.PHONY : src/GO/TimeControlGo.s
+
+# target to generate assembly for a file
+src/GO/TimeControlGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.s
+.PHONY : src/GO/TimeControlGo.cpp.s
+
+src/GO/TrainingGo.o: src/GO/TrainingGo.cpp.o
+.PHONY : src/GO/TrainingGo.o
+
+# target to build an object file
+src/GO/TrainingGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.o
+.PHONY : src/GO/TrainingGo.cpp.o
+
+src/GO/TrainingGo.i: src/GO/TrainingGo.cpp.i
+.PHONY : src/GO/TrainingGo.i
+
+# target to preprocess a source file
+src/GO/TrainingGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.i
+.PHONY : src/GO/TrainingGo.cpp.i
+
+src/GO/TrainingGo.s: src/GO/TrainingGo.cpp.s
+.PHONY : src/GO/TrainingGo.s
+
+# target to generate assembly for a file
+src/GO/TrainingGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.s
+.PHONY : src/GO/TrainingGo.cpp.s
+
+src/GO/UCTNodeGo.o: src/GO/UCTNodeGo.cpp.o
+.PHONY : src/GO/UCTNodeGo.o
+
+# target to build an object file
+src/GO/UCTNodeGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.o
+.PHONY : src/GO/UCTNodeGo.cpp.o
+
+src/GO/UCTNodeGo.i: src/GO/UCTNodeGo.cpp.i
+.PHONY : src/GO/UCTNodeGo.i
+
+# target to preprocess a source file
+src/GO/UCTNodeGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.i
+.PHONY : src/GO/UCTNodeGo.cpp.i
+
+src/GO/UCTNodeGo.s: src/GO/UCTNodeGo.cpp.s
+.PHONY : src/GO/UCTNodeGo.s
+
+# target to generate assembly for a file
+src/GO/UCTNodeGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.s
+.PHONY : src/GO/UCTNodeGo.cpp.s
+
+src/GO/UCTNodePointerGo.o: src/GO/UCTNodePointerGo.cpp.o
+.PHONY : src/GO/UCTNodePointerGo.o
+
+# target to build an object file
+src/GO/UCTNodePointerGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.o
+.PHONY : src/GO/UCTNodePointerGo.cpp.o
+
+src/GO/UCTNodePointerGo.i: src/GO/UCTNodePointerGo.cpp.i
+.PHONY : src/GO/UCTNodePointerGo.i
+
+# target to preprocess a source file
+src/GO/UCTNodePointerGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.i
+.PHONY : src/GO/UCTNodePointerGo.cpp.i
+
+src/GO/UCTNodePointerGo.s: src/GO/UCTNodePointerGo.cpp.s
+.PHONY : src/GO/UCTNodePointerGo.s
+
+# target to generate assembly for a file
+src/GO/UCTNodePointerGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.s
+.PHONY : src/GO/UCTNodePointerGo.cpp.s
+
+src/GO/UCTNodeRootGo.o: src/GO/UCTNodeRootGo.cpp.o
+.PHONY : src/GO/UCTNodeRootGo.o
+
+# target to build an object file
+src/GO/UCTNodeRootGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.o
+.PHONY : src/GO/UCTNodeRootGo.cpp.o
+
+src/GO/UCTNodeRootGo.i: src/GO/UCTNodeRootGo.cpp.i
+.PHONY : src/GO/UCTNodeRootGo.i
+
+# target to preprocess a source file
+src/GO/UCTNodeRootGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.i
+.PHONY : src/GO/UCTNodeRootGo.cpp.i
+
+src/GO/UCTNodeRootGo.s: src/GO/UCTNodeRootGo.cpp.s
+.PHONY : src/GO/UCTNodeRootGo.s
+
+# target to generate assembly for a file
+src/GO/UCTNodeRootGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.s
+.PHONY : src/GO/UCTNodeRootGo.cpp.s
+
+src/GO/UCTSearchGo.o: src/GO/UCTSearchGo.cpp.o
+.PHONY : src/GO/UCTSearchGo.o
+
+# target to build an object file
+src/GO/UCTSearchGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.o
+.PHONY : src/GO/UCTSearchGo.cpp.o
+
+src/GO/UCTSearchGo.i: src/GO/UCTSearchGo.cpp.i
+.PHONY : src/GO/UCTSearchGo.i
+
+# target to preprocess a source file
+src/GO/UCTSearchGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.i
+.PHONY : src/GO/UCTSearchGo.cpp.i
+
+src/GO/UCTSearchGo.s: src/GO/UCTSearchGo.cpp.s
+.PHONY : src/GO/UCTSearchGo.s
+
+# target to generate assembly for a file
+src/GO/UCTSearchGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.s
+.PHONY : src/GO/UCTSearchGo.cpp.s
+
+src/GO/ZobristGo.o: src/GO/ZobristGo.cpp.o
+.PHONY : src/GO/ZobristGo.o
+
+# target to build an object file
+src/GO/ZobristGo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.o
+.PHONY : src/GO/ZobristGo.cpp.o
+
+src/GO/ZobristGo.i: src/GO/ZobristGo.cpp.i
+.PHONY : src/GO/ZobristGo.i
+
+# target to preprocess a source file
+src/GO/ZobristGo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.i
+.PHONY : src/GO/ZobristGo.cpp.i
+
+src/GO/ZobristGo.s: src/GO/ZobristGo.cpp.s
+.PHONY : src/GO/ZobristGo.s
+
+# target to generate assembly for a file
+src/GO/ZobristGo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.s
+.PHONY : src/GO/ZobristGo.cpp.s
 
 src/GameType.o: src/GameType.cpp.o
 .PHONY : src/GameType.o
@@ -440,30 +752,6 @@ src/GameType.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/GameType.cpp.s
 .PHONY : src/GameType.cpp.s
 
-src/KoState.o: src/KoState.cpp.o
-.PHONY : src/KoState.o
-
-# target to build an object file
-src/KoState.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/KoState.cpp.o
-.PHONY : src/KoState.cpp.o
-
-src/KoState.i: src/KoState.cpp.i
-.PHONY : src/KoState.i
-
-# target to preprocess a source file
-src/KoState.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/KoState.cpp.i
-.PHONY : src/KoState.cpp.i
-
-src/KoState.s: src/KoState.cpp.s
-.PHONY : src/KoState.s
-
-# target to generate assembly for a file
-src/KoState.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/KoState.cpp.s
-.PHONY : src/KoState.cpp.s
-
 src/Leela.o: src/Leela.cpp.o
 .PHONY : src/Leela.o
 
@@ -487,102 +775,6 @@ src/Leela.s: src/Leela.cpp.s
 src/Leela.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/leelaz.dir/build.make CMakeFiles/leelaz.dir/src/Leela.cpp.s
 .PHONY : src/Leela.cpp.s
-
-src/NNCache.o: src/NNCache.cpp.o
-.PHONY : src/NNCache.o
-
-# target to build an object file
-src/NNCache.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/NNCache.cpp.o
-.PHONY : src/NNCache.cpp.o
-
-src/NNCache.i: src/NNCache.cpp.i
-.PHONY : src/NNCache.i
-
-# target to preprocess a source file
-src/NNCache.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/NNCache.cpp.i
-.PHONY : src/NNCache.cpp.i
-
-src/NNCache.s: src/NNCache.cpp.s
-.PHONY : src/NNCache.s
-
-# target to generate assembly for a file
-src/NNCache.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/NNCache.cpp.s
-.PHONY : src/NNCache.cpp.s
-
-src/Network.o: src/Network.cpp.o
-.PHONY : src/Network.o
-
-# target to build an object file
-src/Network.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/Network.cpp.o
-.PHONY : src/Network.cpp.o
-
-src/Network.i: src/Network.cpp.i
-.PHONY : src/Network.i
-
-# target to preprocess a source file
-src/Network.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/Network.cpp.i
-.PHONY : src/Network.cpp.i
-
-src/Network.s: src/Network.cpp.s
-.PHONY : src/Network.s
-
-# target to generate assembly for a file
-src/Network.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/Network.cpp.s
-.PHONY : src/Network.cpp.s
-
-src/OpenCL.o: src/OpenCL.cpp.o
-.PHONY : src/OpenCL.o
-
-# target to build an object file
-src/OpenCL.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/OpenCL.cpp.o
-.PHONY : src/OpenCL.cpp.o
-
-src/OpenCL.i: src/OpenCL.cpp.i
-.PHONY : src/OpenCL.i
-
-# target to preprocess a source file
-src/OpenCL.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/OpenCL.cpp.i
-.PHONY : src/OpenCL.cpp.i
-
-src/OpenCL.s: src/OpenCL.cpp.s
-.PHONY : src/OpenCL.s
-
-# target to generate assembly for a file
-src/OpenCL.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/OpenCL.cpp.s
-.PHONY : src/OpenCL.cpp.s
-
-src/OpenCLScheduler.o: src/OpenCLScheduler.cpp.o
-.PHONY : src/OpenCLScheduler.o
-
-# target to build an object file
-src/OpenCLScheduler.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.o
-.PHONY : src/OpenCLScheduler.cpp.o
-
-src/OpenCLScheduler.i: src/OpenCLScheduler.cpp.i
-.PHONY : src/OpenCLScheduler.i
-
-# target to preprocess a source file
-src/OpenCLScheduler.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.i
-.PHONY : src/OpenCLScheduler.cpp.i
-
-src/OpenCLScheduler.s: src/OpenCLScheduler.cpp.s
-.PHONY : src/OpenCLScheduler.s
-
-# target to generate assembly for a file
-src/OpenCLScheduler.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.s
-.PHONY : src/OpenCLScheduler.cpp.s
 
 src/Random.o: src/Random.cpp.o
 .PHONY : src/Random.o
@@ -632,30 +824,6 @@ src/SGFParser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/SGFParser.cpp.s
 .PHONY : src/SGFParser.cpp.s
 
-src/SGFTree.o: src/SGFTree.cpp.o
-.PHONY : src/SGFTree.o
-
-# target to build an object file
-src/SGFTree.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/SGFTree.cpp.o
-.PHONY : src/SGFTree.cpp.o
-
-src/SGFTree.i: src/SGFTree.cpp.i
-.PHONY : src/SGFTree.i
-
-# target to preprocess a source file
-src/SGFTree.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/SGFTree.cpp.i
-.PHONY : src/SGFTree.cpp.i
-
-src/SGFTree.s: src/SGFTree.cpp.s
-.PHONY : src/SGFTree.s
-
-# target to generate assembly for a file
-src/SGFTree.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/SGFTree.cpp.s
-.PHONY : src/SGFTree.cpp.s
-
 src/SMP.o: src/SMP.cpp.o
 .PHONY : src/SMP.o
 
@@ -679,30 +847,6 @@ src/SMP.s: src/SMP.cpp.s
 src/SMP.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/SMP.cpp.s
 .PHONY : src/SMP.cpp.s
-
-src/TimeControl.o: src/TimeControl.cpp.o
-.PHONY : src/TimeControl.o
-
-# target to build an object file
-src/TimeControl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/TimeControl.cpp.o
-.PHONY : src/TimeControl.cpp.o
-
-src/TimeControl.i: src/TimeControl.cpp.i
-.PHONY : src/TimeControl.i
-
-# target to preprocess a source file
-src/TimeControl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/TimeControl.cpp.i
-.PHONY : src/TimeControl.cpp.i
-
-src/TimeControl.s: src/TimeControl.cpp.s
-.PHONY : src/TimeControl.s
-
-# target to generate assembly for a file
-src/TimeControl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/TimeControl.cpp.s
-.PHONY : src/TimeControl.cpp.s
 
 src/Timing.o: src/Timing.cpp.o
 .PHONY : src/Timing.o
@@ -728,30 +872,6 @@ src/Timing.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/Timing.cpp.s
 .PHONY : src/Timing.cpp.s
 
-src/Training.o: src/Training.cpp.o
-.PHONY : src/Training.o
-
-# target to build an object file
-src/Training.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/Training.cpp.o
-.PHONY : src/Training.cpp.o
-
-src/Training.i: src/Training.cpp.i
-.PHONY : src/Training.i
-
-# target to preprocess a source file
-src/Training.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/Training.cpp.i
-.PHONY : src/Training.cpp.i
-
-src/Training.s: src/Training.cpp.s
-.PHONY : src/Training.s
-
-# target to generate assembly for a file
-src/Training.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/Training.cpp.s
-.PHONY : src/Training.cpp.s
-
 src/Tuner.o: src/Tuner.cpp.o
 .PHONY : src/Tuner.o
 
@@ -775,102 +895,6 @@ src/Tuner.s: src/Tuner.cpp.s
 src/Tuner.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/Tuner.cpp.s
 .PHONY : src/Tuner.cpp.s
-
-src/UCTNode.o: src/UCTNode.cpp.o
-.PHONY : src/UCTNode.o
-
-# target to build an object file
-src/UCTNode.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/UCTNode.cpp.o
-.PHONY : src/UCTNode.cpp.o
-
-src/UCTNode.i: src/UCTNode.cpp.i
-.PHONY : src/UCTNode.i
-
-# target to preprocess a source file
-src/UCTNode.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/UCTNode.cpp.i
-.PHONY : src/UCTNode.cpp.i
-
-src/UCTNode.s: src/UCTNode.cpp.s
-.PHONY : src/UCTNode.s
-
-# target to generate assembly for a file
-src/UCTNode.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/UCTNode.cpp.s
-.PHONY : src/UCTNode.cpp.s
-
-src/UCTNodePointer.o: src/UCTNodePointer.cpp.o
-.PHONY : src/UCTNodePointer.o
-
-# target to build an object file
-src/UCTNodePointer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/UCTNodePointer.cpp.o
-.PHONY : src/UCTNodePointer.cpp.o
-
-src/UCTNodePointer.i: src/UCTNodePointer.cpp.i
-.PHONY : src/UCTNodePointer.i
-
-# target to preprocess a source file
-src/UCTNodePointer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/UCTNodePointer.cpp.i
-.PHONY : src/UCTNodePointer.cpp.i
-
-src/UCTNodePointer.s: src/UCTNodePointer.cpp.s
-.PHONY : src/UCTNodePointer.s
-
-# target to generate assembly for a file
-src/UCTNodePointer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/UCTNodePointer.cpp.s
-.PHONY : src/UCTNodePointer.cpp.s
-
-src/UCTNodeRoot.o: src/UCTNodeRoot.cpp.o
-.PHONY : src/UCTNodeRoot.o
-
-# target to build an object file
-src/UCTNodeRoot.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.o
-.PHONY : src/UCTNodeRoot.cpp.o
-
-src/UCTNodeRoot.i: src/UCTNodeRoot.cpp.i
-.PHONY : src/UCTNodeRoot.i
-
-# target to preprocess a source file
-src/UCTNodeRoot.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.i
-.PHONY : src/UCTNodeRoot.cpp.i
-
-src/UCTNodeRoot.s: src/UCTNodeRoot.cpp.s
-.PHONY : src/UCTNodeRoot.s
-
-# target to generate assembly for a file
-src/UCTNodeRoot.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.s
-.PHONY : src/UCTNodeRoot.cpp.s
-
-src/UCTSearch.o: src/UCTSearch.cpp.o
-.PHONY : src/UCTSearch.o
-
-# target to build an object file
-src/UCTSearch.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/UCTSearch.cpp.o
-.PHONY : src/UCTSearch.cpp.o
-
-src/UCTSearch.i: src/UCTSearch.cpp.i
-.PHONY : src/UCTSearch.i
-
-# target to preprocess a source file
-src/UCTSearch.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/UCTSearch.cpp.i
-.PHONY : src/UCTSearch.cpp.i
-
-src/UCTSearch.s: src/UCTSearch.cpp.s
-.PHONY : src/UCTSearch.s
-
-# target to generate assembly for a file
-src/UCTSearch.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/UCTSearch.cpp.s
-.PHONY : src/UCTSearch.cpp.s
 
 src/Utils.o: src/Utils.cpp.o
 .PHONY : src/Utils.o
@@ -896,53 +920,29 @@ src/Utils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/Utils.cpp.s
 .PHONY : src/Utils.cpp.s
 
-src/Zobrist.o: src/Zobrist.cpp.o
-.PHONY : src/Zobrist.o
+src/tests/gtests_go.o: src/tests/gtests_go.cpp.o
+.PHONY : src/tests/gtests_go.o
 
 # target to build an object file
-src/Zobrist.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/Zobrist.cpp.o
-.PHONY : src/Zobrist.cpp.o
+src/tests/gtests_go.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/tests/gtests_go.cpp.o
+.PHONY : src/tests/gtests_go.cpp.o
 
-src/Zobrist.i: src/Zobrist.cpp.i
-.PHONY : src/Zobrist.i
-
-# target to preprocess a source file
-src/Zobrist.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/Zobrist.cpp.i
-.PHONY : src/Zobrist.cpp.i
-
-src/Zobrist.s: src/Zobrist.cpp.s
-.PHONY : src/Zobrist.s
-
-# target to generate assembly for a file
-src/Zobrist.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/objs.dir/build.make CMakeFiles/objs.dir/src/Zobrist.cpp.s
-.PHONY : src/Zobrist.cpp.s
-
-src/tests/gtests.o: src/tests/gtests.cpp.o
-.PHONY : src/tests/gtests.o
-
-# target to build an object file
-src/tests/gtests.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/tests/gtests.cpp.o
-.PHONY : src/tests/gtests.cpp.o
-
-src/tests/gtests.i: src/tests/gtests.cpp.i
-.PHONY : src/tests/gtests.i
+src/tests/gtests_go.i: src/tests/gtests_go.cpp.i
+.PHONY : src/tests/gtests_go.i
 
 # target to preprocess a source file
-src/tests/gtests.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/tests/gtests.cpp.i
-.PHONY : src/tests/gtests.cpp.i
+src/tests/gtests_go.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/tests/gtests_go.cpp.i
+.PHONY : src/tests/gtests_go.cpp.i
 
-src/tests/gtests.s: src/tests/gtests.cpp.s
-.PHONY : src/tests/gtests.s
+src/tests/gtests_go.s: src/tests/gtests_go.cpp.s
+.PHONY : src/tests/gtests_go.s
 
 # target to generate assembly for a file
-src/tests/gtests.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/tests/gtests.cpp.s
-.PHONY : src/tests/gtests.cpp.s
+src/tests/gtests_go.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/tests/gtests_go.cpp.s
+.PHONY : src/tests/gtests_go.cpp.s
 
 src/tests/utils_unittest.o: src/tests/utils_unittest.cpp.o
 .PHONY : src/tests/utils_unittest.o
@@ -989,90 +989,90 @@ help:
 	@echo "... leelaz"
 	@echo "... objs"
 	@echo "... tests"
-	@echo "... src/CPUPipe.o"
-	@echo "... src/CPUPipe.i"
-	@echo "... src/CPUPipe.s"
-	@echo "... src/FastBoard.o"
-	@echo "... src/FastBoard.i"
-	@echo "... src/FastBoard.s"
-	@echo "... src/FastState.o"
-	@echo "... src/FastState.i"
-	@echo "... src/FastState.s"
-	@echo "... src/FullBoard.o"
-	@echo "... src/FullBoard.i"
-	@echo "... src/FullBoard.s"
-	@echo "... src/GTP.o"
-	@echo "... src/GTP.i"
-	@echo "... src/GTP.s"
-	@echo "... src/GameState.o"
-	@echo "... src/GameState.i"
-	@echo "... src/GameState.s"
+	@echo "... src/GO/CPUPipeGo.o"
+	@echo "... src/GO/CPUPipeGo.i"
+	@echo "... src/GO/CPUPipeGo.s"
+	@echo "... src/GO/FastBoardGo.o"
+	@echo "... src/GO/FastBoardGo.i"
+	@echo "... src/GO/FastBoardGo.s"
+	@echo "... src/GO/FastStateGo.o"
+	@echo "... src/GO/FastStateGo.i"
+	@echo "... src/GO/FastStateGo.s"
+	@echo "... src/GO/FullBoardGo.o"
+	@echo "... src/GO/FullBoardGo.i"
+	@echo "... src/GO/FullBoardGo.s"
+	@echo "... src/GO/GTPGo.o"
+	@echo "... src/GO/GTPGo.i"
+	@echo "... src/GO/GTPGo.s"
+	@echo "... src/GO/GameStateGo.o"
+	@echo "... src/GO/GameStateGo.i"
+	@echo "... src/GO/GameStateGo.s"
+	@echo "... src/GO/KoStateGo.o"
+	@echo "... src/GO/KoStateGo.i"
+	@echo "... src/GO/KoStateGo.s"
+	@echo "... src/GO/NNCacheGo.o"
+	@echo "... src/GO/NNCacheGo.i"
+	@echo "... src/GO/NNCacheGo.s"
+	@echo "... src/GO/NetworkGo.o"
+	@echo "... src/GO/NetworkGo.i"
+	@echo "... src/GO/NetworkGo.s"
+	@echo "... src/GO/OpenCLGo.o"
+	@echo "... src/GO/OpenCLGo.i"
+	@echo "... src/GO/OpenCLGo.s"
+	@echo "... src/GO/OpenCLSchedulerGo.o"
+	@echo "... src/GO/OpenCLSchedulerGo.i"
+	@echo "... src/GO/OpenCLSchedulerGo.s"
+	@echo "... src/GO/SGFTreeGo.o"
+	@echo "... src/GO/SGFTreeGo.i"
+	@echo "... src/GO/SGFTreeGo.s"
+	@echo "... src/GO/TimeControlGo.o"
+	@echo "... src/GO/TimeControlGo.i"
+	@echo "... src/GO/TimeControlGo.s"
+	@echo "... src/GO/TrainingGo.o"
+	@echo "... src/GO/TrainingGo.i"
+	@echo "... src/GO/TrainingGo.s"
+	@echo "... src/GO/UCTNodeGo.o"
+	@echo "... src/GO/UCTNodeGo.i"
+	@echo "... src/GO/UCTNodeGo.s"
+	@echo "... src/GO/UCTNodePointerGo.o"
+	@echo "... src/GO/UCTNodePointerGo.i"
+	@echo "... src/GO/UCTNodePointerGo.s"
+	@echo "... src/GO/UCTNodeRootGo.o"
+	@echo "... src/GO/UCTNodeRootGo.i"
+	@echo "... src/GO/UCTNodeRootGo.s"
+	@echo "... src/GO/UCTSearchGo.o"
+	@echo "... src/GO/UCTSearchGo.i"
+	@echo "... src/GO/UCTSearchGo.s"
+	@echo "... src/GO/ZobristGo.o"
+	@echo "... src/GO/ZobristGo.i"
+	@echo "... src/GO/ZobristGo.s"
 	@echo "... src/GameType.o"
 	@echo "... src/GameType.i"
 	@echo "... src/GameType.s"
-	@echo "... src/KoState.o"
-	@echo "... src/KoState.i"
-	@echo "... src/KoState.s"
 	@echo "... src/Leela.o"
 	@echo "... src/Leela.i"
 	@echo "... src/Leela.s"
-	@echo "... src/NNCache.o"
-	@echo "... src/NNCache.i"
-	@echo "... src/NNCache.s"
-	@echo "... src/Network.o"
-	@echo "... src/Network.i"
-	@echo "... src/Network.s"
-	@echo "... src/OpenCL.o"
-	@echo "... src/OpenCL.i"
-	@echo "... src/OpenCL.s"
-	@echo "... src/OpenCLScheduler.o"
-	@echo "... src/OpenCLScheduler.i"
-	@echo "... src/OpenCLScheduler.s"
 	@echo "... src/Random.o"
 	@echo "... src/Random.i"
 	@echo "... src/Random.s"
 	@echo "... src/SGFParser.o"
 	@echo "... src/SGFParser.i"
 	@echo "... src/SGFParser.s"
-	@echo "... src/SGFTree.o"
-	@echo "... src/SGFTree.i"
-	@echo "... src/SGFTree.s"
 	@echo "... src/SMP.o"
 	@echo "... src/SMP.i"
 	@echo "... src/SMP.s"
-	@echo "... src/TimeControl.o"
-	@echo "... src/TimeControl.i"
-	@echo "... src/TimeControl.s"
 	@echo "... src/Timing.o"
 	@echo "... src/Timing.i"
 	@echo "... src/Timing.s"
-	@echo "... src/Training.o"
-	@echo "... src/Training.i"
-	@echo "... src/Training.s"
 	@echo "... src/Tuner.o"
 	@echo "... src/Tuner.i"
 	@echo "... src/Tuner.s"
-	@echo "... src/UCTNode.o"
-	@echo "... src/UCTNode.i"
-	@echo "... src/UCTNode.s"
-	@echo "... src/UCTNodePointer.o"
-	@echo "... src/UCTNodePointer.i"
-	@echo "... src/UCTNodePointer.s"
-	@echo "... src/UCTNodeRoot.o"
-	@echo "... src/UCTNodeRoot.i"
-	@echo "... src/UCTNodeRoot.s"
-	@echo "... src/UCTSearch.o"
-	@echo "... src/UCTSearch.i"
-	@echo "... src/UCTSearch.s"
 	@echo "... src/Utils.o"
 	@echo "... src/Utils.i"
 	@echo "... src/Utils.s"
-	@echo "... src/Zobrist.o"
-	@echo "... src/Zobrist.i"
-	@echo "... src/Zobrist.s"
-	@echo "... src/tests/gtests.o"
-	@echo "... src/tests/gtests.i"
-	@echo "... src/tests/gtests.s"
+	@echo "... src/tests/gtests_go.o"
+	@echo "... src/tests/gtests_go.i"
+	@echo "... src/tests/gtests_go.s"
 	@echo "... src/tests/utils_unittest.o"
 	@echo "... src/tests/utils_unittest.i"
 	@echo "... src/tests/utils_unittest.s"

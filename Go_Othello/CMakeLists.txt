@@ -21,6 +21,20 @@ project(leelaz)
 
 option(CURRENT_GAME "Game to compile (GAME_GO or GAME_OTHELLO)" "GAME_GO")
 
+# Visual Studio project filters handling (only for Windows/MSVC)
+if(MSVC)
+    if(CURRENT_GAME STREQUAL "GAME_GO")
+        configure_file(msvc/VS2017/leela-zeroGo.vcxproj ${CMAKE_BINARY_DIR}/leela-zero.vcxproj COPYONLY)
+        configure_file(msvc/VS2017/leela-zero.vcxprojGo.filters ${CMAKE_BINARY_DIR}/leela-zero.vcxproj.filters COPYONLY)
+        configure_file(msvc/VS2017/autogtpGo.vcxproj ${CMAKE_BINARY_DIR}/autogtp.vcxproj COPYONLY)
+    elseif(CURRENT_GAME STREQUAL "GAME_OTHELLO")
+        configure_file(msvc/VS2017/leela-zeroOthello.vcxproj ${CMAKE_BINARY_DIR}/leela-zero.vcxproj COPYONLY)
+        configure_file(msvc/VS2017/leela-zero.vcxprojOthello.filters ${CMAKE_BINARY_DIR}/leela-zero.vcxproj.filters COPYONLY)
+        configure_file(msvc/VS2017/autogtpOthello.vcxproj ${CMAKE_BINARY_DIR}/autogtp.vcxproj COPYONLY)
+    endif()
+endif()
+
+
 if(CURRENT_GAME STREQUAL "GAME_OTHELLO")
     message(STATUS "Compiling for Othello")
     add_definitions(-DUSE_OTHELLO)
@@ -115,52 +129,20 @@ if(APPLE)
 endif()
 
 set(leelaz_MAIN "${SrcPath}/Leela.cpp")
-file(GLOB leelaz_SRC "${SrcPath}/*.cpp")
+file(GLOB COMMON_SRC "${SrcPath}/*.cpp")
 
-# Rimuoviamo i file specifici di Go e Othello
-list(REMOVE_ITEM leelaz_SRC
-    ${leelaz_MAIN}
-    ${SrcPath}/FullBoardGo.cpp
-    ${SrcPath}/FullBoardOthello.cpp
-    ${SrcPath}/FastBoardGo.cpp
-    ${SrcPath}/FastBoardOthello.cpp
-    ${SrcPath}/FastStateGo.cpp
-    ${SrcPath}/FastStateOthello.cpp
-    ${SrcPath}/CPUPipeGo.cpp
-    ${SrcPath}/CPUPipeOthello.cpp
-    ${SrcPath}/NetworkGo.cpp
-    ${SrcPath}/NetworkOthello.cpp
-    ${SrcPath}/SGFTreeGo.cpp
-    ${SrcPath}/SGFTreeOthello.cpp
-    ${SrcPath}/UCTSearchGo.cpp
-    ${SrcPath}/UCTSearchOthello.cpp
-    ${SrcPath}/UCTNodeRootGo.cpp
-    ${SrcPath}/UCTNodeRootOthello.cpp
-    ${SrcPath}/UCTNodeGo.cpp
-    ${SrcPath}/UCTNodeOthello.cpp
-    ${SrcPath}/UCTNodePointerGo.cpp
-    ${SrcPath}/UCTNodePointerOthello.cpp
-    ${SrcPath}/TimeControlGo.cpp
-    ${SrcPath}/TimeControlOthello.cpp
-    ${SrcPath}/TrainingGo.cpp
-    ${SrcPath}/TrainingOthello.cpp
-    ${SrcPath}/GameStateGo.cpp
-    ${SrcPath}/GameStateOthello.cpp
-    ${SrcPath}/GTPGo.cpp
-    ${SrcPath}/GTPOthello.cpp
-    ${SrcPath}/KoStateGo.cpp
-    ${SrcPath}/NNCacheGo.cpp
-    ${SrcPath}/NNCacheOthello.cpp
-    ${SrcPath}/OpenCLGo.cpp
-    ${SrcPath}/OpenCLOthello.cpp
-    ${SrcPath}/OpenCLSchedulerGo.cpp
-    ${SrcPath}/OpenCLSchedulerOthello.cpp
-    ${SrcPath}/ZobristGo.cpp
-    ${SrcPath}/ZobristOthello.cpp
-)
+if(CURRENT_GAME STREQUAL "GAME_OTHELLO")
+    file(GLOB GAME_SRC "${SrcPath}/OTHELLO/*.cpp")
+    include_directories("${SrcPath}/OTHELLO")
+else()
+    file(GLOB GAME_SRC "${SrcPath}/GO/*.cpp")
+    include_directories("${SrcPath}/GO")
+endif()
 
-# Reuse for leelaz and gtest
-add_library(objs OBJECT ${leelaz_SRC})
+set(leelaz_MAIN "${SrcPath}/Leela.cpp")
+list(REMOVE_ITEM COMMON_SRC ${leelaz_MAIN})
+
+add_library(objs OBJECT ${COMMON_SRC} ${GAME_SRC})
 
 add_executable(leelaz $<TARGET_OBJECTS:objs> ${leelaz_MAIN})
 
@@ -183,10 +165,21 @@ else()
     message(WARNING "Qt is not found, build for `autogtp` and `validation` is disabled")
 endif()
 
-# Google Test below
-file(GLOB tests_SRC "${SrcPath}/tests/*.cpp")
+# Google Test: seleziona i test in base al gioco corrente
+if(CURRENT_GAME STREQUAL "GAME_GO")
+    set(TESTS_SRC
+        ${SrcPath}/tests/gtests_go.cpp
+        ${SrcPath}/tests/utils_unittest.cpp
+    )
+elseif(CURRENT_GAME STREQUAL "GAME_OTHELLO")
+    set(TESTS_SRC
+        ${SrcPath}/tests/gtests_othello.cpp
+        ${SrcPath}/tests/utils_unittest.cpp
+    )
+endif()
 
-add_executable(tests ${tests_SRC} $<TARGET_OBJECTS:objs>)
+add_executable(tests ${TESTS_SRC} $<TARGET_OBJECTS:objs>)
+
 if(GccSpecificFlags)
   target_compile_options(tests PRIVATE "-Wno-unused-variable")
 endif()

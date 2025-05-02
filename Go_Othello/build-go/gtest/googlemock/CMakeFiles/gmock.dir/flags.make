@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DCURRENT_GAME=GAME_GO
 
-CXX_INCLUDES = -I/Users/riccardoghizzoni/Desktop/leela-zero-unito/gtest/googlemock/include -I/Users/riccardoghizzoni/Desktop/leela-zero-unito/gtest/googlemock -I/Users/riccardoghizzoni/Desktop/leela-zero-unito/gtest/googletest -isystem /Users/riccardoghizzoni/Desktop/leela-zero-unito/gtest/googletest/include
+CXX_INCLUDES = -I/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/gtest/googlemock/include -I/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/gtest/googlemock -I/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/gtest/googletest -isystem /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/gtest/googletest/include
 
 CXX_FLAGSarm64 =  -arch arm64   -DGTEST_HAS_PTHREAD=1  
 

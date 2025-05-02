@@ -28,7 +28,7 @@ events:
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
       
       The C compiler identification is AppleClang, found in:
-        /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/4.0.1/CompilerIdC/a.out
+        /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/4.0.1/CompilerIdC/a.out
       
   -
     kind: "message-v1"
@@ -50,7 +50,7 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
       
       The CXX compiler identification is AppleClang, found in:
-        /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/4.0.1/CompilerIdCXX/a.out
+        /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/4.0.1/CompilerIdCXX/a.out
       
   -
     kind: "try_compile-v1"
@@ -61,12 +61,12 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-UYgJhR"
-      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-UYgJhR"
+      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-hvXjF6"
+      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-hvXjF6"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/cmake/Modules/"
+      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/cmake/Modules/"
       CMAKE_OSX_ARCHITECTURES: ""
       CMAKE_OSX_DEPLOYMENT_TARGET: ""
       CMAKE_OSX_SYSROOT: ""
@@ -74,18 +74,18 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-UYgJhR'
+        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-hvXjF6'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_18457/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_18457.dir/build.make CMakeFiles/cmTC_18457.dir/build
-        Building C object CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o
-        /usr/bin/cc   -arch arm64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_b82bb/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_b82bb.dir/build.make CMakeFiles/cmTC_b82bb.dir/build
+        Building C object CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o
+        /usr/bin/cc   -arch arm64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
         Apple clang version 17.0.0 (clang-1700.0.13.3)
         Target: arm64-apple-darwin24.4.0
         Thread model: posix
         InstalledDir: /Library/Developer/CommandLineTools/usr/bin
         clang: warning: -Wl,-v: 'linker' input unused [-Wunused-command-line-argument]
-         "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.4 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-UYgJhR -target-linker-version 1167.4.1 -v -fcoverage-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-UYgJhR -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
+         "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.4 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-hvXjF6 -target-linker-version 1167.4.1 -v -fcoverage-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-hvXjF6 -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
         clang -cc1 version 17.0.0 (clang-1700.0.13.3) default target arm64-apple-darwin24.4.0
         ignoring nonexistent directory "/usr/local/include"
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include"
@@ -98,13 +98,13 @@ events:
          /Library/Developer/CommandLineTools/usr/include
          /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)
         End of search list.
-        Linking C executable cmTC_18457
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_18457.dir/link.txt --verbose=1
+        Linking C executable cmTC_b82bb
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b82bb.dir/link.txt --verbose=1
         Apple clang version 17.0.0 (clang-1700.0.13.3)
         Target: arm64-apple-darwin24.4.0
         Thread model: posix
         InstalledDir: /Library/Developer/CommandLineTools/usr/bin
-         "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.4 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_18457 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a
+         "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.4 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_b82bb -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a
         @(#)PROGRAM:ld PROJECT:ld-1167.4.1
         BUILD 20:00:10 Mar 12 2025
         configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em
@@ -116,7 +116,7 @@ events:
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/swift
         Framework search paths:
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
-        /usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o -o cmTC_18457
+        /usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o -o cmTC_b82bb
         
       exitCode: 0
   -
@@ -158,18 +158,18 @@ events:
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-UYgJhR']
+        ignore line: [Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-hvXjF6']
         ignore line: []
-        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_18457/fast]
-        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_18457.dir/build.make CMakeFiles/cmTC_18457.dir/build]
-        ignore line: [Building C object CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o]
-        ignore line: [/usr/bin/cc   -arch arm64   -v -Wl -v -MD -MT CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_b82bb/fast]
+        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_b82bb.dir/build.make CMakeFiles/cmTC_b82bb.dir/build]
+        ignore line: [Building C object CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/cc   -arch arm64   -v -Wl -v -MD -MT CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [Apple clang version 17.0.0 (clang-1700.0.13.3)]
         ignore line: [Target: arm64-apple-darwin24.4.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
         ignore line: [clang: warning: -Wl -v: 'linker' input unused [-Wunused-command-line-argument]]
-        ignore line: [ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.4 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-UYgJhR -target-linker-version 1167.4.1 -v -fcoverage-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-UYgJhR -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.4 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-hvXjF6 -target-linker-version 1167.4.1 -v -fcoverage-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-hvXjF6 -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [clang -cc1 version 17.0.0 (clang-1700.0.13.3) default target arm64-apple-darwin24.4.0]
         ignore line: [ignoring nonexistent directory "/usr/local/include"]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include"]
@@ -182,13 +182,13 @@ events:
         ignore line: [ /Library/Developer/CommandLineTools/usr/include]
         ignore line: [ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)]
         ignore line: [End of search list.]
-        ignore line: [Linking C executable cmTC_18457]
-        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_18457.dir/link.txt --verbose=1]
+        ignore line: [Linking C executable cmTC_b82bb]
+        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b82bb.dir/link.txt --verbose=1]
         ignore line: [Apple clang version 17.0.0 (clang-1700.0.13.3)]
         ignore line: [Target: arm64-apple-darwin24.4.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
-        link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.4 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_18457 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
+        link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.4 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_b82bb -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
           arg [/Library/Developer/CommandLineTools/usr/bin/ld] ==> ignore
           arg [-demangle] ==> ignore
           arg [-lto_library] ==> ignore, skip following value
@@ -205,12 +205,12 @@ events:
           arg [-mllvm] ==> ignore
           arg [-enable-linkonceodr-outlining] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_18457] ==> ignore
+          arg [cmTC_b82bb] ==> ignore
           arg [-L/usr/local/lib] ==> dir [/usr/local/lib]
           arg [-search_paths_first] ==> ignore
           arg [-headerpad_max_install_names] ==> ignore
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_18457.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_b82bb.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lSystem] ==> lib [System]
           arg [/Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a] ==> lib [/Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
         linker tool for 'C': /Library/Developer/CommandLineTools/usr/bin/ld
@@ -252,13 +252,13 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-dhIeW8"
-      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-dhIeW8"
+      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-JxhNwd"
+      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-JxhNwd"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
       CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/cmake/Modules/"
+      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/cmake/Modules/"
       CMAKE_OSX_ARCHITECTURES: ""
       CMAKE_OSX_DEPLOYMENT_TARGET: ""
       CMAKE_OSX_SYSROOT: ""
@@ -266,19 +266,19 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-dhIeW8'
+        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-JxhNwd'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_6251d/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_6251d.dir/build.make CMakeFiles/cmTC_6251d.dir/build
-        Building CXX object CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o
-        /usr/bin/c++   -arch arm64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_4d413/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_4d413.dir/build.make CMakeFiles/cmTC_4d413.dir/build
+        Building CXX object CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/c++   -arch arm64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         Apple clang version 17.0.0 (clang-1700.0.13.3)
         Target: arm64-apple-darwin24.4.0
         Thread model: posix
         InstalledDir: /Library/Developer/CommandLineTools/usr/bin
         clang++: warning: -Wl,-v: 'linker' input unused [-Wunused-command-line-argument]
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"
-         "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.4 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-dhIeW8 -target-linker-version 1167.4.1 -v -fcoverage-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-dhIeW8 -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+         "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.4 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-JxhNwd -target-linker-version 1167.4.1 -v -fcoverage-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-JxhNwd -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         clang -cc1 version 17.0.0 (clang-1700.0.13.3) default target arm64-apple-darwin24.4.0
         ignoring nonexistent directory "/usr/local/include"
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include"
@@ -292,13 +292,13 @@ events:
          /Library/Developer/CommandLineTools/usr/include
          /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)
         End of search list.
-        Linking CXX executable cmTC_6251d
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6251d.dir/link.txt --verbose=1
+        Linking CXX executable cmTC_4d413
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4d413.dir/link.txt --verbose=1
         Apple clang version 17.0.0 (clang-1700.0.13.3)
         Target: arm64-apple-darwin24.4.0
         Thread model: posix
         InstalledDir: /Library/Developer/CommandLineTools/usr/bin
-         "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.4 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_6251d -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a
+         "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.4 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_4d413 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a
         @(#)PROGRAM:ld PROJECT:ld-1167.4.1
         BUILD 20:00:10 Mar 12 2025
         configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em
@@ -310,7 +310,7 @@ events:
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/swift
         Framework search paths:
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
-        /usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_6251d
+        /usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_4d413
         
       exitCode: 0
   -
@@ -354,19 +354,19 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-dhIeW8']
+        ignore line: [Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-JxhNwd']
         ignore line: []
-        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_6251d/fast]
-        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_6251d.dir/build.make CMakeFiles/cmTC_6251d.dir/build]
-        ignore line: [Building CXX object CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o]
-        ignore line: [/usr/bin/c++   -arch arm64   -v -Wl -v -MD -MT CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_4d413/fast]
+        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_4d413.dir/build.make CMakeFiles/cmTC_4d413.dir/build]
+        ignore line: [Building CXX object CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/c++   -arch arm64   -v -Wl -v -MD -MT CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Apple clang version 17.0.0 (clang-1700.0.13.3)]
         ignore line: [Target: arm64-apple-darwin24.4.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
         ignore line: [clang++: warning: -Wl -v: 'linker' input unused [-Wunused-command-line-argument]]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"]
-        ignore line: [ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.4 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-dhIeW8 -target-linker-version 1167.4.1 -v -fcoverage-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-dhIeW8 -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.4 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-JxhNwd -target-linker-version 1167.4.1 -v -fcoverage-compilation-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-JxhNwd -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [clang -cc1 version 17.0.0 (clang-1700.0.13.3) default target arm64-apple-darwin24.4.0]
         ignore line: [ignoring nonexistent directory "/usr/local/include"]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include"]
@@ -380,13 +380,13 @@ events:
         ignore line: [ /Library/Developer/CommandLineTools/usr/include]
         ignore line: [ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)]
         ignore line: [End of search list.]
-        ignore line: [Linking CXX executable cmTC_6251d]
-        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6251d.dir/link.txt --verbose=1]
+        ignore line: [Linking CXX executable cmTC_4d413]
+        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4d413.dir/link.txt --verbose=1]
         ignore line: [Apple clang version 17.0.0 (clang-1700.0.13.3)]
         ignore line: [Target: arm64-apple-darwin24.4.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
-        link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.4 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_6251d -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
+        link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.4 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_4d413 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
           arg [/Library/Developer/CommandLineTools/usr/bin/ld] ==> ignore
           arg [-demangle] ==> ignore
           arg [-lto_library] ==> ignore, skip following value
@@ -403,12 +403,12 @@ events:
           arg [-mllvm] ==> ignore
           arg [-enable-linkonceodr-outlining] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_6251d] ==> ignore
+          arg [cmTC_4d413] ==> ignore
           arg [-L/usr/local/lib] ==> dir [/usr/local/lib]
           arg [-search_paths_first] ==> ignore
           arg [-headerpad_max_install_names] ==> ignore
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_6251d.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_4d413.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lc++] ==> lib [c++]
           arg [-lSystem] ==> lib [System]
           arg [/Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a] ==> lib [/Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
@@ -454,12 +454,12 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-U1hHSj"
-      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-U1hHSj"
+      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-SbQNNn"
+      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-SbQNNn"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/cmake/Modules/"
+      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/cmake/Modules/"
       CMAKE_OSX_ARCHITECTURES: ""
       CMAKE_OSX_DEPLOYMENT_TARGET: ""
       CMAKE_OSX_SYSROOT: ""
@@ -467,15 +467,15 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-U1hHSj'
+        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-SbQNNn'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_279e0/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_279e0.dir/build.make CMakeFiles/cmTC_279e0.dir/build
-        Building C object CMakeFiles/cmTC_279e0.dir/src.c.o
-        /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -arch arm64 -MD -MT CMakeFiles/cmTC_279e0.dir/src.c.o -MF CMakeFiles/cmTC_279e0.dir/src.c.o.d -o CMakeFiles/cmTC_279e0.dir/src.c.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-U1hHSj/src.c
-        Linking C executable cmTC_279e0
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_279e0.dir/link.txt --verbose=1
-        /usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_279e0.dir/src.c.o -o cmTC_279e0
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_1fde7/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_1fde7.dir/build.make CMakeFiles/cmTC_1fde7.dir/build
+        Building C object CMakeFiles/cmTC_1fde7.dir/src.c.o
+        /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -arch arm64 -MD -MT CMakeFiles/cmTC_1fde7.dir/src.c.o -MF CMakeFiles/cmTC_1fde7.dir/src.c.o.d -o CMakeFiles/cmTC_1fde7.dir/src.c.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-SbQNNn/src.c
+        Linking C executable cmTC_1fde7
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1fde7.dir/link.txt --verbose=1
+        /usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_1fde7.dir/src.c.o -o cmTC_1fde7
         
       exitCode: 0
   -
@@ -485,16 +485,16 @@ events:
       - "/opt/homebrew/share/cmake/Modules/CheckSymbolExists.cmake:65 (__CHECK_SYMBOL_EXISTS_IMPL)"
       - "cmake/Modules/FindOpenCL.cmake:44 (CHECK_SYMBOL_EXISTS)"
       - "cmake/Modules/FindOpenCL.cmake:84 (_FIND_OPENCL_VERSION)"
-      - "CMakeLists.txt:42 (find_package)"
+      - "CMakeLists.txt:56 (find_package)"
     checks:
       - "Looking for CL_VERSION_2_2"
     directories:
-      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-VKh0ZH"
-      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-VKh0ZH"
+      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-TlKvYS"
+      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-TlKvYS"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/cmake/Modules/"
+      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/cmake/Modules/"
       CMAKE_OSX_ARCHITECTURES: ""
       CMAKE_OSX_DEPLOYMENT_TARGET: ""
       CMAKE_OSX_SYSROOT: ""
@@ -502,18 +502,18 @@ events:
       variable: "OPENCL_VERSION_2_2"
       cached: true
       stdout: |
-        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-VKh0ZH'
+        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-TlKvYS'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_f2d7e/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_f2d7e.dir/build.make CMakeFiles/cmTC_f2d7e.dir/build
-        Building C object CMakeFiles/cmTC_f2d7e.dir/CheckSymbolExists.c.o
-        /usr/bin/cc  -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -arch arm64 -MD -MT CMakeFiles/cmTC_f2d7e.dir/CheckSymbolExists.c.o -MF CMakeFiles/cmTC_f2d7e.dir/CheckSymbolExists.c.o.d -o CMakeFiles/cmTC_f2d7e.dir/CheckSymbolExists.c.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-VKh0ZH/CheckSymbolExists.c
-        /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-VKh0ZH/CheckSymbolExists.c:8:19: error: use of undeclared identifier 'CL_VERSION_2_2'
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_1bd30/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_1bd30.dir/build.make CMakeFiles/cmTC_1bd30.dir/build
+        Building C object CMakeFiles/cmTC_1bd30.dir/CheckSymbolExists.c.o
+        /usr/bin/cc  -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -arch arm64 -MD -MT CMakeFiles/cmTC_1bd30.dir/CheckSymbolExists.c.o -MF CMakeFiles/cmTC_1bd30.dir/CheckSymbolExists.c.o.d -o CMakeFiles/cmTC_1bd30.dir/CheckSymbolExists.c.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-TlKvYS/CheckSymbolExists.c
+        /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-TlKvYS/CheckSymbolExists.c:8:19: error: use of undeclared identifier 'CL_VERSION_2_2'
             8 |   return ((int*)(&CL_VERSION_2_2))[argc];
               |                   ^
         1 error generated.
-        make[1]: *** [CMakeFiles/cmTC_f2d7e.dir/CheckSymbolExists.c.o] Error 1
-        make: *** [cmTC_f2d7e/fast] Error 2
+        make[1]: *** [CMakeFiles/cmTC_1bd30.dir/CheckSymbolExists.c.o] Error 1
+        make: *** [cmTC_1bd30/fast] Error 2
         
       exitCode: 2
   -
@@ -523,16 +523,16 @@ events:
       - "/opt/homebrew/share/cmake/Modules/CheckSymbolExists.cmake:65 (__CHECK_SYMBOL_EXISTS_IMPL)"
       - "cmake/Modules/FindOpenCL.cmake:44 (CHECK_SYMBOL_EXISTS)"
       - "cmake/Modules/FindOpenCL.cmake:84 (_FIND_OPENCL_VERSION)"
-      - "CMakeLists.txt:42 (find_package)"
+      - "CMakeLists.txt:56 (find_package)"
     checks:
       - "Looking for CL_VERSION_2_1"
     directories:
-      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-5DowBQ"
-      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-5DowBQ"
+      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-ZNakxi"
+      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-ZNakxi"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/cmake/Modules/"
+      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/cmake/Modules/"
       CMAKE_OSX_ARCHITECTURES: ""
       CMAKE_OSX_DEPLOYMENT_TARGET: ""
       CMAKE_OSX_SYSROOT: ""
@@ -540,18 +540,18 @@ events:
       variable: "OPENCL_VERSION_2_1"
       cached: true
       stdout: |
-        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-5DowBQ'
+        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-ZNakxi'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_acd1b/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_acd1b.dir/build.make CMakeFiles/cmTC_acd1b.dir/build
-        Building C object CMakeFiles/cmTC_acd1b.dir/CheckSymbolExists.c.o
-        /usr/bin/cc  -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -arch arm64 -MD -MT CMakeFiles/cmTC_acd1b.dir/CheckSymbolExists.c.o -MF CMakeFiles/cmTC_acd1b.dir/CheckSymbolExists.c.o.d -o CMakeFiles/cmTC_acd1b.dir/CheckSymbolExists.c.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-5DowBQ/CheckSymbolExists.c
-        /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-5DowBQ/CheckSymbolExists.c:8:19: error: use of undeclared identifier 'CL_VERSION_2_1'
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_5c38c/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_5c38c.dir/build.make CMakeFiles/cmTC_5c38c.dir/build
+        Building C object CMakeFiles/cmTC_5c38c.dir/CheckSymbolExists.c.o
+        /usr/bin/cc  -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -arch arm64 -MD -MT CMakeFiles/cmTC_5c38c.dir/CheckSymbolExists.c.o -MF CMakeFiles/cmTC_5c38c.dir/CheckSymbolExists.c.o.d -o CMakeFiles/cmTC_5c38c.dir/CheckSymbolExists.c.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-ZNakxi/CheckSymbolExists.c
+        /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-ZNakxi/CheckSymbolExists.c:8:19: error: use of undeclared identifier 'CL_VERSION_2_1'
             8 |   return ((int*)(&CL_VERSION_2_1))[argc];
               |                   ^
         1 error generated.
-        make[1]: *** [CMakeFiles/cmTC_acd1b.dir/CheckSymbolExists.c.o] Error 1
-        make: *** [cmTC_acd1b/fast] Error 2
+        make[1]: *** [CMakeFiles/cmTC_5c38c.dir/CheckSymbolExists.c.o] Error 1
+        make: *** [cmTC_5c38c/fast] Error 2
         
       exitCode: 2
   -
@@ -561,16 +561,16 @@ events:
       - "/opt/homebrew/share/cmake/Modules/CheckSymbolExists.cmake:65 (__CHECK_SYMBOL_EXISTS_IMPL)"
       - "cmake/Modules/FindOpenCL.cmake:44 (CHECK_SYMBOL_EXISTS)"
       - "cmake/Modules/FindOpenCL.cmake:84 (_FIND_OPENCL_VERSION)"
-      - "CMakeLists.txt:42 (find_package)"
+      - "CMakeLists.txt:56 (find_package)"
     checks:
       - "Looking for CL_VERSION_2_0"
     directories:
-      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-nPD2DD"
-      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-nPD2DD"
+      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-dV5iHF"
+      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-dV5iHF"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/cmake/Modules/"
+      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/cmake/Modules/"
       CMAKE_OSX_ARCHITECTURES: ""
       CMAKE_OSX_DEPLOYMENT_TARGET: ""
       CMAKE_OSX_SYSROOT: ""
@@ -578,18 +578,18 @@ events:
       variable: "OPENCL_VERSION_2_0"
       cached: true
       stdout: |
-        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-nPD2DD'
+        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-dV5iHF'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_15eb8/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_15eb8.dir/build.make CMakeFiles/cmTC_15eb8.dir/build
-        Building C object CMakeFiles/cmTC_15eb8.dir/CheckSymbolExists.c.o
-        /usr/bin/cc  -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -arch arm64 -MD -MT CMakeFiles/cmTC_15eb8.dir/CheckSymbolExists.c.o -MF CMakeFiles/cmTC_15eb8.dir/CheckSymbolExists.c.o.d -o CMakeFiles/cmTC_15eb8.dir/CheckSymbolExists.c.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-nPD2DD/CheckSymbolExists.c
-        /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-nPD2DD/CheckSymbolExists.c:8:19: error: use of undeclared identifier 'CL_VERSION_2_0'
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d9fdb/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_d9fdb.dir/build.make CMakeFiles/cmTC_d9fdb.dir/build
+        Building C object CMakeFiles/cmTC_d9fdb.dir/CheckSymbolExists.c.o
+        /usr/bin/cc  -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -arch arm64 -MD -MT CMakeFiles/cmTC_d9fdb.dir/CheckSymbolExists.c.o -MF CMakeFiles/cmTC_d9fdb.dir/CheckSymbolExists.c.o.d -o CMakeFiles/cmTC_d9fdb.dir/CheckSymbolExists.c.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-dV5iHF/CheckSymbolExists.c
+        /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-dV5iHF/CheckSymbolExists.c:8:19: error: use of undeclared identifier 'CL_VERSION_2_0'
             8 |   return ((int*)(&CL_VERSION_2_0))[argc];
               |                   ^
         1 error generated.
-        make[1]: *** [CMakeFiles/cmTC_15eb8.dir/CheckSymbolExists.c.o] Error 1
-        make: *** [cmTC_15eb8/fast] Error 2
+        make[1]: *** [CMakeFiles/cmTC_d9fdb.dir/CheckSymbolExists.c.o] Error 1
+        make: *** [cmTC_d9fdb/fast] Error 2
         
       exitCode: 2
   -
@@ -599,16 +599,16 @@ events:
       - "/opt/homebrew/share/cmake/Modules/CheckSymbolExists.cmake:65 (__CHECK_SYMBOL_EXISTS_IMPL)"
       - "cmake/Modules/FindOpenCL.cmake:44 (CHECK_SYMBOL_EXISTS)"
       - "cmake/Modules/FindOpenCL.cmake:84 (_FIND_OPENCL_VERSION)"
-      - "CMakeLists.txt:42 (find_package)"
+      - "CMakeLists.txt:56 (find_package)"
     checks:
       - "Looking for CL_VERSION_1_2"
     directories:
-      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-KKJOeP"
-      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-KKJOeP"
+      source: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-F779v5"
+      binary: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-F779v5"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito/cmake/Modules/"
+      CMAKE_MODULE_PATH: "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/cmake/Modules/"
       CMAKE_OSX_ARCHITECTURES: ""
       CMAKE_OSX_DEPLOYMENT_TARGET: ""
       CMAKE_OSX_SYSROOT: ""
@@ -616,15 +616,15 @@ events:
       variable: "OPENCL_VERSION_1_2"
       cached: true
       stdout: |
-        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-KKJOeP'
+        Change Dir: '/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-F779v5'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_e1da2/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_e1da2.dir/build.make CMakeFiles/cmTC_e1da2.dir/build
-        Building C object CMakeFiles/cmTC_e1da2.dir/CheckSymbolExists.c.o
-        /usr/bin/cc  -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -arch arm64 -MD -MT CMakeFiles/cmTC_e1da2.dir/CheckSymbolExists.c.o -MF CMakeFiles/cmTC_e1da2.dir/CheckSymbolExists.c.o.d -o CMakeFiles/cmTC_e1da2.dir/CheckSymbolExists.c.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/CMakeScratch/TryCompile-KKJOeP/CheckSymbolExists.c
-        Linking C executable cmTC_e1da2
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e1da2.dir/link.txt --verbose=1
-        /usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_e1da2.dir/CheckSymbolExists.c.o -o cmTC_e1da2
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_72b32/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_72b32.dir/build.make CMakeFiles/cmTC_72b32.dir/build
+        Building C object CMakeFiles/cmTC_72b32.dir/CheckSymbolExists.c.o
+        /usr/bin/cc  -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -arch arm64 -MD -MT CMakeFiles/cmTC_72b32.dir/CheckSymbolExists.c.o -MF CMakeFiles/cmTC_72b32.dir/CheckSymbolExists.c.o.d -o CMakeFiles/cmTC_72b32.dir/CheckSymbolExists.c.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/CMakeScratch/TryCompile-F779v5/CheckSymbolExists.c
+        Linking C executable cmTC_72b32
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_72b32.dir/link.txt --verbose=1
+        /usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_72b32.dir/CheckSymbolExists.c.o -o cmTC_72b32
         
       exitCode: 0
 ...

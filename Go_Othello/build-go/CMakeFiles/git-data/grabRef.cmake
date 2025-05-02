@@ -15,27 +15,27 @@
 
 set(HEAD_HASH)
 
-file(READ "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/git-data/HEAD" HEAD_CONTENTS LIMIT 1024)
+file(READ "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/git-data/HEAD" HEAD_CONTENTS LIMIT 1024)
 
 string(STRIP "${HEAD_CONTENTS}" HEAD_CONTENTS)
 if(HEAD_CONTENTS MATCHES "ref")
 	# named branch
 	string(REPLACE "ref: " "" HEAD_REF "${HEAD_CONTENTS}")
-	if(EXISTS "/Users/riccardoghizzoni/Desktop/leela-zero-unito/.git/${HEAD_REF}")
-		configure_file("/Users/riccardoghizzoni/Desktop/leela-zero-unito/.git/${HEAD_REF}" "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/git-data/head-ref" COPYONLY)
+	if(EXISTS "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/.git/${HEAD_REF}")
+		configure_file("/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/.git/${HEAD_REF}" "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/git-data/head-ref" COPYONLY)
 	else()
-		configure_file("/Users/riccardoghizzoni/Desktop/leela-zero-unito/.git/packed-refs" "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/git-data/packed-refs" COPYONLY)
-		file(READ "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/git-data/packed-refs" PACKED_REFS)
+		configure_file("/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/.git/packed-refs" "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/git-data/packed-refs" COPYONLY)
+		file(READ "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/git-data/packed-refs" PACKED_REFS)
 		if(${PACKED_REFS} MATCHES "([0-9a-z]*) ${HEAD_REF}")
 			set(HEAD_HASH "${CMAKE_MATCH_1}")
 		endif()
 	endif()
 else()
 	# detached HEAD
-	configure_file("/Users/riccardoghizzoni/Desktop/leela-zero-unito/.git/HEAD" "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/git-data/head-ref" COPYONLY)
+	configure_file("/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/.git/HEAD" "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/git-data/head-ref" COPYONLY)
 endif()
 
 if(NOT HEAD_HASH)
-	file(READ "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/git-data/head-ref" HEAD_HASH LIMIT 1024)
+	file(READ "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/git-data/head-ref" HEAD_HASH LIMIT 1024)
 	string(STRIP "${HEAD_HASH}" HEAD_HASH)
 endif()

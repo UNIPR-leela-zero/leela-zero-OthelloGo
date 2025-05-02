@@ -1,4 +1,4 @@
-# Install script for directory: /Users/riccardoghizzoni/Desktop/leela-zero-unito
+# Install script for directory: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/leelaz")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/leelaz")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/leelaz" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/leelaz")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -48,7 +48,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/leelaz.dir/install-cxx-module-bmi-RELEASE.cmake" OPTIONAL)
+  include("/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/leelaz.dir/install-cxx-module-bmi-RELEASE.cmake" OPTIONAL)
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
@@ -59,7 +59,7 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/install_local_manifest.txt"
+  file(WRITE "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -75,6 +75,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

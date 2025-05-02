@@ -1,4 +1,4 @@
-# Install script for directory: /Users/riccardoghizzoni/Desktop/leela-zero-unito/gtest
+# Install script for directory: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/gtest
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,13 +39,13 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock/cmake_install.cmake")
+  include("/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/googlemock/cmake_install.cmake")
 
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/install_local_manifest.txt"
+  file(WRITE "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

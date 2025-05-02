@@ -53,10 +53,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito
+CMAKE_SOURCE_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go
+CMAKE_BINARY_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go
 
 # Include any dependencies generated for this target.
 include CMakeFiles/objs.dir/depend.make
@@ -72,396 +72,396 @@ include CMakeFiles/objs.dir/flags.make
 CMakeFiles/objs.dir/codegen:
 .PHONY : CMakeFiles/objs.dir/codegen
 
-CMakeFiles/objs.dir/src/CPUPipe.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/CPUPipe.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/CPUPipe.cpp
-CMakeFiles/objs.dir/src/CPUPipe.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/objs.dir/src/CPUPipe.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/CPUPipe.cpp.o -MF CMakeFiles/objs.dir/src/CPUPipe.cpp.o.d -o CMakeFiles/objs.dir/src/CPUPipe.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/CPUPipe.cpp
-
-CMakeFiles/objs.dir/src/CPUPipe.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/CPUPipe.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/CPUPipe.cpp > CMakeFiles/objs.dir/src/CPUPipe.cpp.i
-
-CMakeFiles/objs.dir/src/CPUPipe.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/CPUPipe.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/CPUPipe.cpp -o CMakeFiles/objs.dir/src/CPUPipe.cpp.s
-
-CMakeFiles/objs.dir/src/FastBoard.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/FastBoard.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/FastBoard.cpp
-CMakeFiles/objs.dir/src/FastBoard.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/objs.dir/src/FastBoard.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/FastBoard.cpp.o -MF CMakeFiles/objs.dir/src/FastBoard.cpp.o.d -o CMakeFiles/objs.dir/src/FastBoard.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/FastBoard.cpp
-
-CMakeFiles/objs.dir/src/FastBoard.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/FastBoard.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/FastBoard.cpp > CMakeFiles/objs.dir/src/FastBoard.cpp.i
-
-CMakeFiles/objs.dir/src/FastBoard.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/FastBoard.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/FastBoard.cpp -o CMakeFiles/objs.dir/src/FastBoard.cpp.s
-
-CMakeFiles/objs.dir/src/FastState.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/FastState.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/FastState.cpp
-CMakeFiles/objs.dir/src/FastState.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/objs.dir/src/FastState.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/FastState.cpp.o -MF CMakeFiles/objs.dir/src/FastState.cpp.o.d -o CMakeFiles/objs.dir/src/FastState.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/FastState.cpp
-
-CMakeFiles/objs.dir/src/FastState.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/FastState.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/FastState.cpp > CMakeFiles/objs.dir/src/FastState.cpp.i
-
-CMakeFiles/objs.dir/src/FastState.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/FastState.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/FastState.cpp -o CMakeFiles/objs.dir/src/FastState.cpp.s
-
-CMakeFiles/objs.dir/src/FullBoard.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/FullBoard.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/FullBoard.cpp
-CMakeFiles/objs.dir/src/FullBoard.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/objs.dir/src/FullBoard.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/FullBoard.cpp.o -MF CMakeFiles/objs.dir/src/FullBoard.cpp.o.d -o CMakeFiles/objs.dir/src/FullBoard.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/FullBoard.cpp
-
-CMakeFiles/objs.dir/src/FullBoard.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/FullBoard.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/FullBoard.cpp > CMakeFiles/objs.dir/src/FullBoard.cpp.i
-
-CMakeFiles/objs.dir/src/FullBoard.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/FullBoard.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/FullBoard.cpp -o CMakeFiles/objs.dir/src/FullBoard.cpp.s
-
-CMakeFiles/objs.dir/src/GTP.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/GTP.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/GTP.cpp
-CMakeFiles/objs.dir/src/GTP.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/objs.dir/src/GTP.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GTP.cpp.o -MF CMakeFiles/objs.dir/src/GTP.cpp.o.d -o CMakeFiles/objs.dir/src/GTP.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/GTP.cpp
-
-CMakeFiles/objs.dir/src/GTP.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GTP.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/GTP.cpp > CMakeFiles/objs.dir/src/GTP.cpp.i
-
-CMakeFiles/objs.dir/src/GTP.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GTP.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/GTP.cpp -o CMakeFiles/objs.dir/src/GTP.cpp.s
-
-CMakeFiles/objs.dir/src/GameState.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/GameState.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/GameState.cpp
-CMakeFiles/objs.dir/src/GameState.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/objs.dir/src/GameState.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GameState.cpp.o -MF CMakeFiles/objs.dir/src/GameState.cpp.o.d -o CMakeFiles/objs.dir/src/GameState.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/GameState.cpp
-
-CMakeFiles/objs.dir/src/GameState.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GameState.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/GameState.cpp > CMakeFiles/objs.dir/src/GameState.cpp.i
-
-CMakeFiles/objs.dir/src/GameState.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GameState.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/GameState.cpp -o CMakeFiles/objs.dir/src/GameState.cpp.s
-
 CMakeFiles/objs.dir/src/GameType.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/GameType.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/GameType.cpp
+CMakeFiles/objs.dir/src/GameType.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GameType.cpp
 CMakeFiles/objs.dir/src/GameType.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/objs.dir/src/GameType.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GameType.cpp.o -MF CMakeFiles/objs.dir/src/GameType.cpp.o.d -o CMakeFiles/objs.dir/src/GameType.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/GameType.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/objs.dir/src/GameType.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GameType.cpp.o -MF CMakeFiles/objs.dir/src/GameType.cpp.o.d -o CMakeFiles/objs.dir/src/GameType.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GameType.cpp
 
 CMakeFiles/objs.dir/src/GameType.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GameType.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/GameType.cpp > CMakeFiles/objs.dir/src/GameType.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GameType.cpp > CMakeFiles/objs.dir/src/GameType.cpp.i
 
 CMakeFiles/objs.dir/src/GameType.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GameType.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/GameType.cpp -o CMakeFiles/objs.dir/src/GameType.cpp.s
-
-CMakeFiles/objs.dir/src/KoState.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/KoState.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/KoState.cpp
-CMakeFiles/objs.dir/src/KoState.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/objs.dir/src/KoState.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/KoState.cpp.o -MF CMakeFiles/objs.dir/src/KoState.cpp.o.d -o CMakeFiles/objs.dir/src/KoState.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/KoState.cpp
-
-CMakeFiles/objs.dir/src/KoState.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/KoState.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/KoState.cpp > CMakeFiles/objs.dir/src/KoState.cpp.i
-
-CMakeFiles/objs.dir/src/KoState.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/KoState.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/KoState.cpp -o CMakeFiles/objs.dir/src/KoState.cpp.s
-
-CMakeFiles/objs.dir/src/NNCache.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/NNCache.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/NNCache.cpp
-CMakeFiles/objs.dir/src/NNCache.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/objs.dir/src/NNCache.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/NNCache.cpp.o -MF CMakeFiles/objs.dir/src/NNCache.cpp.o.d -o CMakeFiles/objs.dir/src/NNCache.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/NNCache.cpp
-
-CMakeFiles/objs.dir/src/NNCache.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/NNCache.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/NNCache.cpp > CMakeFiles/objs.dir/src/NNCache.cpp.i
-
-CMakeFiles/objs.dir/src/NNCache.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/NNCache.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/NNCache.cpp -o CMakeFiles/objs.dir/src/NNCache.cpp.s
-
-CMakeFiles/objs.dir/src/Network.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/Network.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Network.cpp
-CMakeFiles/objs.dir/src/Network.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/objs.dir/src/Network.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/Network.cpp.o -MF CMakeFiles/objs.dir/src/Network.cpp.o.d -o CMakeFiles/objs.dir/src/Network.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Network.cpp
-
-CMakeFiles/objs.dir/src/Network.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/Network.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Network.cpp > CMakeFiles/objs.dir/src/Network.cpp.i
-
-CMakeFiles/objs.dir/src/Network.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/Network.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Network.cpp -o CMakeFiles/objs.dir/src/Network.cpp.s
-
-CMakeFiles/objs.dir/src/OpenCL.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/OpenCL.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/OpenCL.cpp
-CMakeFiles/objs.dir/src/OpenCL.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/objs.dir/src/OpenCL.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/OpenCL.cpp.o -MF CMakeFiles/objs.dir/src/OpenCL.cpp.o.d -o CMakeFiles/objs.dir/src/OpenCL.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/OpenCL.cpp
-
-CMakeFiles/objs.dir/src/OpenCL.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/OpenCL.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/OpenCL.cpp > CMakeFiles/objs.dir/src/OpenCL.cpp.i
-
-CMakeFiles/objs.dir/src/OpenCL.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/OpenCL.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/OpenCL.cpp -o CMakeFiles/objs.dir/src/OpenCL.cpp.s
-
-CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/OpenCLScheduler.cpp
-CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.o -MF CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.o.d -o CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/OpenCLScheduler.cpp
-
-CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/OpenCLScheduler.cpp > CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.i
-
-CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/OpenCLScheduler.cpp -o CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GameType.cpp -o CMakeFiles/objs.dir/src/GameType.cpp.s
 
 CMakeFiles/objs.dir/src/Random.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/Random.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Random.cpp
+CMakeFiles/objs.dir/src/Random.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Random.cpp
 CMakeFiles/objs.dir/src/Random.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/objs.dir/src/Random.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/Random.cpp.o -MF CMakeFiles/objs.dir/src/Random.cpp.o.d -o CMakeFiles/objs.dir/src/Random.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Random.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/objs.dir/src/Random.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/Random.cpp.o -MF CMakeFiles/objs.dir/src/Random.cpp.o.d -o CMakeFiles/objs.dir/src/Random.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Random.cpp
 
 CMakeFiles/objs.dir/src/Random.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/Random.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Random.cpp > CMakeFiles/objs.dir/src/Random.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Random.cpp > CMakeFiles/objs.dir/src/Random.cpp.i
 
 CMakeFiles/objs.dir/src/Random.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/Random.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Random.cpp -o CMakeFiles/objs.dir/src/Random.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Random.cpp -o CMakeFiles/objs.dir/src/Random.cpp.s
 
 CMakeFiles/objs.dir/src/SGFParser.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/SGFParser.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/SGFParser.cpp
+CMakeFiles/objs.dir/src/SGFParser.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/SGFParser.cpp
 CMakeFiles/objs.dir/src/SGFParser.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/objs.dir/src/SGFParser.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/SGFParser.cpp.o -MF CMakeFiles/objs.dir/src/SGFParser.cpp.o.d -o CMakeFiles/objs.dir/src/SGFParser.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/SGFParser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/objs.dir/src/SGFParser.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/SGFParser.cpp.o -MF CMakeFiles/objs.dir/src/SGFParser.cpp.o.d -o CMakeFiles/objs.dir/src/SGFParser.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/SGFParser.cpp
 
 CMakeFiles/objs.dir/src/SGFParser.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/SGFParser.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/SGFParser.cpp > CMakeFiles/objs.dir/src/SGFParser.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/SGFParser.cpp > CMakeFiles/objs.dir/src/SGFParser.cpp.i
 
 CMakeFiles/objs.dir/src/SGFParser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/SGFParser.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/SGFParser.cpp -o CMakeFiles/objs.dir/src/SGFParser.cpp.s
-
-CMakeFiles/objs.dir/src/SGFTree.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/SGFTree.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/SGFTree.cpp
-CMakeFiles/objs.dir/src/SGFTree.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/objs.dir/src/SGFTree.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/SGFTree.cpp.o -MF CMakeFiles/objs.dir/src/SGFTree.cpp.o.d -o CMakeFiles/objs.dir/src/SGFTree.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/SGFTree.cpp
-
-CMakeFiles/objs.dir/src/SGFTree.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/SGFTree.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/SGFTree.cpp > CMakeFiles/objs.dir/src/SGFTree.cpp.i
-
-CMakeFiles/objs.dir/src/SGFTree.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/SGFTree.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/SGFTree.cpp -o CMakeFiles/objs.dir/src/SGFTree.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/SGFParser.cpp -o CMakeFiles/objs.dir/src/SGFParser.cpp.s
 
 CMakeFiles/objs.dir/src/SMP.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/SMP.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/SMP.cpp
+CMakeFiles/objs.dir/src/SMP.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/SMP.cpp
 CMakeFiles/objs.dir/src/SMP.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/objs.dir/src/SMP.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/SMP.cpp.o -MF CMakeFiles/objs.dir/src/SMP.cpp.o.d -o CMakeFiles/objs.dir/src/SMP.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/SMP.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/objs.dir/src/SMP.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/SMP.cpp.o -MF CMakeFiles/objs.dir/src/SMP.cpp.o.d -o CMakeFiles/objs.dir/src/SMP.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/SMP.cpp
 
 CMakeFiles/objs.dir/src/SMP.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/SMP.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/SMP.cpp > CMakeFiles/objs.dir/src/SMP.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/SMP.cpp > CMakeFiles/objs.dir/src/SMP.cpp.i
 
 CMakeFiles/objs.dir/src/SMP.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/SMP.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/SMP.cpp -o CMakeFiles/objs.dir/src/SMP.cpp.s
-
-CMakeFiles/objs.dir/src/TimeControl.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/TimeControl.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/TimeControl.cpp
-CMakeFiles/objs.dir/src/TimeControl.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/objs.dir/src/TimeControl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/TimeControl.cpp.o -MF CMakeFiles/objs.dir/src/TimeControl.cpp.o.d -o CMakeFiles/objs.dir/src/TimeControl.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/TimeControl.cpp
-
-CMakeFiles/objs.dir/src/TimeControl.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/TimeControl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/TimeControl.cpp > CMakeFiles/objs.dir/src/TimeControl.cpp.i
-
-CMakeFiles/objs.dir/src/TimeControl.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/TimeControl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/TimeControl.cpp -o CMakeFiles/objs.dir/src/TimeControl.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/SMP.cpp -o CMakeFiles/objs.dir/src/SMP.cpp.s
 
 CMakeFiles/objs.dir/src/Timing.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/Timing.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Timing.cpp
+CMakeFiles/objs.dir/src/Timing.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Timing.cpp
 CMakeFiles/objs.dir/src/Timing.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/objs.dir/src/Timing.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/Timing.cpp.o -MF CMakeFiles/objs.dir/src/Timing.cpp.o.d -o CMakeFiles/objs.dir/src/Timing.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Timing.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/objs.dir/src/Timing.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/Timing.cpp.o -MF CMakeFiles/objs.dir/src/Timing.cpp.o.d -o CMakeFiles/objs.dir/src/Timing.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Timing.cpp
 
 CMakeFiles/objs.dir/src/Timing.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/Timing.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Timing.cpp > CMakeFiles/objs.dir/src/Timing.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Timing.cpp > CMakeFiles/objs.dir/src/Timing.cpp.i
 
 CMakeFiles/objs.dir/src/Timing.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/Timing.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Timing.cpp -o CMakeFiles/objs.dir/src/Timing.cpp.s
-
-CMakeFiles/objs.dir/src/Training.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/Training.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Training.cpp
-CMakeFiles/objs.dir/src/Training.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/objs.dir/src/Training.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/Training.cpp.o -MF CMakeFiles/objs.dir/src/Training.cpp.o.d -o CMakeFiles/objs.dir/src/Training.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Training.cpp
-
-CMakeFiles/objs.dir/src/Training.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/Training.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Training.cpp > CMakeFiles/objs.dir/src/Training.cpp.i
-
-CMakeFiles/objs.dir/src/Training.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/Training.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Training.cpp -o CMakeFiles/objs.dir/src/Training.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Timing.cpp -o CMakeFiles/objs.dir/src/Timing.cpp.s
 
 CMakeFiles/objs.dir/src/Tuner.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/Tuner.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Tuner.cpp
+CMakeFiles/objs.dir/src/Tuner.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Tuner.cpp
 CMakeFiles/objs.dir/src/Tuner.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/objs.dir/src/Tuner.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/Tuner.cpp.o -MF CMakeFiles/objs.dir/src/Tuner.cpp.o.d -o CMakeFiles/objs.dir/src/Tuner.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Tuner.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/objs.dir/src/Tuner.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/Tuner.cpp.o -MF CMakeFiles/objs.dir/src/Tuner.cpp.o.d -o CMakeFiles/objs.dir/src/Tuner.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Tuner.cpp
 
 CMakeFiles/objs.dir/src/Tuner.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/Tuner.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Tuner.cpp > CMakeFiles/objs.dir/src/Tuner.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Tuner.cpp > CMakeFiles/objs.dir/src/Tuner.cpp.i
 
 CMakeFiles/objs.dir/src/Tuner.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/Tuner.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Tuner.cpp -o CMakeFiles/objs.dir/src/Tuner.cpp.s
-
-CMakeFiles/objs.dir/src/UCTNode.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/UCTNode.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTNode.cpp
-CMakeFiles/objs.dir/src/UCTNode.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/objs.dir/src/UCTNode.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/UCTNode.cpp.o -MF CMakeFiles/objs.dir/src/UCTNode.cpp.o.d -o CMakeFiles/objs.dir/src/UCTNode.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTNode.cpp
-
-CMakeFiles/objs.dir/src/UCTNode.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/UCTNode.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTNode.cpp > CMakeFiles/objs.dir/src/UCTNode.cpp.i
-
-CMakeFiles/objs.dir/src/UCTNode.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/UCTNode.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTNode.cpp -o CMakeFiles/objs.dir/src/UCTNode.cpp.s
-
-CMakeFiles/objs.dir/src/UCTNodePointer.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/UCTNodePointer.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTNodePointer.cpp
-CMakeFiles/objs.dir/src/UCTNodePointer.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/objs.dir/src/UCTNodePointer.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/UCTNodePointer.cpp.o -MF CMakeFiles/objs.dir/src/UCTNodePointer.cpp.o.d -o CMakeFiles/objs.dir/src/UCTNodePointer.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTNodePointer.cpp
-
-CMakeFiles/objs.dir/src/UCTNodePointer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/UCTNodePointer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTNodePointer.cpp > CMakeFiles/objs.dir/src/UCTNodePointer.cpp.i
-
-CMakeFiles/objs.dir/src/UCTNodePointer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/UCTNodePointer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTNodePointer.cpp -o CMakeFiles/objs.dir/src/UCTNodePointer.cpp.s
-
-CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTNodeRoot.cpp
-CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.o -MF CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.o.d -o CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTNodeRoot.cpp
-
-CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTNodeRoot.cpp > CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.i
-
-CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTNodeRoot.cpp -o CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.s
-
-CMakeFiles/objs.dir/src/UCTSearch.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/UCTSearch.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTSearch.cpp
-CMakeFiles/objs.dir/src/UCTSearch.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/objs.dir/src/UCTSearch.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/UCTSearch.cpp.o -MF CMakeFiles/objs.dir/src/UCTSearch.cpp.o.d -o CMakeFiles/objs.dir/src/UCTSearch.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTSearch.cpp
-
-CMakeFiles/objs.dir/src/UCTSearch.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/UCTSearch.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTSearch.cpp > CMakeFiles/objs.dir/src/UCTSearch.cpp.i
-
-CMakeFiles/objs.dir/src/UCTSearch.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/UCTSearch.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/UCTSearch.cpp -o CMakeFiles/objs.dir/src/UCTSearch.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Tuner.cpp -o CMakeFiles/objs.dir/src/Tuner.cpp.s
 
 CMakeFiles/objs.dir/src/Utils.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/Utils.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Utils.cpp
+CMakeFiles/objs.dir/src/Utils.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Utils.cpp
 CMakeFiles/objs.dir/src/Utils.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/objs.dir/src/Utils.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/Utils.cpp.o -MF CMakeFiles/objs.dir/src/Utils.cpp.o.d -o CMakeFiles/objs.dir/src/Utils.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/objs.dir/src/Utils.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/Utils.cpp.o -MF CMakeFiles/objs.dir/src/Utils.cpp.o.d -o CMakeFiles/objs.dir/src/Utils.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Utils.cpp
 
 CMakeFiles/objs.dir/src/Utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/Utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Utils.cpp > CMakeFiles/objs.dir/src/Utils.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Utils.cpp > CMakeFiles/objs.dir/src/Utils.cpp.i
 
 CMakeFiles/objs.dir/src/Utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/Utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Utils.cpp -o CMakeFiles/objs.dir/src/Utils.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/Utils.cpp -o CMakeFiles/objs.dir/src/Utils.cpp.s
 
-CMakeFiles/objs.dir/src/Zobrist.cpp.o: CMakeFiles/objs.dir/flags.make
-CMakeFiles/objs.dir/src/Zobrist.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Zobrist.cpp
-CMakeFiles/objs.dir/src/Zobrist.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/objs.dir/src/Zobrist.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/Zobrist.cpp.o -MF CMakeFiles/objs.dir/src/Zobrist.cpp.o.d -o CMakeFiles/objs.dir/src/Zobrist.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Zobrist.cpp
+CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/CPUPipeGo.cpp
+CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/CPUPipeGo.cpp
 
-CMakeFiles/objs.dir/src/Zobrist.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/Zobrist.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Zobrist.cpp > CMakeFiles/objs.dir/src/Zobrist.cpp.i
+CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/CPUPipeGo.cpp > CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.i
 
-CMakeFiles/objs.dir/src/Zobrist.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/Zobrist.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/Zobrist.cpp -o CMakeFiles/objs.dir/src/Zobrist.cpp.s
+CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/CPUPipeGo.cpp -o CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.s
 
-objs: CMakeFiles/objs.dir/src/CPUPipe.cpp.o
-objs: CMakeFiles/objs.dir/src/FastBoard.cpp.o
-objs: CMakeFiles/objs.dir/src/FastState.cpp.o
-objs: CMakeFiles/objs.dir/src/FullBoard.cpp.o
-objs: CMakeFiles/objs.dir/src/GTP.cpp.o
-objs: CMakeFiles/objs.dir/src/GameState.cpp.o
+CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/FastBoardGo.cpp
+CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/FastBoardGo.cpp
+
+CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/FastBoardGo.cpp > CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/FastBoardGo.cpp -o CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/FastStateGo.cpp
+CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/FastStateGo.cpp
+
+CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/FastStateGo.cpp > CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/FastStateGo.cpp -o CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/FullBoardGo.cpp
+CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/FullBoardGo.cpp
+
+CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/FullBoardGo.cpp > CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/FullBoardGo.cpp -o CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/GTPGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/GTPGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/GTPGo.cpp
+CMakeFiles/objs.dir/src/GO/GTPGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/objs.dir/src/GO/GTPGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/GTPGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/GTPGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/GTPGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/GTPGo.cpp
+
+CMakeFiles/objs.dir/src/GO/GTPGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/GTPGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/GTPGo.cpp > CMakeFiles/objs.dir/src/GO/GTPGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/GTPGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/GTPGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/GTPGo.cpp -o CMakeFiles/objs.dir/src/GO/GTPGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/GameStateGo.cpp
+CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/GameStateGo.cpp
+
+CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/GameStateGo.cpp > CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/GameStateGo.cpp -o CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/KoStateGo.cpp
+CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/KoStateGo.cpp
+
+CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/KoStateGo.cpp > CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/KoStateGo.cpp -o CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/NNCacheGo.cpp
+CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/NNCacheGo.cpp
+
+CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/NNCacheGo.cpp > CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/NNCacheGo.cpp -o CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/NetworkGo.cpp
+CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/NetworkGo.cpp
+
+CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/NetworkGo.cpp > CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/NetworkGo.cpp -o CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/OpenCLGo.cpp
+CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/OpenCLGo.cpp
+
+CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/OpenCLGo.cpp > CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/OpenCLGo.cpp -o CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/OpenCLSchedulerGo.cpp
+CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/OpenCLSchedulerGo.cpp
+
+CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/OpenCLSchedulerGo.cpp > CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/OpenCLSchedulerGo.cpp -o CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/SGFTreeGo.cpp
+CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/SGFTreeGo.cpp
+
+CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/SGFTreeGo.cpp > CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/SGFTreeGo.cpp -o CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/TimeControlGo.cpp
+CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/TimeControlGo.cpp
+
+CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/TimeControlGo.cpp > CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/TimeControlGo.cpp -o CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/TrainingGo.cpp
+CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/TrainingGo.cpp
+
+CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/TrainingGo.cpp > CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/TrainingGo.cpp -o CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTNodeGo.cpp
+CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTNodeGo.cpp
+
+CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTNodeGo.cpp > CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTNodeGo.cpp -o CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTNodePointerGo.cpp
+CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTNodePointerGo.cpp
+
+CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTNodePointerGo.cpp > CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTNodePointerGo.cpp -o CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTNodeRootGo.cpp
+CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTNodeRootGo.cpp
+
+CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTNodeRootGo.cpp > CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTNodeRootGo.cpp -o CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTSearchGo.cpp
+CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTSearchGo.cpp
+
+CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTSearchGo.cpp > CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/UCTSearchGo.cpp -o CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.s
+
+CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.o: CMakeFiles/objs.dir/flags.make
+CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/ZobristGo.cpp
+CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.o: CMakeFiles/objs.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.o -MF CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.o.d -o CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/ZobristGo.cpp
+
+CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/ZobristGo.cpp > CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.i
+
+CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/GO/ZobristGo.cpp -o CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.s
+
 objs: CMakeFiles/objs.dir/src/GameType.cpp.o
-objs: CMakeFiles/objs.dir/src/KoState.cpp.o
-objs: CMakeFiles/objs.dir/src/NNCache.cpp.o
-objs: CMakeFiles/objs.dir/src/Network.cpp.o
-objs: CMakeFiles/objs.dir/src/OpenCL.cpp.o
-objs: CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.o
 objs: CMakeFiles/objs.dir/src/Random.cpp.o
 objs: CMakeFiles/objs.dir/src/SGFParser.cpp.o
-objs: CMakeFiles/objs.dir/src/SGFTree.cpp.o
 objs: CMakeFiles/objs.dir/src/SMP.cpp.o
-objs: CMakeFiles/objs.dir/src/TimeControl.cpp.o
 objs: CMakeFiles/objs.dir/src/Timing.cpp.o
-objs: CMakeFiles/objs.dir/src/Training.cpp.o
 objs: CMakeFiles/objs.dir/src/Tuner.cpp.o
-objs: CMakeFiles/objs.dir/src/UCTNode.cpp.o
-objs: CMakeFiles/objs.dir/src/UCTNodePointer.cpp.o
-objs: CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.o
-objs: CMakeFiles/objs.dir/src/UCTSearch.cpp.o
 objs: CMakeFiles/objs.dir/src/Utils.cpp.o
-objs: CMakeFiles/objs.dir/src/Zobrist.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/GTPGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.o
+objs: CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.o
 objs: CMakeFiles/objs.dir/build.make
 .PHONY : objs
 
@@ -474,6 +474,6 @@ CMakeFiles/objs.dir/clean:
 .PHONY : CMakeFiles/objs.dir/clean
 
 CMakeFiles/objs.dir/depend:
-	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/riccardoghizzoni/Desktop/leela-zero-unito /Users/riccardoghizzoni/Desktop/leela-zero-unito /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/objs.dir/depend
 

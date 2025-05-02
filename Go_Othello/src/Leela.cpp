@@ -53,24 +53,24 @@
 
 #include "GameType.h"
 #if CURRENT_GAME == GAME_GO  
-#include "GTPGo.h"
-#include "GameStateGo.h"
-#include "NNCacheGo.h"
-#include "NetworkGo.h"
+#include "GO/GTPGo.h"
+#include "GO/GameStateGo.h"
+#include "GO/NNCacheGo.h"
+#include "GO/NetworkGo.h"
 #include "Random.h"
 #include "ThreadPool.h"
 #include "Utils.h"
-#include "ZobristGo.h"
+#include "GO/ZobristGo.h"
 
 #elif CURRENT_GAME == GAME_OTHELLO
-#include "GTPOthello.h"
-#include "GameStateOthello.h"
-#include "NNCacheOthello.h"
-#include "NetworkOthello.h"
+#include "OTHELLO/GTPOthello.h"
+#include "OTHELLO/GameStateOthello.h"
+#include "OTHELLO/NNCacheOthello.h"
+#include "OTHELLO/NetworkOthello.h"
 #include "Random.h"
 #include "ThreadPool.h"
 #include "Utils.h"
-#include "ZobristOthello.h"
+#include "OTHELLO/ZobristOthello.h"
 #else
 #error "Unsupported game selected"
 #endif

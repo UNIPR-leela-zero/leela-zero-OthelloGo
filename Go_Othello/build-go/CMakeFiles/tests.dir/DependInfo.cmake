@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/riccardoghizzoni/Desktop/leela-zero-unito/src/tests/gtests.cpp" "CMakeFiles/tests.dir/src/tests/gtests.cpp.o" "gcc" "CMakeFiles/tests.dir/src/tests/gtests.cpp.o.d"
-  "/Users/riccardoghizzoni/Desktop/leela-zero-unito/src/tests/utils_unittest.cpp" "CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o" "gcc" "CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o.d"
+  "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/tests/gtests_go.cpp" "CMakeFiles/tests.dir/src/tests/gtests_go.cpp.o" "gcc" "CMakeFiles/tests.dir/src/tests/gtests_go.cpp.o.d"
+  "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/tests/utils_unittest.cpp" "CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o" "gcc" "CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -53,10 +53,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito
+CMAKE_SOURCE_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go
+CMAKE_BINARY_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go
 
 # Include any dependencies generated for this target.
 include gtest/googlemock/CMakeFiles/gmock.dir/depend.make
@@ -73,18 +73,18 @@ gtest/googlemock/CMakeFiles/gmock.dir/codegen:
 .PHONY : gtest/googlemock/CMakeFiles/gmock.dir/codegen
 
 gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o: gtest/googlemock/CMakeFiles/gmock.dir/flags.make
-gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/gtest/googlemock/src/gmock-all.cc
+gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/gtest/googlemock/src/gmock-all.cc
 gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o: gtest/googlemock/CMakeFiles/gmock.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o"
-	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o -MF CMakeFiles/gmock.dir/src/gmock-all.cc.o.d -o CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/gtest/googlemock/src/gmock-all.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o"
+	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o -MF CMakeFiles/gmock.dir/src/gmock-all.cc.o.d -o CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/gtest/googlemock/src/gmock-all.cc
 
 gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/gmock.dir/src/gmock-all.cc.i"
-	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/gtest/googlemock/src/gmock-all.cc > CMakeFiles/gmock.dir/src/gmock-all.cc.i
+	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/gtest/googlemock/src/gmock-all.cc > CMakeFiles/gmock.dir/src/gmock-all.cc.i
 
 gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/gmock.dir/src/gmock-all.cc.s"
-	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/gtest/googlemock/src/gmock-all.cc -o CMakeFiles/gmock.dir/src/gmock-all.cc.s
+	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/gtest/googlemock/src/gmock-all.cc -o CMakeFiles/gmock.dir/src/gmock-all.cc.s
 
 # Object files for target gmock
 gmock_OBJECTS = \
@@ -96,19 +96,19 @@ gmock_EXTERNAL_OBJECTS =
 gtest/googlemock/libgmock.a: gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o
 gtest/googlemock/libgmock.a: gtest/googlemock/CMakeFiles/gmock.dir/build.make
 gtest/googlemock/libgmock.a: gtest/googlemock/CMakeFiles/gmock.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libgmock.a"
-	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock && $(CMAKE_COMMAND) -P CMakeFiles/gmock.dir/cmake_clean_target.cmake
-	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gmock.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libgmock.a"
+	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/googlemock && $(CMAKE_COMMAND) -P CMakeFiles/gmock.dir/cmake_clean_target.cmake
+	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/googlemock && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gmock.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 gtest/googlemock/CMakeFiles/gmock.dir/build: gtest/googlemock/libgmock.a
 .PHONY : gtest/googlemock/CMakeFiles/gmock.dir/build
 
 gtest/googlemock/CMakeFiles/gmock.dir/clean:
-	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock && $(CMAKE_COMMAND) -P CMakeFiles/gmock.dir/cmake_clean.cmake
+	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/googlemock && $(CMAKE_COMMAND) -P CMakeFiles/gmock.dir/cmake_clean.cmake
 .PHONY : gtest/googlemock/CMakeFiles/gmock.dir/clean
 
 gtest/googlemock/CMakeFiles/gmock.dir/depend:
-	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/riccardoghizzoni/Desktop/leela-zero-unito /Users/riccardoghizzoni/Desktop/leela-zero-unito/gtest/googlemock /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock/CMakeFiles/gmock.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/gtest/googlemock /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/googlemock /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/googlemock/CMakeFiles/gmock.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : gtest/googlemock/CMakeFiles/gmock.dir/depend
 

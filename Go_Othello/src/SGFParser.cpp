@@ -35,9 +35,9 @@
 
 #include "SGFParser.h"
 #if CURRENT_GAME == GAME_GO  
-#include "SGFTreeGo.h"
+#include "GO/SGFTreeGo.h"
 #elif CURRENT_GAME == GAME_OTHELLO
-#include "SGFTreeOthello.h"
+#include "OTHELLO/SGFTreeOthello.h"
 #else
 #error "Unsupported game selected"
 #endif

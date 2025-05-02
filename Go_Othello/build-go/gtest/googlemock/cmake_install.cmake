@@ -1,4 +1,4 @@
-# Install script for directory: /Users/riccardoghizzoni/Desktop/leela-zero-unito/gtest/googlemock
+# Install script for directory: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/gtest/googlemock
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock/libgmock.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/googlemock/libgmock.a")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libgmock.a" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libgmock.a")
     execute_process(COMMAND "/usr/bin/ranlib" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libgmock.a")
@@ -46,7 +46,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock/libgmock_main.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/googlemock/libgmock_main.a")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libgmock_main.a" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libgmock_main.a")
     execute_process(COMMAND "/usr/bin/ranlib" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libgmock_main.a")
@@ -54,25 +54,25 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/Users/riccardoghizzoni/Desktop/leela-zero-unito/gtest/googlemock/include/gmock")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/gtest/googlemock/include/gmock")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES
-    "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gmock.pc"
-    "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gmock_main.pc"
+    "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gmock.pc"
+    "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gmock_main.pc"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock/gtest/cmake_install.cmake")
+  include("/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/googlemock/gtest/cmake_install.cmake")
 
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/gtest/googlemock/install_local_manifest.txt"
+  file(WRITE "/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/gtest/googlemock/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

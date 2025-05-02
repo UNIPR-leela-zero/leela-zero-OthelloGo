@@ -53,10 +53,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito
+CMAKE_SOURCE_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go
+CMAKE_BINARY_DIR = /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go
 
 # Include any dependencies generated for this target.
 include CMakeFiles/tests.dir/depend.make
@@ -72,96 +72,96 @@ include CMakeFiles/tests.dir/flags.make
 CMakeFiles/tests.dir/codegen:
 .PHONY : CMakeFiles/tests.dir/codegen
 
-CMakeFiles/tests.dir/src/tests/gtests.cpp.o: CMakeFiles/tests.dir/flags.make
-CMakeFiles/tests.dir/src/tests/gtests.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/tests/gtests.cpp
-CMakeFiles/tests.dir/src/tests/gtests.cpp.o: CMakeFiles/tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/tests.dir/src/tests/gtests.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/tests.dir/src/tests/gtests.cpp.o -MF CMakeFiles/tests.dir/src/tests/gtests.cpp.o.d -o CMakeFiles/tests.dir/src/tests/gtests.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/tests/gtests.cpp
+CMakeFiles/tests.dir/src/tests/gtests_go.cpp.o: CMakeFiles/tests.dir/flags.make
+CMakeFiles/tests.dir/src/tests/gtests_go.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/tests/gtests_go.cpp
+CMakeFiles/tests.dir/src/tests/gtests_go.cpp.o: CMakeFiles/tests.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/tests.dir/src/tests/gtests_go.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/tests.dir/src/tests/gtests_go.cpp.o -MF CMakeFiles/tests.dir/src/tests/gtests_go.cpp.o.d -o CMakeFiles/tests.dir/src/tests/gtests_go.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/tests/gtests_go.cpp
 
-CMakeFiles/tests.dir/src/tests/gtests.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/tests.dir/src/tests/gtests.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/tests/gtests.cpp > CMakeFiles/tests.dir/src/tests/gtests.cpp.i
+CMakeFiles/tests.dir/src/tests/gtests_go.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/tests.dir/src/tests/gtests_go.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/tests/gtests_go.cpp > CMakeFiles/tests.dir/src/tests/gtests_go.cpp.i
 
-CMakeFiles/tests.dir/src/tests/gtests.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/tests.dir/src/tests/gtests.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/tests/gtests.cpp -o CMakeFiles/tests.dir/src/tests/gtests.cpp.s
+CMakeFiles/tests.dir/src/tests/gtests_go.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/tests.dir/src/tests/gtests_go.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/tests/gtests_go.cpp -o CMakeFiles/tests.dir/src/tests/gtests_go.cpp.s
 
 CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o: CMakeFiles/tests.dir/flags.make
-CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/tests/utils_unittest.cpp
+CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o: /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/tests/utils_unittest.cpp
 CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o: CMakeFiles/tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o -MF CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o.d -o CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/tests/utils_unittest.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o -MF CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o.d -o CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o -c /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/tests/utils_unittest.cpp
 
 CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/tests/utils_unittest.cpp > CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/tests/utils_unittest.cpp > CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.i
 
 CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito/src/tests/utils_unittest.cpp -o CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/src/tests/utils_unittest.cpp -o CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.s
 
 # Object files for target tests
 tests_OBJECTS = \
-"CMakeFiles/tests.dir/src/tests/gtests.cpp.o" \
+"CMakeFiles/tests.dir/src/tests/gtests_go.cpp.o" \
 "CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o"
 
 # External object files for target tests
 tests_EXTERNAL_OBJECTS = \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/CPUPipe.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/FastBoard.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/FastState.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/FullBoard.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/GTP.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/GameState.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/GameType.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/KoState.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/NNCache.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/Network.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/OpenCL.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/Random.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/SGFParser.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/SGFTree.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/SMP.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/TimeControl.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/Timing.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/Training.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/Tuner.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/UCTNode.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/UCTNodePointer.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/UCTSearch.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/Utils.cpp.o" \
-"/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/objs.dir/src/Zobrist.cpp.o"
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GameType.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/Random.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/SGFParser.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/SMP.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/Timing.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/Tuner.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/Utils.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/GTPGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.o" \
+"/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.o"
 
-tests: CMakeFiles/tests.dir/src/tests/gtests.cpp.o
+tests: CMakeFiles/tests.dir/src/tests/gtests_go.cpp.o
 tests: CMakeFiles/tests.dir/src/tests/utils_unittest.cpp.o
-tests: CMakeFiles/objs.dir/src/CPUPipe.cpp.o
-tests: CMakeFiles/objs.dir/src/FastBoard.cpp.o
-tests: CMakeFiles/objs.dir/src/FastState.cpp.o
-tests: CMakeFiles/objs.dir/src/FullBoard.cpp.o
-tests: CMakeFiles/objs.dir/src/GTP.cpp.o
-tests: CMakeFiles/objs.dir/src/GameState.cpp.o
 tests: CMakeFiles/objs.dir/src/GameType.cpp.o
-tests: CMakeFiles/objs.dir/src/KoState.cpp.o
-tests: CMakeFiles/objs.dir/src/NNCache.cpp.o
-tests: CMakeFiles/objs.dir/src/Network.cpp.o
-tests: CMakeFiles/objs.dir/src/OpenCL.cpp.o
-tests: CMakeFiles/objs.dir/src/OpenCLScheduler.cpp.o
 tests: CMakeFiles/objs.dir/src/Random.cpp.o
 tests: CMakeFiles/objs.dir/src/SGFParser.cpp.o
-tests: CMakeFiles/objs.dir/src/SGFTree.cpp.o
 tests: CMakeFiles/objs.dir/src/SMP.cpp.o
-tests: CMakeFiles/objs.dir/src/TimeControl.cpp.o
 tests: CMakeFiles/objs.dir/src/Timing.cpp.o
-tests: CMakeFiles/objs.dir/src/Training.cpp.o
 tests: CMakeFiles/objs.dir/src/Tuner.cpp.o
-tests: CMakeFiles/objs.dir/src/UCTNode.cpp.o
-tests: CMakeFiles/objs.dir/src/UCTNodePointer.cpp.o
-tests: CMakeFiles/objs.dir/src/UCTNodeRoot.cpp.o
-tests: CMakeFiles/objs.dir/src/UCTSearch.cpp.o
 tests: CMakeFiles/objs.dir/src/Utils.cpp.o
-tests: CMakeFiles/objs.dir/src/Zobrist.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/CPUPipeGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/FastBoardGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/FastStateGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/FullBoardGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/GTPGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/GameStateGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/KoStateGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/NNCacheGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/NetworkGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/OpenCLGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/OpenCLSchedulerGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/SGFTreeGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/TimeControlGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/TrainingGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/UCTNodeGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/UCTNodePointerGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/UCTNodeRootGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/UCTSearchGo.cpp.o
+tests: CMakeFiles/objs.dir/src/GO/ZobristGo.cpp.o
 tests: CMakeFiles/tests.dir/build.make
 tests: /opt/homebrew/lib/libboost_program_options.dylib
 tests: /opt/homebrew/lib/libboost_filesystem.dylib
@@ -171,7 +171,7 @@ tests: /opt/homebrew/lib/libboost_atomic.dylib
 tests: /opt/homebrew/lib/libboost_system.dylib
 tests: gtest/googlemock/gtest/libgtest.a
 tests: CMakeFiles/tests.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable tests"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/tests.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -183,6 +183,6 @@ CMakeFiles/tests.dir/clean:
 .PHONY : CMakeFiles/tests.dir/clean
 
 CMakeFiles/tests.dir/depend:
-	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/riccardoghizzoni/Desktop/leela-zero-unito /Users/riccardoghizzoni/Desktop/leela-zero-unito /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go /Users/riccardoghizzoni/Desktop/leela-zero-unito/build-go/CMakeFiles/tests.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go /Users/riccardoghizzoni/Desktop/leela-zero-unito-finito/build-go/CMakeFiles/tests.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/tests.dir/depend
 

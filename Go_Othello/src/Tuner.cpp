@@ -44,11 +44,11 @@
 #endif
 
 #if CURRENT_GAME == GAME_GO  
-#include "GTPGo.h"
-#include "OpenCLGo.h"
+#include "GO/GTPGo.h"
+#include "GO/OpenCLGo.h"
 #elif CURRENT_GAME == GAME_OTHELLO
-#include "GTPOthello.h"
-#include "OpenCLOthello.h"
+#include "OTHELLO/GTPOthello.h"
+#include "OTHELLO/OpenCLOthello.h"
 #else
 #error "Unsupported game selected"
 #endif

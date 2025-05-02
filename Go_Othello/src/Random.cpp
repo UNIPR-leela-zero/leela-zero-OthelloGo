@@ -36,9 +36,9 @@
 
 #include "Random.h"
 #if CURRENT_GAME == GAME_GO  
-#include "GTPGo.h"
+#include "GO/GTPGo.h"
 #elif CURRENT_GAME == GAME_OTHELLO
-#include "GTPOthello.h"
+#include "OTHELLO/GTPOthello.h"
 #endif
 #include "Utils.h"
 

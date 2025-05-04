@@ -43,15 +43,8 @@
 #include <Eigen/Dense>
 #endif
 
-#if CURRENT_GAME == GAME_GO  
-#include "GO/GTPGo.h"
-#include "GO/OpenCLGo.h"
-#elif CURRENT_GAME == GAME_OTHELLO
-#include "OTHELLO/GTPOthello.h"
-#include "OTHELLO/OpenCLOthello.h"
-#else
-#error "Unsupported game selected"
-#endif
+#include "GTP.h"
+#include "OpenCL.h"
 #include "Random.h"
 #include "Tuner.h"
 #include "Utils.h"
@@ -95,14 +88,12 @@ float getTunerMaxError<half_float::half>() {
 
 using namespace Utils;
 
-// Moltiplicazione di coppie di matrici in ingresso
 template <typename net_t>
 static void sgemmBatched_ref(const std::vector<net_t>& a,
                              const std::vector<net_t>& b,
                              std::vector<net_t>& c,
                              const int m, const int n, const int k,
                              const int batch_size) {
-    // Vettori temporanei per la copia di matrici
     std::vector<float> ar(a.size());
     std::vector<float> br(b.size());
     std::vector<float> cr(c.size());
@@ -110,7 +101,6 @@ static void sgemmBatched_ref(const std::vector<net_t>& a,
     std::copy(begin(a), end(a), begin(ar));
     std::copy(begin(b), end(b), begin(br));
 
-    // Calcolati gli offset corretti per accedere alle matrici
     for (auto batch = 0; batch < batch_size; batch++) {
         auto offset_u = batch * m * k;
         auto offset_v = batch * n * k;
@@ -226,8 +216,6 @@ Parameters Tuner<net_t>::get_parameters_by_int(
     Parameters param;
     std::vector<size_t> choices(opts.size());
 
-    // Per ogni parametro si contano le possibili scelte e
-    // vengono moltiplicate tra loro, per ottenere le configurazioni
     auto cfgs = 1;
     for (auto c = size_t{0}; c < opts.size(); c++) {
         choices[c] = opts[c].second.size();
@@ -246,11 +234,9 @@ Parameters Tuner<net_t>::get_parameters_by_int(
     return param;
 }
 
-// Restituisce una stringa contenente le definizioni del preprocessore
 template <typename net_t>
 std::string Tuner<net_t>::parameters_to_defines(const Parameters& p) {
     std::string s;
-    // Scorre tutti gli elementi della mappa p
     for (auto const& x : p) {
         s += " -D" + x.first + "=" + std::to_string(x.second);
     }
@@ -263,15 +249,12 @@ std::string Tuner<net_t>::parameters_to_string(const Parameters& p) {
     for (auto const& x : p) {
         s += x.first + "=" + std::to_string(x.second) + " ";
     }
-    // Eventualmente rimuove lo spazio extra aggiunto alla fine
-    // della stringa nell'ultimo ciclo del for
     if (s.size() > 0) {
         s.resize(s.size() - 1);
     }
     return s;
 }
 
-// Calcola la prossima potenza di 2 pi� grande di x 
 static size_t next_power_of_two(const size_t x) {
     return 2 << size_t(std::ceil(std::log2(x)) - 1);
 }
@@ -280,17 +263,13 @@ template <typename net_t>
 static void sgemm_generate_data(std::vector<net_t>& x, const int m, const int n,
                                 const int batch_size, const int m_ceil,
                                 const int n_ceil) {
-    // Scorre i batch di dati
     for (auto batch = 0; batch < batch_size; batch++) {
-        // Scorre le righe delle matrici
         for (auto i = 0; i < n_ceil; i++) {
             if (i < n) {
-                // Scorre le colonne della matrice
                 for (auto j = 0; j < m; j++) {
                     x[batch * n_ceil * m_ceil + i * m_ceil + j] =
                         (((i ^ j) + batch - 128) % 256) / 256.0f;
                 }
-                // Finisce di scorrere le colonne
                 for (auto j = m; j < m_ceil; j++) {
                     x[batch * n_ceil * m_ceil + i * m_ceil + j] = 0.0f;
                 }
@@ -303,8 +282,6 @@ static void sgemm_generate_data(std::vector<net_t>& x, const int m, const int n,
     }
 }
 
-// Compara i risultati della moltiplicazione tra matrici con risultati 
-// di riferimento per valutare l'accuratezza dell'algoritmo
 template <typename net_t>
 static float compare_ref(std::vector<net_t>& x, std::vector<net_t>& ref,
                          const int m, const int n, const int batch_size,
@@ -320,11 +297,9 @@ static float compare_ref(std::vector<net_t>& x, std::vector<net_t>& ref,
             }
         }
     }
-    // Errore quadratico medio
     return sum / (m * n * batch_size);
 }
 
-// Lista di configurazioni valide
 template <typename net_t>
 std::vector<Parameters> Tuner<net_t>::build_valid_params() {
     auto opts = std::vector<Configurations>();
@@ -405,11 +380,9 @@ std::vector<Parameters> Tuner<net_t>::build_valid_params() {
     auto build_from = [this, &valid_params](std::vector<Configurations>& opts,
                                             int tce) {
         auto cfgs = 1;
-        // Viene calcolato il numero totale di configurazioni possibili
         for (auto c = size_t{0}; c < opts.size(); c++) {
             cfgs *= opts[c].second.size();
         }
-        // Viene generato un insieme completo di parametri
         for (auto i = 0; i < cfgs; i++) {
             Parameters param = get_parameters_by_int(opts, i);
             param["TCE"] = tce;
@@ -441,7 +414,6 @@ std::string Tuner<net_t>::tune_sgemm(const int m, const int n, const int k,
     auto n_max = std::max(256, n);
     auto k_max = std::max(256, k);
 
-    // Vengono calcolate le dimensioni degli array che contengono le matrici
     auto at_size =
         batch_size * next_power_of_two(k_max) * next_power_of_two(m_max);
     auto b_size =
@@ -449,7 +421,6 @@ std::string Tuner<net_t>::tune_sgemm(const int m, const int n, const int k,
     auto c_size =
         batch_size * next_power_of_two(m_max) * next_power_of_two(n_max);
 
-    // Numero totale di operazioni in virgola mobile
     auto total_flops = batch_size * 2.0 * m * n * k;
 
     auto at = std::vector<net_t>(at_size);
@@ -457,13 +428,11 @@ std::string Tuner<net_t>::tune_sgemm(const int m, const int n, const int k,
     auto c = std::vector<net_t>(c_size);
     auto c_ref = std::vector<net_t>(c_size);
 
-    // Vengono generati casualmente i dati
     sgemm_generate_data(at, k, m, batch_size, k, m);
     sgemm_generate_data(b, n, k, batch_size, n, k);
 
     sgemmBatched_ref(at, b, c_ref, m, n, k, batch_size);
 
-    // Vengono caricati i buffer per memorizzare i dati delle matrici
     auto aBuffer = cl::Buffer(m_context, CL_MEM_READ_WRITE,
                               sizeof(net_t) * at_size, nullptr, nullptr);
     auto bBuffer = cl::Buffer(m_context, CL_MEM_READ_WRITE,
@@ -500,7 +469,6 @@ std::string Tuner<net_t>::tune_sgemm(const int m, const int n, const int k,
         auto defines = parameters_to_defines(p);
 
         try {
-            // Cerca di compilare il programma OpenCL con le difinizioni correnti
             auto args = m_opencl.m_cl_args + " " + defines;
             program.build(args.c_str());
         } catch (const cl::Error&) {
@@ -511,24 +479,19 @@ std::string Tuner<net_t>::tune_sgemm(const int m, const int n, const int k,
 
         auto sgemm_kernel = cl::Kernel(program, "XgemmBatched");
 
-        // Calcola dimensioni blocchi di lavoro sui parametri correnti
         auto m_ceil = int(ceilMultiple(ceilMultiple(m, p["MWG"]), p["VWM"]));
         auto n_ceil = int(ceilMultiple(ceilMultiple(n, p["NWG"]), p["VWN"]));
         auto k_ceil = int(ceilMultiple(ceilMultiple(k, p["KWG"]), p["VWM"]));
 
-        // Controlla se le dimensioni dei blocchi sono cambiate
         if (m_ceil != m_ceil_prev || n_ceil != n_ceil_prev
             || k_ceil != k_ceil_prev) {
-            // Aggiorna le dimensioni
             m_ceil_prev = m_ceil;
             n_ceil_prev = n_ceil;
             k_ceil_prev = k_ceil;
 
-            // Rigenera i dati per la moltiplicazione matriciale
             sgemm_generate_data(at, k, m, batch_size, k_ceil, m_ceil);
             sgemm_generate_data(b, n, k, batch_size, n_ceil, k_ceil);
 
-            // Scrive i dati ricalcolati nei buffer 
             queue.enqueueWriteBuffer(aBuffer, CL_FALSE, 0,
                                      at_size * sizeof(net_t), at.data());
             queue.enqueueWriteBuffer(bBuffer, CL_FALSE, 0,
@@ -536,8 +499,6 @@ std::string Tuner<net_t>::tune_sgemm(const int m, const int n, const int k,
             queue.finish();
         }
 
-        // Imposta gli argomenti del kernel OpenCL con le 
-        // dimensioni dei blocchi di lavoro e i buffer dei dati.
         sgemm_kernel.setArg(0, m_ceil);
         sgemm_kernel.setArg(1, n_ceil);
         sgemm_kernel.setArg(2, k_ceil);
@@ -545,8 +506,6 @@ std::string Tuner<net_t>::tune_sgemm(const int m, const int n, const int k,
         sgemm_kernel.setArg(4, bBuffer);
         sgemm_kernel.setArg(5, cBuffer);
 
-        // Calcola le dimensioni locali e globali per l'esecuzione 
-        // del kernel OpenCL in base ai parametri di configurazione.
         cl::NDRange local_sgemm = {p["MDIMC"], p["NDIMC"], 1};
 
         cl::NDRange size_sgemm = {(m_ceil * p["MDIMC"]) / p["MWG"],
@@ -564,10 +523,8 @@ std::string Tuner<net_t>::tune_sgemm(const int m, const int n, const int k,
         auto sum = 0.0f;
         auto error = 0.0f;
 
-        // Cicla attraverso ogni esecuzione
         for (auto r = 0; r < runs; r++) {
             try {
-                // Esegue il kernel e legge i risultati della memoria
                 queue.enqueueNDRangeKernel(sgemm_kernel, cl::NullRange,
                                            size_sgemm, local_sgemm, nullptr,
                                            &event);
@@ -578,8 +535,6 @@ std::string Tuner<net_t>::tune_sgemm(const int m, const int n, const int k,
                                         c_size * sizeof(net_t), c.data());
                 queue.finish();
 
-                // Calcola l'errore rispetto alla versione di riferimento
-                // e somma i tempi di esecuzione per tutte le iterazioni
                 auto this_error =
                     compare_ref(c, c_ref, n, m, batch_size, n_ceil, m_ceil);
                 error = std::max(error, this_error);
@@ -606,8 +561,6 @@ std::string Tuner<net_t>::tune_sgemm(const int m, const int n, const int k,
             failed_error++;
         }
 
-        // Errore inferiore al limite massimo e tempo di
-        // esecuzione migliore del precedente, aggiorna i parametri ottimali
         if (error < getTunerMaxError<net_t>()
             && (best_time == 0 || sum < best_time)) {
             auto param_str = parameters_to_string(p);
@@ -621,8 +574,6 @@ std::string Tuner<net_t>::tune_sgemm(const int m, const int n, const int k,
             best_params = defines;
         }
     }
-    // Gestisce il caso in cui nessuna configurazione funzionante 
-    // sia stata trovata e restituisce i parametri ottimali.
     if (best_time == 0) {
         if (failed_compile > 0) {
             myprintf_error("Failed to compile: %d kernels.\n", failed_compile);
@@ -642,12 +593,10 @@ std::string Tuner<net_t>::tune_sgemm(const int m, const int n, const int k,
     return best_params;
 }
 
-// Memorizza i tuner ottimizzati per il kernel SGEMM.
 template <typename net_t>
 void Tuner<net_t>::store_sgemm_tuners(const int m, const int n, const int k,
                                       const int batch_size,
                                       std::string tuners) {
-    // Ottiene il percorso del file dei tuner 
     auto tuner_file = leelaz_file(TUNER_FILE_LOCAL);
     auto file_contents = std::vector<std::string>();
     {
@@ -705,13 +654,10 @@ std::string Tuner<net_t>::sgemm_tuners_from_line(std::string line, const int m,
         return "";
     }
 
-    // Controlla se la versione del tuner nella riga corrisponde alla versione attuale. 
     if (s[0] != std::to_string(TUNER_VERSION)) {
         return "";
     }
 
-    // Controlla se i parametri m, n, k, e batch_size nella 
-    // riga corrispondono ai valori forniti (da s[1] a s[5])
     if (s[1] != getTunerKernel<net_t>()) {
         return "";
     }
@@ -732,8 +678,6 @@ std::string Tuner<net_t>::sgemm_tuners_from_line(std::string line, const int m,
         return "";
     }
 
-    // Verifica se il nome del dispositivo OpenCL nella 
-    // riga corrisponde al nome del dispositivo attuale.
     if (s[7] != m_opencl.get_device_name()) {
         return "";
     }

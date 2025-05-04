@@ -37,13 +37,7 @@
 #include <string>
 #include <vector>
 
-#if CURRENT_GAME == GAME_GO  
-#include "GO/SGFTreeGo.h"
-#elif CURRENT_GAME == GAME_OTHELLO
-#include "OTHELLO/SGFTreeOthello.h"
-#else
-#error "Unsupported game selected"
-#endif
+#include "SGFTree.h"
 
 class SGFParser {
 private:

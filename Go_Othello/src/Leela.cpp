@@ -41,7 +41,7 @@
 #include <string>
 #include <vector>
 
-/*#include "GTP.h"
+#include "GTP.h"
 #include "GameState.h"
 #include "NNCache.h"
 #include "Network.h"
@@ -49,44 +49,18 @@
 #include "ThreadPool.h"
 #include "Utils.h"
 #include "Zobrist.h"
-*/
-
-#include "GameType.h"
-#if CURRENT_GAME == GAME_GO  
-#include "GO/GTPGo.h"
-#include "GO/GameStateGo.h"
-#include "GO/NNCacheGo.h"
-#include "GO/NetworkGo.h"
-#include "Random.h"
-#include "ThreadPool.h"
-#include "Utils.h"
-#include "GO/ZobristGo.h"
-
-#elif CURRENT_GAME == GAME_OTHELLO
-#include "OTHELLO/GTPOthello.h"
-#include "OTHELLO/GameStateOthello.h"
-#include "OTHELLO/NNCacheOthello.h"
-#include "OTHELLO/NetworkOthello.h"
-#include "Random.h"
-#include "ThreadPool.h"
-#include "Utils.h"
-#include "OTHELLO/ZobristOthello.h"
-#else
-#error "Unsupported game selected"
-#endif
 
 using namespace Utils;
 
 static void license_blurb() {
     printf(
-        "Leela Zero %s  Copyright (C) 2017-2019  Gian-Carlo Pascutto and contributors and Epimetheus\n"
+        "Leela Zero %s  Copyright (C) 2017-2019  Gian-Carlo Pascutto and contributors\n"
         "This program comes with ABSOLUTELY NO WARRANTY.\n"
         "This is free software, and you are welcome to redistribute it\n"
         "under certain conditions; see the COPYING file for details.\n\n",
         PROGRAM_VERSION);
 }
 
-//Decides how many threads should be used
 static void calculate_thread_count_cpu(
     boost::program_options::variables_map& vm) {
     // If we are CPU-based, there is no point using more than the number of CPUs.
@@ -104,7 +78,6 @@ static void calculate_thread_count_cpu(
     }
 }
 
-//Decides on thread count if it's allowed to use the gpu
 #ifdef USE_OPENCL
 static void calculate_thread_count_gpu(
     boost::program_options::variables_map& vm) {
@@ -160,24 +133,8 @@ static void calculate_thread_count_gpu(
 }
 #endif
 
-//Parses the command line options specified when launching the program, including time management options, modes, and calls the thread number calculation functions
 static void parse_commandline(const int argc, const char* const argv[]) {
     namespace po = boost::program_options;
-
-    for (int i = 1; i < argc; ++i) {
-        if (std::string(argv[i]) == "--game" && i + 1 < argc) {
-            std::string game(argv[++i]);
-            if (game == "othello") {
-                CURRENT_GAME = GameType::OTHELLO;
-            } else if (game == "go") {
-                CURRENT_GAME = GameType::GO;
-            } else {
-                std::cerr << "Errore: gioco non riconosciuto: " << game << std::endl;
-                exit(EXIT_FAILURE);
-            }
-        }
-    }
-    
     // Declare the supported options.
     po::options_description gen_desc("Generic options");
     gen_desc.add_options()
@@ -535,7 +492,6 @@ static void parse_commandline(const int argc, const char* const argv[]) {
     cfg_options_str = out.str();
 }
 
-//This function initializes the network and the GTP interface passing the network to it
 static void initialize_network() {
     auto network = std::make_unique<Network>();
     auto playouts = std::min(cfg_max_playouts, cfg_max_visits);
@@ -562,7 +518,6 @@ void init_global_objects() {
     initialize_network();
 }
 
-//Benchmarks the decision making algorithm
 void benchmark(GameState& game) {
     game.set_timecontrol(0, 1, 0, 0); // Set infinite time.
     game.play_textmove("b", "r16");
@@ -574,7 +529,6 @@ void benchmark(GameState& game) {
     search->think(FastBoard::WHITE);
 }
 
-//Entry point for the program: parses the command line, initiates global objects including the network and the gtp, then creates the gamestate object (actual board)
 int main(int argc, char* argv[]) {
     // Set up engine parameters
     GTP::setup_default_parameters();
@@ -608,7 +562,7 @@ int main(int argc, char* argv[]) {
         return 0;
     }
 
-    for (;;) { //program loop
+    for (;;) {
         if (!cfg_gtp_mode) {
             maingame->display_state();
             std::cout << "Leela: ";

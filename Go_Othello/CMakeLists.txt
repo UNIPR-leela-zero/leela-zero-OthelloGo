@@ -18,33 +18,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 include(GNUInstallDirs)
 
 project(leelaz)
-
-option(CURRENT_GAME "Game to compile (GAME_GO or GAME_OTHELLO)" "GAME_GO")
-
-# Visual Studio project filters handling (only for Windows/MSVC)
-if(MSVC)
-    if(CURRENT_GAME STREQUAL "GAME_GO")
-        configure_file(msvc/VS2017/leela-zeroGo.vcxproj ${CMAKE_BINARY_DIR}/leela-zero.vcxproj COPYONLY)
-        configure_file(msvc/VS2017/leela-zero.vcxprojGo.filters ${CMAKE_BINARY_DIR}/leela-zero.vcxproj.filters COPYONLY)
-        configure_file(msvc/VS2017/autogtpGo.vcxproj ${CMAKE_BINARY_DIR}/autogtp.vcxproj COPYONLY)
-    elseif(CURRENT_GAME STREQUAL "GAME_OTHELLO")
-        configure_file(msvc/VS2017/leela-zeroOthello.vcxproj ${CMAKE_BINARY_DIR}/leela-zero.vcxproj COPYONLY)
-        configure_file(msvc/VS2017/leela-zero.vcxprojOthello.filters ${CMAKE_BINARY_DIR}/leela-zero.vcxproj.filters COPYONLY)
-        configure_file(msvc/VS2017/autogtpOthello.vcxproj ${CMAKE_BINARY_DIR}/autogtp.vcxproj COPYONLY)
-    endif()
-endif()
-
-
-if(CURRENT_GAME STREQUAL "GAME_OTHELLO")
-    message(STATUS "Compiling for Othello")
-    add_definitions(-DUSE_OTHELLO)
-    add_definitions(-DCURRENT_GAME=GAME_OTHELLO)
-else()
-    message(STATUS "Compiling for Go")
-    add_definitions(-DCURRENT_GAME=GAME_GO)
-endif()
-
-
 add_subdirectory(gtest EXCLUDE_FROM_ALL) # We don't want to install gtest, exclude it from `all`
 
 # Required Packages
@@ -78,6 +51,20 @@ find_package(Qt5Core)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
+
+# === Game selection: Go or Othello ===
+option(USE_GO "Build Leela Zero for Go" OFF)
+option(USE_OTHELLO "Build Leela Zero for Othello" OFF)
+
+if(USE_GO AND USE_OTHELLO)
+    message(FATAL_ERROR "Cannot enable both USE_GO and USE_OTHELLO at the same time.")
+endif()
+
+if(USE_GO)
+    add_definitions(-DUSE_GO)
+elseif(USE_OTHELLO)
+    add_definitions(-DUSE_OTHELLO)
+endif()
 
 # See if we can set optimization flags as expected.
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
@@ -129,20 +116,11 @@ if(APPLE)
 endif()
 
 set(leelaz_MAIN "${SrcPath}/Leela.cpp")
-file(GLOB COMMON_SRC "${SrcPath}/*.cpp")
+file(GLOB leelaz_SRC "${SrcPath}/*.cpp")
+list(REMOVE_ITEM leelaz_SRC ${leelaz_MAIN})
 
-if(CURRENT_GAME STREQUAL "GAME_OTHELLO")
-    file(GLOB GAME_SRC "${SrcPath}/OTHELLO/*.cpp")
-    include_directories("${SrcPath}/OTHELLO")
-else()
-    file(GLOB GAME_SRC "${SrcPath}/GO/*.cpp")
-    include_directories("${SrcPath}/GO")
-endif()
-
-set(leelaz_MAIN "${SrcPath}/Leela.cpp")
-list(REMOVE_ITEM COMMON_SRC ${leelaz_MAIN})
-
-add_library(objs OBJECT ${COMMON_SRC} ${GAME_SRC})
+# Reuse for leelaz and gtest
+add_library(objs OBJECT ${leelaz_SRC})
 
 add_executable(leelaz $<TARGET_OBJECTS:objs> ${leelaz_MAIN})
 
@@ -165,21 +143,10 @@ else()
     message(WARNING "Qt is not found, build for `autogtp` and `validation` is disabled")
 endif()
 
-# Google Test: seleziona i test in base al gioco corrente
-if(CURRENT_GAME STREQUAL "GAME_GO")
-    set(TESTS_SRC
-        ${SrcPath}/tests/gtests_go.cpp
-        ${SrcPath}/tests/utils_unittest.cpp
-    )
-elseif(CURRENT_GAME STREQUAL "GAME_OTHELLO")
-    set(TESTS_SRC
-        ${SrcPath}/tests/gtests_othello.cpp
-        ${SrcPath}/tests/utils_unittest.cpp
-    )
-endif()
+# Google Test below
+file(GLOB tests_SRC "${SrcPath}/tests/*.cpp")
 
-add_executable(tests ${TESTS_SRC} $<TARGET_OBJECTS:objs>)
-
+add_executable(tests ${tests_SRC} $<TARGET_OBJECTS:objs>)
 if(GccSpecificFlags)
   target_compile_options(tests PRIVATE "-Wno-unused-variable")
 endif()

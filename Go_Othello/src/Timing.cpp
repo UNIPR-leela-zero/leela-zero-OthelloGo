@@ -31,18 +31,15 @@
 
 #include "Timing.h"
 
-// Calcola la differenza di tempo (in centesimi di secondo) tra start ed end.
 int Time::timediff_centis(const Time start, const Time end) {
     return std::chrono::duration_cast<std::chrono::milliseconds>
         (end.m_time - start.m_time).count() / 10;
 }
 
-// Calcola la differenza di tempo (in secondi) tra start ed end.
 double Time::timediff_seconds(const Time start, const Time end) {
     return std::chrono::duration<double>(end.m_time - start.m_time).count();
 }
 
-// Rappresenta il momento della creazione di un oggetto di tipo Time.
 Time::Time() {
     m_time = std::chrono::steady_clock::now();
 }

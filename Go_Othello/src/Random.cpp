@@ -35,11 +35,8 @@
 #include <thread>
 
 #include "Random.h"
-#if CURRENT_GAME == GAME_GO  
-#include "GO/GTPGo.h"
-#elif CURRENT_GAME == GAME_OTHELLO
-#include "OTHELLO/GTPOthello.h"
-#endif
+
+#include "GTP.h"
 #include "Utils.h"
 
 Random& Random::get_Rng() {

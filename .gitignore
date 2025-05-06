@@ -1,6 +1,55 @@
-leelaz
-*.o
+# Prerequisites
 *.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# CMake build directories
+build/
+/build-autogtp-*
+/build-validation-*
+.vs/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+CTestTestfile.cmake
+
+# macOS
+.DS_Store
+
+# Eseguibili locali
+leelaz
+tests
+
+
 .vscode/settings.json
 training/tf/leelalogs
 training/tf/checkpoint
@@ -8,7 +57,4 @@ training/tf/venv
 leelaz-model*
 *.orig
 leelaz_opencl_tuning
-/build-autogtp-*
-/build-validation-*
-.vs/
-build/
+

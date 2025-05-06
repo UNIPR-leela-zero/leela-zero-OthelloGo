@@ -1,3 +1,23 @@
+# Leela Zero Go-Othello (Project by University of Parma)
+
+A modified version of Leela Zero for playing both Go and Othello.
+
+## 📌 Objective
+
+- Allow the user to play both Go and Othello
+- Train a neural network
+- Collaborate via Pull Request
+
+## 🚀 Setup
+
+```bash
+git clone https://github.com/<org-name>/leela-zero-othello.git
+cd leela-zero-othello
+git submodule update --init --recursive
+
+See detailed instruction in the original README of the Leela Zero project below.
+
+
 [![Linux Build Status](https://travis-ci.org/leela-zero/leela-zero.svg?branch=next)](https://travis-ci.org/leela-zero/leela-zero)
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/dcvp31x1e0yavrtf/branch/next?svg=true)](https://ci.appveyor.com/project/gcp/leela-zero-8arv1/branch/next)
 

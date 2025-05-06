@@ -125,6 +125,7 @@ void FastBoard::set_state(const int x, const int y,
 // Resets the board to zero given the size.
 void FastBoard::reset_board(const int size) {
     m_boardsize = size;
+
     // Adds two to account for borders.
     m_sidevertices = size + 2;
     m_numvertices = m_sidevertices * m_sidevertices;
@@ -134,24 +135,49 @@ void FastBoard::reset_board(const int size) {
     // Counts the empty vertices.
     m_empty_cnt = 0;
 
-    // Directions
+#ifdef USE_GO
+    m_prisoners[BLACK] = 0; // Go only
+    m_prisoners[WHITE] = 0;
+#endif
+
+#ifdef USE_GO
+    // Orthogonal directions (Go only)
     m_dirs[0] = -m_sidevertices;
     m_dirs[1] = +1;
     m_dirs[2] = +m_sidevertices;
     m_dirs[3] = -1;
+#else // USE_OTHELLO
+    // Directions in all 8 directions (needed for Othello)
+    m_dirs[0] = -m_sidevertices;
+    m_dirs[1] = -m_sidevertices + 1;
+    m_dirs[2] = +1;
+    m_dirs[3] = +m_sidevertices + 1;
+    m_dirs[4] = +m_sidevertices;
+    m_dirs[5] = +m_sidevertices - 1;
+    m_dirs[6] = -1;
+    m_dirs[7] = -m_sidevertices - 1;
+#endif
 
     // Sets up all the vertices as invalid.
     for (int i = 0; i < m_numvertices; i++) {
         m_state[i] = INVAL;
         m_neighbours[i] = 0;
-        m_parent[i] = NUM_VERTICES;
+#ifdef USE_GO
+        m_parent[i] = NUM_VERTICES; // Go only
+#endif
     }
+
+#ifdef USE_OTHELLO
+    std::array<int, 4> center_piece_position; // only for Othello: save the coordinates of the 4 central pawns
+    int count = 0;
+#endif
 
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             int vertex = get_vertex(i, j);
 
-            // Sets up the vertex state as empty.
+#ifdef USE_GO
+            // Go: initialize everything as empty
             m_state[vertex] = EMPTY;
             // Since m_empty_cnt is used as the position in the
             // m_empty vector, where all the empty vertexes are
@@ -161,8 +187,23 @@ void FastBoard::reset_board(const int size) {
             // Adds the vertex to the list of empty ones, then
             // increased the m_empty_cnt value.
             m_empty[m_empty_cnt++] = vertex;
+#else // USE_OTHELLO
+            // Othello: Set the 4 central pieces and the rest empty
+            if ((i == size / 2 - 1 && j == size / 2 - 1) || (i == size / 2 && j == size / 2)) {
+                m_state[vertex] = BLACK; // initial black pawns
+                center_piece_position[count++] = vertex;
+            } else if ((i == size / 2 && j == size / 2 - 1) || (i == size / 2 - 1 && j == size / 2)) {
+                m_state[vertex] = WHITE; // initial white pawns
+                center_piece_position[count++] = vertex;
+            } else {
+                m_state[vertex] = EMPTY;
+                m_empty_idx[vertex] = m_empty_cnt;
+                m_empty[m_empty_cnt++] = vertex;
+            }
+#endif
 
             // Checks if it's on the top or bottom edge.
+            // edge management for both games
             if (i == 0 || i == size - 1) {
                 m_neighbours[vertex] += (1 << (NBR_SHIFT * BLACK))
                                       | (1 << (NBR_SHIFT * WHITE));
@@ -186,12 +227,24 @@ void FastBoard::reset_board(const int size) {
         }
     }
 
-    m_parent[NUM_VERTICES] = NUM_VERTICES;
-    m_libs[NUM_VERTICES] = 16384; /* we will subtract from this */
-    m_next[NUM_VERTICES] = NUM_VERTICES;
+#ifdef USE_OTHELLO
+    // Update the neighbors of the 4 central pawns in Othello
+    for (int i = 0; i < count; i++) {
+        auto piece = center_piece_position[i];
+        add_neighbour(piece, m_state[piece]);
+    }
+#endif
 
-    assert(m_state[NO_VERTEX] == INVAL);
+#ifdef USE_GO
+    // Go only: Initializing group/freedom structures
+    m_parent[NUM_VERTICES] = NUM_VERTICES;
+    m_libs[NUM_VERTICES] = 16384; // we will subtract from this
+    m_next[NUM_VERTICES] = NUM_VERTICES;
+#endif
+
+    assert(m_state[NO_VERTEX] == INVAL); // final check valid in both games
 }
+
 
 // Checks if placing a stone at vertex 'i' by player of 'color' would
 // result in a suicide move.

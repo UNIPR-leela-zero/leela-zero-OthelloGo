@@ -42,20 +42,30 @@
 #endif
 
 /*
- * BOARD_SIZE: Define size of the board to compile Leela with, must be an odd
-   number due to winograd tiles
+ * IS_OTHELLO: Compile‑time switch selecting the game.
+ *   false → Go (default)
+ *   true  → Othello/Reversi
  */
-static constexpr auto BOARD_SIZE = 19;
-static_assert(BOARD_SIZE % 2 == 1,
+static constexpr bool IS_OTHELLO = true;
+
+/*
+ * BOARD_SIZE: Edge length of the square board.
+ *   Go      → 19×19 (odd, required by Winograd tiles)
+ *   Othello →  8×8  (even)
+ */
+static constexpr auto BOARD_SIZE = IS_OTHELLO ? 8 : 19;
+static_assert(IS_OTHELLO || (BOARD_SIZE % 2 == 1),
               "Code assumes odd board size, remove at your own risk!");
 
 static constexpr auto NUM_INTERSECTIONS = BOARD_SIZE * BOARD_SIZE;
 static constexpr auto POTENTIAL_MOVES = NUM_INTERSECTIONS + 1; // including pass
 
 /*
- * KOMI: Define the default komi to use when training.
+ * KOMI: Default komi/handicap.
+ *   Go      → 7.5 points
+ *   Othello → 0.5 (avoids draws during self‑play)
  */
-static constexpr auto KOMI = 7.5f;
+static constexpr auto KOMI = IS_OTHELLO ? 0.5f : 7.5f;
 
 /*
  * Features

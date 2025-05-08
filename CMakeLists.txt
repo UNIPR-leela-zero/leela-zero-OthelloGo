@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Leela Zero.  If not, see <http://www.gnu.org/licenses/>.
 
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.5)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 include(GNUInstallDirs)
@@ -49,7 +49,7 @@ message(STATUS "Using built-in matrix library.")
 endif()
 find_package(Qt5Core)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 
 # See if we can set optimization flags as expected.

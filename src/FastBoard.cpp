@@ -151,16 +151,31 @@ void FastBoard::reset_board(const int size) {
         for (int j = 0; j < size; j++) {
             int vertex = get_vertex(i, j);
 
-            // Sets up the vertex state as empty.
-            m_state[vertex] = EMPTY;
-            // Since m_empty_cnt is used as the position in the
-            // m_empty vector, where all the empty vertexes are
-            // stored, you can use this to find the index of the
-            // vertex in m_empty.
-            m_empty_idx[vertex] = m_empty_cnt;
-            // Adds the vertex to the list of empty ones, then
-            // increased the m_empty_cnt value.
-            m_empty[m_empty_cnt++] = vertex;
+            if constexpr (IS_OTHELLO) {
+                if ((i == size / 2 - 1 && j == size / 2 - 1) || (i == size / 2 && j == size / 2)) {
+                    //Place two black pawns (BLACK) in the centre
+                    m_state[vertex] = BLACK; 
+                } else if ((i == size / 2 && j == size / 2 - 1) || (i == size / 2 - 1 && j == size / 2)) {
+                    //Place two white pawns (WHITE) in the centre
+                    m_state[vertex] = WHITE; 
+                } else { 
+                    //The other boxes are initialised as empty (EMPTY).
+                    m_state[vertex] = EMPTY;
+                    m_empty_idx[vertex] = m_empty_cnt;
+                    m_empty[m_empty_cnt++] = vertex; 
+                }
+            } else { //
+                // Sets up the vertex state as empty.
+                m_state[vertex] = EMPTY;
+                // Since m_empty_cnt is used as the position in the
+                // m_empty vector, where all the empty vertexes are
+                // stored, you can use this to find the index of the
+                // vertex in m_empty.
+                m_empty_idx[vertex] = m_empty_cnt;
+                // Adds the vertex to the list of empty ones, then
+                // increased the m_empty_cnt value.
+                m_empty[m_empty_cnt++] = vertex;
+            }
 
             // Checks if it's on the top or bottom edge.
             if (i == 0 || i == size - 1) {

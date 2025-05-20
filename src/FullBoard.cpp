@@ -167,59 +167,96 @@ int FullBoard::update_board(const int color, const int i) {
     /* update neighbor liberties (they all lose 1) */
     add_neighbour(i, color);
 
-    /* did we play into an opponent eye? */
     auto eyeplay = (m_neighbours[i] & s_eyemask[!color]);
-
     auto captured_stones = 0;
     int captured_vtx;
 
-    for (int k = 0; k < 4; k++) {
+    /* did we play into an opponent eye? */
+    if constexpr (!IS_OTHELLO) {
+        for (int k = 0; k < 4; k++) {
         int ai = i + m_dirs[k];
 
-        if (m_state[ai] == !color) {
-            if (m_libs[m_parent[ai]] <= 0) {
-                int this_captured = remove_string(ai);
-                captured_vtx = ai;
-                captured_stones += this_captured;
-            }
-        } else if (m_state[ai] == color) {
-            int ip = m_parent[i];
-            int aip = m_parent[ai];
+            if (m_state[ai] == !color) {
+                if (m_libs[m_parent[ai]] <= 0) {
+                    int this_captured = remove_string(ai);
+                    captured_vtx = ai;
+                    captured_stones += this_captured;
+                }
+            } else if (m_state[ai] == color) {
+                int ip = m_parent[i];
+                int aip = m_parent[ai];
 
-            if (ip != aip) {
-                if (m_stones[ip] >= m_stones[aip]) {
-                    merge_strings(ip, aip);
-                } else {
-                    merge_strings(aip, ip);
+                if (ip != aip) {
+                    if (m_stones[ip] >= m_stones[aip]) {
+                        merge_strings(ip, aip);
+                    } else {
+                        merge_strings(aip, ip);
+                    }
                 }
             }
         }
-    }
 
     m_hash ^= Zobrist::zobrist_pris[color][m_prisoners[color]];
     m_prisoners[color] += captured_stones;
     m_hash ^= Zobrist::zobrist_pris[color][m_prisoners[color]];
+    } else {
+        for (int k = 0; k < 8; k++) {
+            int tmp_vtx = i;
+            tmp_vtx += m_dirs[k];
 
+            if ((m_state[i] == BLACK && m_state[tmp_vtx] == WHITE) || (m_state[i] == WHITE && m_state[tmp_vtx] == BLACK)) {
+                
+                while (!(m_state[tmp_vtx] == INVAL || m_state[tmp_vtx] == EMPTY)) {
+                    assert(tmp_vtx > 0 && tmp_vtx < NUM_VERTICES);
+                    tmp_vtx += m_dirs[k];
+
+                    if (m_state[tmp_vtx] == m_state[i]) { //we found a vertex of the same color as the original after a streak of the opposing color
+                        flip(i, tmp_vtx, k);
+                        break;
+                    }
+
+                }
+            }
+        }
+    }
     /* move last vertex in list to our position */
     auto lastvertex = m_empty[--m_empty_cnt];
     m_empty_idx[lastvertex] = m_empty_idx[i];
     m_empty[m_empty_idx[i]] = lastvertex;
 
-    /* check whether we still live (i.e. detect suicide) */
-    if (m_libs[m_parent[i]] == 0) {
-        assert(captured_stones == 0);
-        remove_string(i);
+    if constexpr (!IS_OTHELLO) {
+            /* check whether we still live (i.e. detect suicide) */
+        if (m_libs[m_parent[i]] == 0) {
+            assert(captured_stones == 0);
+            remove_string(i);
+        }
+
+        /* check for possible simple ko */
+        if (captured_stones == 1 && eyeplay) {
+            assert(get_state(captured_vtx) == FastBoard::EMPTY
+                && !is_suicide(captured_vtx, !color));
+            return captured_vtx;
+        }
+
+        // No ko
+        return NO_VERTEX;
+        }
     }
 
-    /* check for possible simple ko */
-    if (captured_stones == 1 && eyeplay) {
-        assert(get_state(captured_vtx) == FastBoard::EMPTY
-               && !is_suicide(captured_vtx, !color));
-        return captured_vtx;
-    }
+//flips all vertexes from starting to end in direction d; if you can't get from start to end through direction dir, segmentation fault
+void FullBoard::flip(const int starting, const int end, const int dir) {
+    
+    auto color = m_state[starting];
 
-    // No ko
-    return NO_VERTEX;
+    int tmp = starting+m_dirs[dir];
+    assert(tmp > 0 && tmp < NUM_VERTICES);
+    while (tmp != end) {
+        assert(tmp > 0 && tmp < NUM_VERTICES);
+        m_state[tmp] = color;
+        flip_neighbour(tmp, color);
+        tmp += m_dirs[dir];
+    }
+    
 }
 
 void FullBoard::display_board(const int lastmove) {

@@ -176,7 +176,7 @@ void FastBoard::reset_board(const int size) {
                 // increased the m_empty_cnt value.
                 m_empty[m_empty_cnt++] = vertex;
             }
-
+            
             // Checks if it's on the top or bottom edge.
             if (i == 0 || i == size - 1) {
                 m_neighbours[vertex] += (1 << (NBR_SHIFT * BLACK))
@@ -290,6 +290,23 @@ void FastBoard::add_neighbour(const int vtx, const int color) {
             nbr_pars[nbr_par_cnt++] = m_parent[ai];
         }
     }
+}
+
+void FastBoard::flip_neighbour(const int vtx, const int color) { //instead of removing empty spaces when adding a new pawn, we want to flip to the new color
+    assert(color == WHITE || color == BLACK || color == EMPTY);
+    
+    for (int k = 0; k < 8; k++) {
+        int ai = vtx + m_dirs[k]; //iterates on its neighbours
+        if (color == BLACK) {
+            m_neighbours[ai] += (1 << (NBR_SHIFT * color))
+                - (1 << (NBR_SHIFT * WHITE)); //removes a white, adds a black
+        }
+        if (color == WHITE) {
+            m_neighbours[ai] += (1 << (NBR_SHIFT * color))
+                - (1 << (NBR_SHIFT * BLACK)); //removes a black, adds a white
+        }
+    }
+    
 }
 
 // Removes a vertex, which means it needs to update all its neighbors' data.

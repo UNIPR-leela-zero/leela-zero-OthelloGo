@@ -50,6 +50,7 @@ public:
 
     std::uint64_t calc_hash(int komove = NO_VERTEX) const;
     std::uint64_t calc_symmetry_hash(int komove, int symmetry) const;
+    void flip(int starting, int end, int dir);
     std::uint64_t calc_ko_hash() const;
 
     std::uint64_t m_hash;

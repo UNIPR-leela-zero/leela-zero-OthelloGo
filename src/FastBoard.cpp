@@ -135,10 +135,16 @@ void FastBoard::reset_board(const int size) {
     m_empty_cnt = 0;
 
     // Directions
-    m_dirs[0] = -m_sidevertices;
-    m_dirs[1] = +1;
-    m_dirs[2] = +m_sidevertices;
-    m_dirs[3] = -1;
+    m_dirs[0] = -m_sidevertices;          //N
+    m_dirs[1] = +1;                       //E
+    m_dirs[2] = +m_sidevertices;          //S
+    m_dirs[3] = -1;                       //W
+    if (IS_OTHELLO) {
+    m_dirs[4] = -m_sidevertices + 1;      // NE
+    m_dirs[5] = +m_sidevertices + 1;      // SE
+    m_dirs[6] = +m_sidevertices - 1;      // SW
+    m_dirs[7] = -m_sidevertices - 1;      // NW
+}
 
     // Sets up all the vertices as invalid.
     for (int i = 0; i < m_numvertices; i++) {

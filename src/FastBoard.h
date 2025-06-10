@@ -119,7 +119,7 @@ protected:
     std::array<unsigned short, NUM_VERTICES + 1> m_libs;       /* liberties per string parent */
     std::array<unsigned short, NUM_VERTICES + 1> m_stones;     /* stones per string parent */
     std::array<unsigned short, NUM_VERTICES>     m_neighbours; /* counts of neighboring stones */
-    std::array<int, IS_OTHELLO ? 8 : 4>                           m_dirs;       /* movement directions 4 way */
+    std::array<int, IS_OTHELLO ? 8 : 4>          m_dirs;       /* movement directions 4 way */
     std::array<int, 2>                           m_prisoners;  /* prisoners per color */
     std::array<unsigned short, NUM_VERTICES>     m_empty;      /* empty intersections */
     std::array<unsigned short, NUM_VERTICES>     m_empty_idx;  /* intersection indices */

@@ -205,7 +205,6 @@ int FullBoard::update_board(const int color, const int i) {
             tmp_vtx += m_dirs[k];
 
             if ((m_state[i] == BLACK && m_state[tmp_vtx] == WHITE) || (m_state[i] == WHITE && m_state[tmp_vtx] == BLACK)) {
-                
                 while (!(m_state[tmp_vtx] == INVAL || m_state[tmp_vtx] == EMPTY)) {
                     assert(tmp_vtx > 0 && tmp_vtx < NUM_VERTICES);
                     tmp_vtx += m_dirs[k];
@@ -225,7 +224,7 @@ int FullBoard::update_board(const int color, const int i) {
     m_empty[m_empty_idx[i]] = lastvertex;
 
     if constexpr (!IS_OTHELLO) {
-            /* check whether we still live (i.e. detect suicide) */
+      /* check whether we still live (i.e. detect suicide) */
         if (m_libs[m_parent[i]] == 0) {
             assert(captured_stones == 0);
             remove_string(i);
@@ -242,9 +241,10 @@ int FullBoard::update_board(const int color, const int i) {
     return NO_VERTEX;
 }
 
-//flips all vertexes from starting to end in direction d; if you can't get from start to end through direction dir, segmentation fault
+// flips all vertexes from starting to end in direction d; if you
+// can't get from start to end through direction dir, segmentation
+// fault
 void FullBoard::flip(const int starting, const int end, const int dir) {
-    
     auto color = m_state[starting];
 
     int tmp = starting+m_dirs[dir];
@@ -255,7 +255,6 @@ void FullBoard::flip(const int starting, const int end, const int dir) {
         flip_neighbour(tmp, color);
         tmp += m_dirs[dir];
     }
-    
 }
 
 void FullBoard::display_board(const int lastmove) {

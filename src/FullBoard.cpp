@@ -237,11 +237,10 @@ int FullBoard::update_board(const int color, const int i) {
                 && !is_suicide(captured_vtx, !color));
             return captured_vtx;
         }
-
-        // No ko
-        return NO_VERTEX;
-        }
     }
+    // No ko
+    return NO_VERTEX;
+}
 
 //flips all vertexes from starting to end in direction d; if you can't get from start to end through direction dir, segmentation fault
 void FullBoard::flip(const int starting, const int end, const int dir) {

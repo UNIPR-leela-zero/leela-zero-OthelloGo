@@ -357,11 +357,15 @@ int FastBoard::calc_reach_color(const int color) const {
             auto vertex = get_vertex(i, j);
             if (m_state[vertex] == color) {
                 reachable++;
-                bd[vertex] = true;
-                open.push(vertex);
+                if (!IS_OTHELLO) {
+                    bd[vertex] = true;
+                    open.push(vertex);
+                }
+                
             }
         }
     }
+    if (!IS_OTHELLO) {
     // For each vertex we found on the board with the color we're looking for.
     while (!open.empty()) {
         /* colored field, spread */
@@ -381,6 +385,8 @@ int FastBoard::calc_reach_color(const int color) const {
             }
         }
     }
+    }
+    
     return reachable;
 }
 

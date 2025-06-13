@@ -47,6 +47,8 @@ public:
 
     void reset_board(int size);
     void display_board(int lastmove = -1);
+    bool legal_moves_present(int color) const;
+    bool is_play_legal(int color, int i) const;
 
     std::uint64_t calc_hash(int komove = NO_VERTEX) const;
     std::uint64_t calc_symmetry_hash(int komove, int symmetry) const;

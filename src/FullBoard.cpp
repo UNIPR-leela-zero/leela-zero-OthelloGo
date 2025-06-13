@@ -256,7 +256,39 @@ void FullBoard::flip(const int starting, const int end, const int dir) {
         tmp += m_dirs[dir];
     }
 }
+//checks if a play is legal
+bool FullBoard::is_play_legal(const int color, const int i) const {
+    int opp = FastBoard::opposite_color(color);
+    for (int k = 0; k < 8; k++) {
+        int tmp_vtx = i;
+        tmp_vtx += m_dirs[k];
+        if ( m_state[tmp_vtx] == opp) {
+            while (!(m_state[tmp_vtx] == INVAL || m_state[tmp_vtx] == EMPTY)) {
+                assert(tmp_vtx > 0 && tmp_vtx < NUM_VERTICES);
+                tmp_vtx += m_dirs[k];
+                if (m_state[tmp_vtx] == color) { //we found a vertex of the same color as the original after a streak of the opposing color
+                    return true;
+                }
 
+            }
+        }
+    }
+
+    return false;
+}
+
+//checks if there is a legal move present
+bool FullBoard::legal_moves_present(const int color) const{
+    int opp = FastBoard::opposite_color(color);
+    for (int i = 0; i < m_empty_cnt; i++) {
+        if (count_neighbours(opp, m_empty[i]) > 0) {
+                if (is_play_legal(color, m_empty[i])) {
+                    return true;
+                }
+            }
+    }
+    return false;
+}
 void FullBoard::display_board(const int lastmove) {
     FastBoard::display_board(lastmove);
 

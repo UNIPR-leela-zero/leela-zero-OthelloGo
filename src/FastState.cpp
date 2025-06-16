@@ -77,18 +77,22 @@ void FastState::reset_board() {
 // Checks if the move is legal.
 bool FastState::is_move_legal(const int color, const int vertex) const {
     if (IS_OTHELLO) {
-    // If the move is PASS but there are legal moves, it is NOT valid
-    if (vertex == FastBoard::PASS && board.legal_moves_present(color)) {
-        return false;
-    }
-    // If RESIGN, it is always allowed
-    if (vertex == FastBoard::RESIGN) {
-        return true;
-    }
-    // Standard control
-    return !cfg_analyze_tags.is_to_avoid(color, vertex, m_movenum)
-        && board.get_state(vertex) == FastBoard::EMPTY
-        && board.is_play_legal(color, vertex);
+            if (cfg_analyze_tags.is_to_avoid(color, vertex, m_movenum)) {
+            return false;
+        }
+
+        if (vertex == FastBoard::RESIGN) {
+            return true;
+        }
+
+        if (vertex == FastBoard::PASS) {
+            // Pass is only legal when there are no other legal moves
+            return !board.legal_moves_present(color);
+        }
+
+        // For a standard move: check if cell is empty and legal
+        return board.get_state(vertex) == FastBoard::EMPTY
+            && board.is_play_legal(color, vertex);
     }
     else {
         return !cfg_analyze_tags.is_to_avoid(color, vertex, m_movenum)

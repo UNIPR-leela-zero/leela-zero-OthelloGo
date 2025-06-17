@@ -138,19 +138,11 @@ bool GameState::play_textmove(std::string color, const std::string& vertex) {
     }
 
     const auto move = board.text_to_move(vertex);
-    if (IS_OTHELLO) {
-    if (move == FastBoard::NO_VERTEX
-        || !is_move_legal(who, move)) {
-        return false;
-    }
-    } else {
     if (move == FastBoard::NO_VERTEX
         || (move != FastBoard::PASS && move != FastBoard::RESIGN
             && board.get_state(move) != FastBoard::EMPTY)) {
         return false;
     }
-    }
-
     set_to_move(who);
     play_move(move);
 

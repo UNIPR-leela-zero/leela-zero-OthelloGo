@@ -116,7 +116,13 @@ bool UCTNode::create_children(Network& network, std::atomic<int>& nodecount,
         }
     }
 
-    // Always try passes if we're not trying to be clever.
+    if (IS_OTHELLO) {
+        if (nodelist.empty()) {
+        nodelist.emplace_back(1.0f, FastBoard::PASS);
+        legal_sum = 1.0f;
+        }
+    } else {
+        // Always try passes if we're not trying to be clever.
     auto allow_pass = cfg_dumbpass;
 
     // Less than 20 available intersections in a 19x19 game.
@@ -139,6 +145,7 @@ bool UCTNode::create_children(Network& network, std::atomic<int>& nodecount,
         nodelist.emplace_back(raw_netlist.policy_pass, FastBoard::PASS);
         legal_sum += raw_netlist.policy_pass;
     }
+}
 
     // Checks if the sum of probabilities of moves inside nodelist is equal to 1.0.
     if (legal_sum > std::numeric_limits<float>::min()) {

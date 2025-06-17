@@ -196,6 +196,7 @@ UCTNode* UCTNode::get_nopass_child(FastState& state) const {
            we require it because we're overruling its moves. */
         if (child->m_move != FastBoard::PASS
             && !state.board.is_eye(state.get_to_move(), child->m_move)) {
+            assert(!IS_OTHELLO); // Only Go can use this logic
             return child.get();
         }
     }

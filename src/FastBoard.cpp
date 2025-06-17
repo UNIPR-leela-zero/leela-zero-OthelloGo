@@ -122,9 +122,7 @@ void FastBoard::set_state(const int x, const int y,
     set_state(get_vertex(x, y), content);
 }
 
-int FastBoard::opposite_color(int color) {
-    return (color == FastBoard::BLACK) ? FastBoard::WHITE : FastBoard::BLACK;
-}
+
 
 // Resets the board to zero given the size.
 void FastBoard::reset_board(const int size) {

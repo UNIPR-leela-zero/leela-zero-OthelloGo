@@ -201,20 +201,9 @@ int FullBoard::update_board(const int color, const int i) {
     m_hash ^= Zobrist::zobrist_pris[color][m_prisoners[color]];
     } else {
         for (int k = 0; k < 8; k++) {
-            int tmp_vtx = i;
-            tmp_vtx += m_dirs[k];
-
-            if ((m_state[i] == BLACK && m_state[tmp_vtx] == WHITE) || (m_state[i] == WHITE && m_state[tmp_vtx] == BLACK)) {
-                while (!(m_state[tmp_vtx] == INVAL || m_state[tmp_vtx] == EMPTY)) {
-                    assert(tmp_vtx > 0 && tmp_vtx < NUM_VERTICES);
-                    tmp_vtx += m_dirs[k];
-
-                    if (m_state[tmp_vtx] == m_state[i]) { //we found a vertex of the same color as the original after a streak of the opposing color
-                        flip(i, tmp_vtx, k);
-                        break;
-                    }
-
-                }
+        int end_vtx = flippable_direction(color, i, m_dirs[k]);
+        if (end_vtx != FastBoard::NO_VERTEX) {
+            flip(i, end_vtx, k);
             }
         }
     }
@@ -256,21 +245,41 @@ void FullBoard::flip(const int starting, const int end, const int dir) {
         tmp += m_dirs[dir];
     }
 }
+int FullBoard::flippable_direction(int color, int start, int dir) const {
+    int tmp_vtx = start + dir;
+    // The first neighbour must be the opponent's
+
+    if (m_state[tmp_vtx] != !color) {
+        return FastBoard::NO_VERTEX;
+    }
+
+// Continue in the same direction until you find:
+// - an EMPTY or INVAL → invalid
+// - a disc of the same colour → valid flip
+    while (true) {
+        tmp_vtx += dir;
+
+        if (m_state[tmp_vtx] == INVAL || m_state[tmp_vtx] == EMPTY) {
+            return FastBoard::NO_VERTEX;
+        }
+
+        if (m_state[tmp_vtx] == color) {
+            return tmp_vtx;  // valid end for the flip
+
+        }
+    }
+}
+
 //checks if a play is legal
 bool FullBoard::is_play_legal(const int color, const int i) const {
-    int opp = FastBoard::opposite_color(color);
-    for (int k = 0; k < 8; k++) {
-        int tmp_vtx = i;
-        tmp_vtx += m_dirs[k];
-        if ( m_state[tmp_vtx] == opp) {
-            while (!(m_state[tmp_vtx] == INVAL || m_state[tmp_vtx] == EMPTY)) {
-                assert(tmp_vtx > 0 && tmp_vtx < NUM_VERTICES);
-                tmp_vtx += m_dirs[k];
-                if (m_state[tmp_vtx] == color) { //we found a vertex of the same color as the original after a streak of the opposing color
-                    return true;
-                }
+    assert(i >= 0 && i < NUM_VERTICES &&
+           i != FastBoard::PASS &&
+           i != FastBoard::RESIGN &&
+           m_state[i] == EMPTY);  // All conditions in one assert
 
-            }
+    for (int k = 0; k < 8; k++) {
+        if (flippable_direction(color, i, m_dirs[k]) != FastBoard::NO_VERTEX) {
+            return true;
         }
     }
 
@@ -279,9 +288,8 @@ bool FullBoard::is_play_legal(const int color, const int i) const {
 
 //checks if there is a legal move present
 bool FullBoard::legal_moves_present(const int color) const{
-    int opp = FastBoard::opposite_color(color);
     for (int i = 0; i < m_empty_cnt; i++) {
-        if (count_neighbours(opp, m_empty[i]) > 0) {
+        if (count_neighbours(!color, m_empty[i]) > 0) {
                 if (is_play_legal(color, m_empty[i])) {
                     return true;
                 }

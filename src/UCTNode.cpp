@@ -59,6 +59,34 @@ bool UCTNode::first_visit() const {
     return m_visits == 0;
 }
 
+void UCTNode::kill_passes(const GameState& state) {
+    UCTNodePointer* pass_child = nullptr;
+    size_t valid_count = 0;
+    for (auto& child : m_children) {
+        auto move = child->get_move();
+        if (move == FastBoard::PASS) {
+            pass_child = &child;
+
+        }
+        if (child->valid()) {
+            valid_count++;
+        }
+
+    }
+    if (valid_count > 1 && pass_child
+        && !state.is_move_legal(state.get_to_move(), FastBoard::PASS)) {
+        // Remove the PASS node according to "avoid" -- but only if there are
+        // other valid nodes left.
+        (*pass_child)->invalidate();
+    }
+
+    // Now do the actual deletion.
+    m_children.erase(
+        std::remove_if(begin(m_children), end(m_children),
+            [](const auto& child) { return !child->valid(); }),
+        end(m_children));
+}
+
 bool UCTNode::create_children(Network& network, std::atomic<int>& nodecount,
                               const GameState& state, float& eval,
                               const float min_psa_ratio) {
@@ -77,8 +105,8 @@ bool UCTNode::create_children(Network& network, std::atomic<int>& nodecount,
         expand_done();
         return false;
     }
-
     NNCache::Netresult raw_netlist;
+    // Ottiene lo stato corrente del gioco
     try {
         raw_netlist =
             network.get_output(&state, Network::Ensemble::RANDOM_SYMMETRY);
@@ -101,10 +129,13 @@ bool UCTNode::create_children(Network& network, std::atomic<int>& nodecount,
     std::vector<Network::PolicyVertexPair> nodelist;
 
     auto legal_sum = 0.0f;
+    // Scorre tutte le intersezioni e ne calcola le coordinate
     for (auto i = 0; i < NUM_INTERSECTIONS; i++) {
         const auto x = i % BOARD_SIZE;
         const auto y = i / BOARD_SIZE;
         const auto vertex = state.board.get_vertex(x, y);
+        // Se la mossa è legale, viene aggiunta a legal sum 
+        // ovvero la somma delle probabilità di tutte le mosse valide
         if (state.is_move_legal(to_move, vertex)) {
             nodelist.emplace_back(raw_netlist.policy[i], vertex);
             legal_sum += raw_netlist.policy[i];
@@ -112,28 +143,24 @@ bool UCTNode::create_children(Network& network, std::atomic<int>& nodecount,
     }
 
     // Always try passes if we're not trying to be clever.
-    auto allow_pass = cfg_dumbpass;
+    //auto allow_pass = cfg_dumbpass;
 
     // Less than 20 available intersections in a 19x19 game.
-    if (int(nodelist.size()) <= std::max(5, BOARD_SIZE)) {
+    /*if (int(nodelist.size()) <= std::max(5, BOARD_SIZE)) {
         allow_pass = true;
-    }
+    }*/
 
-    // If we're clever, only try passing if we're winning on the
-    // net score and on the board count.
-    if (!allow_pass && stm_eval > 0.8f) {
-        const auto relative_score =
-            (to_move == FastBoard::BLACK ? 1 : -1) * state.final_score();
-        if (relative_score >= 0) {
-            allow_pass = true;
-        }
-    }
-
-    if (allow_pass) {
+    if (state.is_move_legal(to_move, FastBoard::PASS)) {
+        // Aggiunge il passaggio alla fine del vettore nodelist
         nodelist.emplace_back(raw_netlist.policy_pass, FastBoard::PASS);
         legal_sum += raw_netlist.policy_pass;
     }
-
+    /*if (!state.has_legal_moves(to_move)) {
+        nodelist.emplace_back(raw_netlist.policy_pass, FastBoard::PASS);
+        legal_sum += raw_netlist.policy_pass;
+    }*/
+    // Controlla che la somma delle probabilità delle mosse
+    // contenute dentro nodelist sia pari a 1.0
     if (legal_sum > std::numeric_limits<float>::min()) {
         // re-normalize after removing illegal moves.
         for (auto& node : nodelist) {
@@ -147,6 +174,7 @@ bool UCTNode::create_children(Network& network, std::atomic<int>& nodecount,
         }
     }
 
+    // Collega la lista dei nodi figlio al nodo corrente
     link_nodelist(nodecount, nodelist, min_psa_ratio);
     if (first_visit()) {
         // Increment visit and assign eval.
@@ -155,10 +183,12 @@ bool UCTNode::create_children(Network& network, std::atomic<int>& nodecount,
     expand_done();
     return true;
 }
-
+// Collega i nodi figli al nodo corrente (solo se 
+// superano una determinata soglia di probabilità di policy)
 void UCTNode::link_nodelist(std::atomic<int>& nodecount,
                             std::vector<Network::PolicyVertexPair>& nodelist,
                             const float min_psa_ratio) {
+    // La nuova soglia deve essere minore della precedente
     assert(min_psa_ratio < m_min_psa_ratio_children);
 
     if (nodelist.empty()) {
@@ -172,6 +202,8 @@ void UCTNode::link_nodelist(std::atomic<int>& nodecount,
     const auto old_min_psa = max_psa * m_min_psa_ratio_children;
     const auto new_min_psa = max_psa * min_psa_ratio;
     if (new_min_psa > 0.0f) {
+        // Ci sono nodi figlio che superano questa soglia.
+        // Reserve prealloca lo spazio per contenere questi nodi
         m_children.reserve(std::count_if(
             cbegin(nodelist), cend(nodelist),
             [=](const auto& node) { return node.first >= new_min_psa; }));
@@ -184,6 +216,7 @@ void UCTNode::link_nodelist(std::atomic<int>& nodecount,
         if (node.first < new_min_psa) {
             skipped_children = true;
         } else if (node.first < old_min_psa) {
+            // Vengono aggiunti i nodi figlio che superano questa soglia
             m_children.emplace_back(node.second, node.first);
             ++nodecount;
         }
@@ -212,6 +245,8 @@ void UCTNode::update(const float eval) {
     // Cache values to avoid race conditions.
     auto old_eval = static_cast<float>(m_blackevals);
     auto old_visits = static_cast<int>(m_visits);
+    // Se il nodo ha almeno una visita, calcola la differenza
+    // tra la nuova valutazione e la media delle precedenti
     auto old_delta = old_visits > 0 ? eval - old_eval / old_visits : 0.0f;
     m_visits++;
     accumulate_eval(eval);
@@ -225,6 +260,8 @@ bool UCTNode::has_children() const {
     return m_min_psa_ratio_children <= 1.0f;
 }
 
+// min_psa_ratio = soglia minima della probabilità 
+// di selezione dei figli durante l'espansione.
 bool UCTNode::expandable(const float min_psa_ratio) const {
 #ifndef NDEBUG
     if (m_min_psa_ratio_children == 0.0f) {
@@ -259,8 +296,10 @@ float UCTNode::get_eval_lcb(const int color) const {
         // Return large negative value if not enough visits.
         return -1e6f + visits;
     }
+    // Media delle valutazioni del nodo
     auto mean = get_raw_eval(color);
 
+    // Deviazione standard
     auto stddev = std::sqrt(get_eval_variance(1.0f) / visits);
     auto z = cached_t_quantile(visits - 1);
 
@@ -271,9 +310,11 @@ float UCTNode::get_raw_eval(const int tomove, const int virtual_loss) const {
     auto visits = get_visits() + virtual_loss;
     assert(visits > 0);
     auto blackeval = get_blackevals();
+    // Aggiunta sconfitte virtuali ai successi
     if (tomove == FastBoard::WHITE) {
         blackeval += static_cast<double>(virtual_loss);
     }
+    // Stima della percentuale di successo del nodo.
     auto eval = static_cast<float>(blackeval / double(visits));
     if (tomove == FastBoard::WHITE) {
         eval = 1.0f - eval;
@@ -304,8 +345,8 @@ void UCTNode::accumulate_eval(const float eval) {
 }
 
 UCTNode* UCTNode::uct_select_child(const int color, const bool is_root) {
+    // Prima di scegliere tutti devono essere espansi
     wait_expanded();
-
     // Count parentvisits manually to avoid issues with transpositions.
     auto total_visited_policy = 0.0f;
     auto parentvisits = size_t{0};
@@ -321,15 +362,15 @@ UCTNode* UCTNode::uct_select_child(const int color, const bool is_root) {
     const auto numerator = std::sqrt(
         double(parentvisits)
         * std::log(cfg_logpuct * double(parentvisits) + cfg_logconst));
+    // Aiuta a bilanciare l'esplorazione
     const auto fpu_reduction =
         (is_root ? cfg_fpu_root_reduction : cfg_fpu_reduction)
         * std::sqrt(total_visited_policy);
     // Estimated eval for unknown nodes = parent (not NN) eval - reduction
     const auto fpu_eval = get_raw_eval(color) - fpu_reduction;
-
     auto best = static_cast<UCTNodePointer*>(nullptr);
     auto best_value = std::numeric_limits<double>::lowest();
-
+    // Scorre tutti i nodi per scegliere quello migliore
     for (auto& child : m_children) {
         if (!child.active()) {
             continue;
@@ -360,6 +401,10 @@ UCTNode* UCTNode::uct_select_child(const int color, const bool is_root) {
     best->inflate();
     return best->get();
 }
+
+
+
+
 
 class NodeComp
     : public std::binary_function<UCTNodePointer&, UCTNodePointer&, bool> {
@@ -423,6 +468,7 @@ UCTNode& UCTNode::get_best_root_child(const int color) const {
         max_visits = std::max(max_visits, node.get_visits());
     }
 
+    // Trova il figlio con il valore massimo
     auto ret =
         std::max_element(begin(m_children), end(m_children),
                          NodeComp(color, cfg_lcb_min_visit_ratio * max_visits));
@@ -483,6 +529,7 @@ void UCTNode::expand_cancel() {
 #endif
     assert(v == ExpandState::EXPANDING);
 }
+// Attende che il nodo sia completamente espanso
 void UCTNode::wait_expanded() const {
     while (m_expand_state.load() == ExpandState::EXPANDING) {}
     auto v = m_expand_state.load();

@@ -90,6 +90,7 @@ using ConstEigenMatrixMap =
 static std::array<std::array<int, NUM_INTERSECTIONS>, Network::NUM_SYMMETRIES>
     symmetry_nn_idx_table;
 
+//This function benchmarks the network given a fixed amount of time
 float Network::benchmark_time(const int centiseconds) {
     const auto cpus = cfg_num_threads;
 
@@ -97,7 +98,7 @@ float Network::benchmark_time(const int centiseconds) {
     std::atomic<int> runcount{0};
 
     GameState state;
-    state.init_game(BOARD_SIZE, KOMI);
+    state.init_game(BOARD_SIZE,KOMI);
 
     // As a sanity run, try one run with self check.
     // Isn't enough to guarantee correctness but better than nothing,
@@ -106,7 +107,7 @@ float Network::benchmark_time(const int centiseconds) {
 
     const Time start;
     for (auto i = size_t{0}; i < cpus; i++) {
-        tg.add_task([this, &runcount, start, centiseconds, state]() {
+        tg.add_task([this, &runcount, start, centiseconds, state]() { //This is the function that is added as task to be executed by threads
             while (true) {
                 runcount++;
                 get_output(&state, Ensemble::RANDOM_SYMMETRY, -1, false);
@@ -125,6 +126,7 @@ float Network::benchmark_time(const int centiseconds) {
     return 100.0f * runcount.load() / elapsed;
 }
 
+//This benchmarks the network with a given state and fixed iterations instead of time
 void Network::benchmark(const GameState* const state, const int iterations) {
     const auto cpus = cfg_num_threads;
     const Time start;
@@ -148,6 +150,7 @@ void Network::benchmark(const GameState* const state, const int iterations) {
              runcount.load(), elapsed, int(runcount.load() / elapsed));
 }
 
+//This applies a transformation to all weights
 template <class container>
 void process_bn_var(container& weights) {
     constexpr auto epsilon = 1e-5f;
@@ -156,6 +159,7 @@ void process_bn_var(container& weights) {
     }
 }
 
+//This applies a winograd transformation to the input weights in the network 
 std::vector<float> Network::winograd_transform_f(const std::vector<float>& f,
                                                  const int outputs,
                                                  const int channels) {
@@ -222,6 +226,7 @@ std::vector<float> Network::winograd_transform_f(const std::vector<float>& f,
     return U;
 }
 
+//This parses the network weights from the weights file given as istream 'wtfile'
 std::pair<int, int> Network::load_v1_network(std::istream& wtfile) {
     // Count size of the network
     myprintf("Detecting residual layers...");
@@ -242,7 +247,7 @@ std::pair<int, int> Network::load_v1_network(std::istream& wtfile) {
         // We are assuming all layers have the same amount of filters.
         if (linecount == 2) {
             auto count = std::distance(std::istream_iterator<std::string>(iss),
-                                       std::istream_iterator<std::string>());
+                                       std::istream_iterator<std::string>()); //Since there's a bias weight for every filter, if you count the number of bias weights you can also know how many channels there are per block
             myprintf("%d channels...", count);
             channels = count;
         }
@@ -272,16 +277,16 @@ std::pair<int, int> Network::load_v1_network(std::istream& wtfile) {
         std::vector<float> weights;
         auto it_line = line.cbegin();
         const auto ok =
-            phrase_parse(it_line, line.cend(), *x3::float_, x3::space, weights);
+            phrase_parse(it_line, line.cend(), *x3::float_, x3::space, weights); //This parses the line and puts it in the weights vector
         if (!ok || it_line != line.cend()) {
             myprintf("\nFailed to parse weight file. Error on line %d.\n",
                      linecount + 2); //+1 from version line, +1 from 0-indexing
             return {0, 0};
         }
-        if (linecount < plain_conv_wts) {
-            if (linecount % 4 == 0) {
+        if (linecount < plain_conv_wts) { //This checks if it's still reading weights related to convolutional layers
+            if (linecount % 4 == 0) { //This is for reading convolutional layer weights
                 m_fwd_weights->m_conv_weights.emplace_back(weights);
-            } else if (linecount % 4 == 1) {
+            } else if (linecount % 4 == 1) { //This is for reading convolutional layer biases
                 // Redundant in our model, but they encode the
                 // number of outputs so we have to read them in.
                 m_fwd_weights->m_conv_biases.emplace_back(weights);
@@ -291,7 +296,7 @@ std::pair<int, int> Network::load_v1_network(std::istream& wtfile) {
                 process_bn_var(weights);
                 m_fwd_weights->m_batchnorm_stddevs.emplace_back(weights);
             }
-        } else {
+        } else { //After reading convolutional layer weights
             switch (linecount - plain_conv_wts) {
                 case 0: m_fwd_weights->m_conv_pol_w = std::move(weights); break;
                 case 1: m_fwd_weights->m_conv_pol_b = std::move(weights); break;
@@ -303,7 +308,7 @@ std::pair<int, int> Network::load_v1_network(std::istream& wtfile) {
                     std::copy(cbegin(weights), cend(weights),
                               begin(m_bn_pol_w2));
                     break;
-                case 4:
+                case 4: //This checks if the value head weights are consistent with the given size of the board
                     if (weights.size()
                         != OUTPUTS_POLICY * NUM_INTERSECTIONS
                                * POTENTIAL_MOVES) {
@@ -318,7 +323,7 @@ std::pair<int, int> Network::load_v1_network(std::istream& wtfile) {
                     std::copy(cbegin(weights), cend(weights),
                               begin(m_ip_pol_b));
                     break;
-                case 6: m_fwd_weights->m_conv_val_w = std::move(weights); break;
+                case 6: m_fwd_weights->m_conv_val_w = std::move(weights); break; //this handles value convolution weights
                 case 7: m_fwd_weights->m_conv_val_b = std::move(weights); break;
                 case 8:
                     std::copy(cbegin(weights), cend(weights),
@@ -354,6 +359,8 @@ std::pair<int, int> Network::load_v1_network(std::istream& wtfile) {
     return {channels, static_cast<int>(residual_blocks)};
 }
 
+
+//This loads the weights file and processes it before calling the load_v1_network function
 std::pair<int, int> Network::load_network_file(const std::string& filename) {
     // gzopen supports both gz and non-gz files, will decompress
     // or just read directly as needed.
@@ -404,6 +411,7 @@ std::pair<int, int> Network::load_network_file(const std::string& filename) {
     return {0, 0};
 }
 
+//This function preprocesses input data and initializes the network
 std::unique_ptr<ForwardPipe>&& Network::init_net(
     const int channels, std::unique_ptr<ForwardPipe>&& pipe) {
 
@@ -414,6 +422,7 @@ std::unique_ptr<ForwardPipe>&& Network::init_net(
 }
 
 #ifdef USE_HALF
+//initializes the OpenCL scheduler with the appropriate precision based on configuration settings or auto-detection.
 void Network::select_precision(const int channels) {
     if (cfg_precision == precision_t::AUTO) {
         auto score_fp16 = float{-1.0};
@@ -512,7 +521,7 @@ void Network::initialize(const int playouts, const std::string& weightsfile) {
              EIGEN_WORLD_VERSION, EIGEN_MAJOR_VERSION, EIGEN_MINOR_VERSION);
 #endif
 
-    m_fwd_weights = std::make_shared<ForwardPipeWeights>();
+    m_fwd_weights = std::make_shared<ForwardPipeWeights>(); //initializes the weights variable as a shared pointer to a new instance of the ForwardPipeWeights class
 
     // Make a guess at a good size as long as the user doesn't
     // explicitly set a maximum memory usage.
@@ -532,7 +541,7 @@ void Network::initialize(const int playouts, const std::string& weightsfile) {
 
     // Load network from file
     size_t channels, residual_blocks;
-    std::tie(channels, residual_blocks) = load_network_file(weightsfile);
+    std::tie(channels, residual_blocks) = load_network_file(weightsfile); //calls the load network function and returns the weights into the channels and residual_blocks variables
     if (channels == 0) {
         exit(EXIT_FAILURE);
     }
@@ -606,12 +615,14 @@ void Network::initialize(const int playouts, const std::string& weightsfile) {
     m_fwd_weights.reset();
 }
 
+//this does the calculation to obtain the output of a fully connected layer, with the option to apply ReLu
 template <unsigned int inputs, unsigned int outputs, bool ReLU, size_t W>
 std::vector<float> innerproduct(const std::vector<float>& input,
                                 const std::array<float, W>& weights,
                                 const std::array<float, outputs>& biases) {
-    std::vector<float> output(outputs);
+    std::vector<float> output(outputs); //initializes the output vector with size of outputs
 
+    //these two options calculate the output vector
 #ifdef USE_BLAS
     cblas_sgemv(CblasRowMajor, CblasNoTrans,
                 // M     K
@@ -625,6 +636,7 @@ std::vector<float> innerproduct(const std::vector<float>& input,
         ConstEigenMatrixMap<float>(weights.data(), inputs, outputs).transpose()
         * ConstEigenVectorMap<float>(input.data(), inputs);
 #endif
+    //end portion that calculates the output vector 
     for (unsigned int o = 0; o < outputs; o++) {
         auto val = biases[o] + output[o];
         if (ReLU) {
@@ -636,6 +648,10 @@ std::vector<float> innerproduct(const std::vector<float>& input,
     return output;
 }
 
+/*This function performs batch normalization (BN) on a given data tensor. 
+Batch normalization is a technique used to normalize the activations of each layer in a neural network, typically applied after the linear transformation and before the non-linear activation function.
+It helps in improving the training speed and stability of the neural network.
+*/
 template <size_t spatial_size>
 void batchnorm(const size_t channels,
                std::vector<float>& data,
@@ -664,6 +680,7 @@ void batchnorm(const size_t channels,
 }
 
 #ifdef USE_OPENCL_SELFCHECK
+//This function checks if OpenCL calculations are accurate
 void Network::compare_net_outputs(const Netresult& data, const Netresult& ref) {
     // Calculates L2-norm between data and ref.
     constexpr auto max_error = 0.2f;
@@ -690,6 +707,7 @@ void Network::compare_net_outputs(const Netresult& data, const Netresult& ref) {
 }
 #endif
 
+//this applies the softmax function to the input data, giving percentages of every possible output: likely used in policy head
 std::vector<float> softmax(const std::vector<float>& input,
                            const float temperature = 1.0f) {
     auto output = std::vector<float>{};
@@ -711,6 +729,7 @@ std::vector<float> softmax(const std::vector<float>& input,
     return output;
 }
 
+//this checks if the evaluations for the current board state (or symmetrical board states) is present in cache
 bool Network::probe_cache(const GameState* const state,
                           Network::Netresult& result) {
     if (m_nncache.lookup(state->board.get_hash(), result)) {
@@ -741,6 +760,7 @@ bool Network::probe_cache(const GameState* const state,
     return false;
 }
 
+//This function produces the output of the network; a netresult is a data structure that contains the policy and the winrate for the game state, so it contains all the outputs for the network
 Network::Netresult Network::get_output(
     const GameState* const state, const Ensemble ensemble, const int symmetry,
     const bool read_cache, const bool write_cache, const bool force_selfcheck) {
@@ -808,7 +828,8 @@ Network::Netresult Network::get_output(
 
     return result;
 }
-
+//this function is called by get_output and it produces the Netresult object for the final output of the network, gathering features, doing forward propagation, 
+// doing batch normalization on the outputs then doing calculations with innerproduct, then calling the softmax function.
 Network::Netresult Network::get_output_internal(const GameState* const state,
                                                 const int symmetry,
                                                 bool selfcheck) {
@@ -863,6 +884,7 @@ Network::Netresult Network::get_output_internal(const GameState* const state,
     return result;
 }
 
+//This function shows a visual representation of the neural network's policy output for each position
 void Network::show_heatmap(const FastState* const state,
                            const Netresult& result, const bool topmoves) {
     std::vector<std::string> display_map;
@@ -915,6 +937,7 @@ void Network::show_heatmap(const FastState* const state,
     }
 }
 
+//this is the function that, given a board state, divides the black stones and the white stones
 void Network::fill_input_plane_pair(const FullBoard& board,
                                     std::vector<float>::iterator black,
                                     std::vector<float>::iterator white,
@@ -932,12 +955,13 @@ void Network::fill_input_plane_pair(const FullBoard& board,
     }
 }
 
+//this function constructs the input data for the neural network based on the current game state and the specified symmetry transformation
 std::vector<float> Network::gather_features(const GameState* const state,
                                             const int symmetry) {
     assert(symmetry >= 0 && symmetry < NUM_SYMMETRIES);
     auto input_data = std::vector<float>(INPUT_CHANNELS * NUM_INTERSECTIONS);
 
-    const auto to_move = state->get_to_move();
+    const auto to_move = state->get_to_move(); //retrieves the color of the player whose turn it is
     const auto blacks_move = to_move == FastBoard::BLACK;
 
     const auto black_it =
@@ -953,7 +977,7 @@ std::vector<float> Network::gather_features(const GameState* const state,
 
     const auto moves = std::min<size_t>(state->get_movenum() + 1, INPUT_MOVES);
     // Go back in time, fill history boards
-    for (auto h = size_t{0}; h < moves; h++) {
+    for (auto h = size_t{0}; h < moves; h++) { //it checks up to 7 previous moves for each player
         // collect white, black occupation planes
         fill_input_plane_pair(state->get_past_board(h),
                               black_it + h * NUM_INTERSECTIONS,
@@ -965,6 +989,7 @@ std::vector<float> Network::gather_features(const GameState* const state,
     return input_data;
 }
 
+//this applies a symmetry transformation to a given vertex on the board
 std::pair<int, int> Network::get_symmetry(const std::pair<int, int>& vertex,
                                           const int symmetry,
                                           const int board_size) {
@@ -992,6 +1017,7 @@ std::pair<int, int> Network::get_symmetry(const std::pair<int, int>& vertex,
     return {x, y};
 }
 
+//this estimates memory size for the neural network
 size_t Network::get_estimated_size() {
     if (estimated_size != 0) {
         return estimated_size;

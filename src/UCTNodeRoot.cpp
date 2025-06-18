@@ -40,7 +40,6 @@
 #include "FastBoard.h"
 #include "FastState.h"
 #include "GTP.h"
-#include "KoState.h"
 #include "Random.h"
 #include "UCTNode.h"
 #include "Utils.h"
@@ -58,48 +57,16 @@ UCTNode* UCTNode::get_first_child() const {
     return m_children.front().get();
 }
 
-void UCTNode::kill_superkos(const GameState& state) {
-    UCTNodePointer* pass_child = nullptr;
-    size_t valid_count = 0;
-
-    for (auto& child : m_children) {
-        auto move = child->get_move();
-        if (move != FastBoard::PASS) {
-            KoState mystate = state;
-            mystate.play_move(move);
-
-            if (mystate.superko()) {
-                // Don't delete nodes for now, just mark them invalid.
-                child->invalidate();
-            }
-        } else {
-            pass_child = &child;
-        }
-        if (child->valid()) {
-            valid_count++;
-        }
-    }
-
-    if (valid_count > 1 && pass_child
-        && !state.is_move_legal(state.get_to_move(), FastBoard::PASS)) {
-        // Remove the PASS node according to "avoid" -- but only if there are
-        // other valid nodes left.
-        (*pass_child)->invalidate();
-    }
-
-    // Now do the actual deletion.
-    m_children.erase(
-        std::remove_if(begin(m_children), end(m_children),
-                       [](const auto& child) { return !child->valid(); }),
-        end(m_children));
-}
-
 void UCTNode::dirichlet_noise(const float epsilon, const float alpha) {
     auto child_cnt = m_children.size();
 
+    // Conterrà i campioni della distribuzione di
+    // Dirichlet per ciascun figlio
     auto dirichlet_vector = std::vector<float>{};
     std::gamma_distribution<float> gamma(alpha, 1.0f);
     for (size_t i = 0; i < child_cnt; i++) {
+        // Per ogni figlio viene generato un campione
+        // della distribuzione di gamma
         dirichlet_vector.emplace_back(gamma(Random::get_Rng()));
     }
 
@@ -112,20 +79,28 @@ void UCTNode::dirichlet_noise(const float epsilon, const float alpha) {
         return;
     }
 
+    // Il vettore viene normalizzato
     for (auto& v : dirichlet_vector) {
         v /= sample_sum;
     }
 
     child_cnt = 0;
+    // Per ogni figlio viene calcolata un nuovo valore di 
+    // policy usando la formula del rumore di Dirichlet
     for (auto& child : m_children) {
         auto policy = child->get_policy();
         auto eta_a = dirichlet_vector[child_cnt++];
+        // Mescola il valore di policy originale con il rumore di
+        // dirichlet in base al valore di epsilon
         policy = policy * (1 - epsilon) + epsilon * eta_a;
         child->set_policy(policy);
     }
 }
 
+// Seleziona un nodo figlio casuale in base al numero di visite
 void UCTNode::randomize_first_proportionally() {
+    // Accumulo: variabile che tiene traccia della somma cumulativa 
+    // delle probabilità proporzionali dei nodi figli durante l'iterazione del ciclo. 
     auto accum = 0.0;
     auto norm_factor = 0.0;
     auto accum_vector = std::vector<double>{};
@@ -136,18 +111,23 @@ void UCTNode::randomize_first_proportionally() {
             norm_factor = visits;
             // Nonsensical options? End of game?
             if (visits <= cfg_random_min_visits) {
+                // Il nodo figlio ha un numero di visite minore della soglia minima
                 return;
             }
         }
         if (visits > cfg_random_min_visits) {
+            // Calcolo dell'accumulo proporzionale del figlio corrente
             accum += std::pow(visits / norm_factor, 1.0 / cfg_random_temp);
             accum_vector.emplace_back(accum);
         }
     }
 
+    // Distribuzione compresa tra 0 e l'accumulo proporzionale
     auto distribution = std::uniform_real_distribution<double>{0.0, accum};
+    // Numeri casuale dalla distribuzione
     auto pick = distribution(Random::get_Rng());
     auto index = size_t{0};
+    // Trova l'indice del primo elemento che supera il numero casuale pick
     for (size_t i = 0; i < accum_vector.size(); i++) {
         if (pick < accum_vector[i]) {
             index = i;
@@ -166,14 +146,14 @@ void UCTNode::randomize_first_proportionally() {
     std::iter_swap(begin(m_children), begin(m_children) + index);
 }
 
+// Restituisce un puntatore al primo nodo figlio che non rappresenta la mossa passo
 UCTNode* UCTNode::get_nopass_child(FastState& state) const {
     for (const auto& child : m_children) {
         /* If we prevent the engine from passing, we must bail out when
            we only have unreasonable moves to pick, like filling eyes.
            Note that this knowledge isn't required by the engine,
            we require it because we're overruling its moves. */
-        if (child->m_move != FastBoard::PASS
-            && !state.board.is_eye(state.get_to_move(), child->m_move)) {
+        if (child->m_move != FastBoard::PASS) {
             return child.get();
         }
     }
@@ -205,12 +185,15 @@ void UCTNode::prepare_root_node(Network& network, const int color,
                                 GameState& root_state) {
     float root_eval;
     const auto had_children = has_children();
+    // Se è espandibile crea i nodi figli
     if (expandable()) {
         create_children(network, nodes, root_state, root_eval);
     }
+    // Se ha già dei figli, calcola la sua eval
     if (had_children) {
         root_eval = get_net_eval(color);
     } else {
+        // Nodo appena espanso, viene calcolata la sua eval
         root_eval = (color == FastBoard::BLACK ? root_eval : 1.0f - root_eval);
     }
     Utils::myprintf("NN eval=%f\n", root_eval);
@@ -219,9 +202,7 @@ void UCTNode::prepare_root_node(Network& network, const int color,
     // all children of the root are inflated, so do that.
     inflate_all_children();
 
-    // Remove illegal moves, so the root move list is correct.
-    // This also removes a lot of special cases.
-    kill_superkos(root_state);
+    //kill_passes(root_state);
 
     if (cfg_noise) {
         // Adjust the Dirichlet noise's alpha constant to the board size

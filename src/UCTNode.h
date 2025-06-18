@@ -107,7 +107,7 @@ private:
                        float min_psa_ratio);
     double get_blackevals() const;
     void accumulate_eval(float eval);
-    void kill_superkos(const GameState& state);
+    void kill_passes(const GameState& state);
     void dirichlet_noise(float epsilon, float alpha);
 
     // Note : This class is very size-sensitive as we are going to create

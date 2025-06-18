@@ -50,9 +50,9 @@ public:
     std::vector<float> probabilities;
     int to_move;
     float net_winrate;
-    float root_uct_winrate;
-    float child_uct_winrate;
-    int bestmove_visits;
+    float root_uct_winrate; //winrate associated to the current state
+    float child_uct_winrate; //winrate associated with the best move the network has chosen
+    int bestmove_visits; // tracks how many times the AI has explored or simulated game states associated with the best move found during the search process
 };
 
 std::ostream& operator<<(std::ostream& stream, const TimeStep& timestep);

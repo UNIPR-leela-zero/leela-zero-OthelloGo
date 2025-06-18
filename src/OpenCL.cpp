@@ -101,6 +101,7 @@ const std::string sourceCode_sgemm =
     "\n#endif\n"
 ;
 
+//sets up all the kernels needed for opencl operation
 template <typename net_t>
 void OpenCL<net_t>::ensure_context_initialized(OpenCLContext& opencl_context) {
     if (!opencl_context.m_is_initialized) {
@@ -122,6 +123,7 @@ void OpenCL<net_t>::ensure_context_initialized(OpenCLContext& opencl_context) {
     }
 }
 
+//adds the weights into the layer specified by index "layer"
 template <typename net_t>
 void OpenCL_Network<net_t>::add_weights(const size_t layer, const size_t size,
                                         const net_t* const weights) {
@@ -138,7 +140,7 @@ void OpenCL_Network<net_t>::add_weights(const size_t layer, const size_t size,
                              const_cast<net_t*>(weights));
     m_layers.back().weights.push_back(std::move(buffer));
 }
-
+//Performs forward propagation through the neural network
 template <typename net_t>
 void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
                                     std::vector<float>& output_pol,
@@ -211,7 +213,7 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
     std::copy(begin(input), end(input), begin(net_t_input));
 
     const auto inSize = sizeof(net_t) * input.size();
-    queue.enqueueWriteBuffer(inBuffer, CL_FALSE, 0, inSize, net_t_input.data());
+    queue.enqueueWriteBuffer(inBuffer, CL_FALSE, 0, inSize, net_t_input.data()); //feeds the data to opencl
 
     // Fused in_out transformation kernel is slower with big batch_sizes than
     // calling out and in transformations separately.
@@ -219,7 +221,7 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
     auto use_inout = (batch_size == 1);
 
     auto skip_in_trans = false;
-    for (auto iter = cbegin(m_layers); iter != cend(m_layers); iter++) {
+    for (auto iter = cbegin(m_layers); iter != cend(m_layers); iter++) { //does forward propagation
         const auto& layer = *iter;
         const auto niter = std::next(iter);
 
@@ -305,10 +307,10 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
 
     auto pinnedOutBufferHost_pol =
         queue.enqueueMapBuffer(opencl_context.m_pinnedOutBuffer_pol, CL_FALSE,
-                               CL_MAP_READ, 0, batch_size * finalSize_pol);
+                               CL_MAP_READ, 0, batch_size * finalSize_pol); //obtains the policy head
     auto pinnedOutBufferHost_val =
         queue.enqueueMapBuffer(opencl_context.m_pinnedOutBuffer_val, CL_FALSE,
-                               CL_MAP_READ, 0, batch_size * finalSize_val);
+                               CL_MAP_READ, 0, batch_size * finalSize_val);//obtains the value head
 
     {
         // Finish call is usually a busy wait. When using multiple threads
@@ -319,15 +321,15 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
 
     auto polptr = static_cast<net_t*>(pinnedOutBufferHost_pol);
     auto valptr = static_cast<net_t*>(pinnedOutBufferHost_val);
-    std::copy(polptr, polptr + output_pol.size(), begin(output_pol));
-    std::copy(valptr, valptr + output_val.size(), begin(output_val));
+    std::copy(polptr, polptr + output_pol.size(), begin(output_pol));//puts the policy in output_pol
+    std::copy(valptr, valptr + output_val.size(), begin(output_val));//puts the value in output_val
 
     queue.enqueueUnmapMemObject(opencl_context.m_pinnedOutBuffer_pol,
-                                pinnedOutBufferHost_pol);
+                                pinnedOutBufferHost_pol); //releases the memory from the buffer
     queue.enqueueUnmapMemObject(opencl_context.m_pinnedOutBuffer_val,
                                 pinnedOutBufferHost_val);
 }
-
+//Does the convolution for the input convolution layer and for residual layers
 template <typename net_t>
 void OpenCL_Network<net_t>::convolve3(OpenCLContext& opencl_context,
                                       const int channels, const int outputs,
@@ -493,6 +495,7 @@ void OpenCL_Network<net_t>::convolve3(OpenCLContext& opencl_context,
     }
 }
 
+//Convolution function called most likely to produce the value and policy heads
 template <typename net_t>
 void OpenCL_Network<net_t>::convolve1(OpenCLContext& opencl_context,
                                       const int channels, const int outputs,
@@ -568,6 +571,7 @@ void OpenCL_Network<net_t>::convolve1(OpenCLContext& opencl_context,
     }
 }
 
+//Displays info about OpenCL device
 template <class T>
 static std::string opencl_dev_type_to_string(const T type) {
     if (type == CL_DEVICE_TYPE_CPU) {
@@ -857,6 +861,7 @@ OpenCL<net_t>::OpenCL(const int gpu, const bool silent) {
     }
 }
 
+//Builds OpenCL from the source code snippets we took earlier, checks the context and tuners; basically does all the OpenCL setup steps without invoking anything (it's going to be used by OpenCLScheduler)
 template <typename net_t>
 void OpenCL<net_t>::initialize(const int channels, const size_t batch_size) {
     m_batch_size = batch_size;

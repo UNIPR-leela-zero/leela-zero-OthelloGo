@@ -45,17 +45,12 @@
  * BOARD_SIZE: Define size of the board to compile Leela with, must be an odd
    number due to winograd tiles
  */
-static constexpr auto BOARD_SIZE = 19;
-static_assert(BOARD_SIZE % 2 == 1,
-              "Code assumes odd board size, remove at your own risk!");
+static constexpr auto BOARD_SIZE = 8;
 
 static constexpr auto NUM_INTERSECTIONS = BOARD_SIZE * BOARD_SIZE;
 static constexpr auto POTENTIAL_MOVES = NUM_INTERSECTIONS + 1; // including pass
 
-/*
- * KOMI: Define the default komi to use when training.
- */
-static constexpr auto KOMI = 7.5f;
+static constexpr auto KOMI = 0.5f;
 
 /*
  * Features

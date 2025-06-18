@@ -38,7 +38,6 @@
 
 #include "FastBoard.h"
 #include "GameState.h"
-#include "KoState.h"
 #include "TimeControl.h"
 
 class SGFTree {
@@ -48,7 +47,7 @@ public:
     SGFTree() = default;
     void init_state();
 
-    const KoState* get_state() const;
+    const FastState* get_state() const;
     GameState follow_mainline_state(unsigned int movenum = 999) const;
     std::vector<int> get_mainline() const;
 
@@ -77,7 +76,7 @@ private:
     using PropertyMap = std::multimap<std::string, std::string>;
 
     bool m_initialized{false};
-    KoState m_state;
+    FastState m_state;
     std::shared_ptr<TimeControl> m_timecontrol_ptr;
     FastBoard::vertex_t m_winner{FastBoard::INVAL};
     std::vector<SGFTree> m_children;

@@ -46,12 +46,10 @@ void FastState::init_game(const int size, const float komi) {
     board.reset_board(size);
 
     m_movenum = 0;
-
-    m_komove = FastBoard::NO_VERTEX;
     m_lastmove = FastBoard::NO_VERTEX;
-    m_komi = komi;
     m_handicap = 0;
     m_passes = 0;
+    m_komi = komi;
 
     return;
 }
@@ -66,51 +64,47 @@ void FastState::reset_game() {
     m_movenum = 0;
     m_passes = 0;
     m_handicap = 0;
-    m_komove = FastBoard::NO_VERTEX;
     m_lastmove = FastBoard::NO_VERTEX;
 }
 
 void FastState::reset_board() {
     board.reset_board(board.get_boardsize());
 }
-
-bool FastState::is_move_legal(const int color, const int vertex) const {
-    return !cfg_analyze_tags.is_to_avoid(color, vertex, m_movenum)
-           && (vertex == FastBoard::PASS || vertex == FastBoard::RESIGN
-               || (vertex != m_komove
-                   && board.get_state(vertex) == FastBoard::EMPTY
-                   && !board.is_suicide(vertex, color)));
+bool FastState::has_legal_moves(const int color) const {
+    return board.legal_moves_present(color);
+}
+//checks if the move is legal
+bool FastState::is_move_legal(const int color, const int vertex) const { //tochange
+    
+    if (vertex == FastBoard::PASS && board.legal_moves_present(color)) {
+        return false;
+    }
+    
+    return !cfg_analyze_tags.is_to_avoid(color, vertex, m_movenum) 
+        && (vertex == FastBoard::RESIGN || 
+            vertex == FastBoard::PASS ||
+            (board.get_state(vertex) == FastBoard::EMPTY && board.is_play_legal(color, vertex)));
 }
 
 void FastState::play_move(const int vertex) {
     play_move(board.m_tomove, vertex);
 }
 
+//this plays the move
 void FastState::play_move(const int color, const int vertex) {
-    board.m_hash ^= Zobrist::zobrist_ko[m_komove];
-    if (vertex == FastBoard::PASS) {
-        // No Ko move
-        m_komove = FastBoard::NO_VERTEX;
-    } else {
-        m_komove = board.update_board(color, vertex);
+    
+    if (vertex != FastBoard::PASS) {
+        board.update_board(color, vertex);
     }
-    board.m_hash ^= Zobrist::zobrist_ko[m_komove];
-
+    
     m_lastmove = vertex;
     m_movenum++;
-
-    if (board.m_tomove == color) {
-        board.m_hash ^= Zobrist::zobrist_blacktomove;
-    }
     board.m_tomove = !color;
-
-    board.m_hash ^= Zobrist::zobrist_pass[get_passes()];
     if (vertex == FastBoard::PASS) {
         increment_passes();
     } else {
         set_passes(0);
     }
-    board.m_hash ^= Zobrist::zobrist_pass[get_passes()];
 }
 
 size_t FastState::get_movenum() const {
@@ -123,6 +117,9 @@ int FastState::get_last_move() const {
 
 int FastState::get_passes() const {
     return m_passes;
+}
+float FastState::get_komi() const {
+    return m_komi;
 }
 
 void FastState::set_passes(const int val) {
@@ -142,16 +139,19 @@ void FastState::set_to_move(const int tom) {
     board.set_to_move(tom);
 }
 
+
+
 void FastState::display_state() {
-    myprintf("\nPasses: %d            Black (X) Prisoners: %d\n",
-             m_passes, board.get_prisoners(FastBoard::BLACK));
+    auto points = board.area_score(get_komi());
+    myprintf("\nPasses: %d            Black (X) Pawns: %.1f\n",
+             m_passes, points.first);
     if (board.black_to_move()) {
         myprintf("Black (X) to move");
     } else {
         myprintf("White (O) to move");
     }
-    myprintf("    White (O) Prisoners: %d\n",
-             board.get_prisoners(FastBoard::WHITE));
+    myprintf("    White (O) Pawns: %.1f\n",
+             points.second);
 
     board.display_board(get_last_move());
 }
@@ -160,13 +160,10 @@ std::string FastState::move_to_text(const int move) const {
     return board.move_to_text(move);
 }
 
-float FastState::final_score() const {
-    return board.area_score(get_komi() + get_handicap());
+std::pair<float, float> FastState::final_score() const {
+    return board.area_score(get_komi());
 }
 
-float FastState::get_komi() const {
-    return m_komi;
-}
 
 void FastState::set_handicap(const int hcap) {
     m_handicap = hcap;
@@ -177,5 +174,6 @@ int FastState::get_handicap() const {
 }
 
 std::uint64_t FastState::get_symmetry_hash(const int symmetry) const {
-    return board.calc_symmetry_hash(m_komove, symmetry);
+    return board.calc_symmetry_hash(symmetry);
 }
+

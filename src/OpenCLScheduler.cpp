@@ -57,6 +57,7 @@ private:
     const std::vector<float>& m_f;
 };
 
+//adds padding to the filter of weights U to ensure you have the expected amount of outputs
 template <typename T>
 static std::vector<T> zeropad_U(const std::vector<float>& U, const int outputs,
                                 const int channels, const int outputs_pad,
@@ -94,7 +95,7 @@ OpenCLScheduler<net_t>::OpenCLScheduler() {
 
     auto silent{false};
 
-    for (auto gpu : gpus) {
+    for (auto gpu : gpus) { //for each gpu it creates an OpenCl object and an OpenCL_Network object (the class that uses opencl cores to do neural network operations) then adds it to the vectors to save them
         auto opencl = std::make_unique<OpenCL<net_t>>(gpu, silent);
         auto net = std::make_unique<OpenCL_Network<net_t>>(*opencl);
         m_opencl.push_back(std::move(opencl));
@@ -111,14 +112,14 @@ void OpenCLScheduler<net_t>::initialize(const int channels) {
     // threads so that we can at least concurrently schedule something to the
     // GPU.
     auto num_worker_threads =
-        cfg_num_threads / cfg_batch_size / (m_opencl.size() + 1) + 1;
+        cfg_num_threads / cfg_batch_size / (m_opencl.size() + 1) + 1; //calculates the number of threads to allocate for each GPU device
     auto gnum = 0;
     for (auto& opencl : m_opencl) {
-        opencl->initialize(channels, cfg_batch_size);
+        opencl->initialize(channels, cfg_batch_size); //initializes the opencl device
 
-        for (auto i = unsigned{0}; i < num_worker_threads; i++) {
+        for (auto i = unsigned{0}; i < num_worker_threads; i++) { //for each device
             auto t =
-                std::thread(&OpenCLScheduler<net_t>::batch_worker, this, gnum);
+                std::thread(&OpenCLScheduler<net_t>::batch_worker, this, gnum); //it launches a thread that executes the batch_worker function with the gnum to determine on which gpu it works on
             m_worker_threads.push_back(std::move(t));
         }
         gnum++;
@@ -131,6 +132,7 @@ void OpenCLScheduler<net_t>::initialize(const int channels) {
     }
 }
 
+//delete function
 template <typename net_t>
 OpenCLScheduler<net_t>::~OpenCLScheduler() {
     {
@@ -154,6 +156,7 @@ bool OpenCLScheduler<net_t>::needs_autodetect() {
     return false;
 }
 
+//This function pushes the input layer weights into the network
 template <typename net_t>
 void OpenCLScheduler<net_t>::push_input_convolution(
     const unsigned int filter_size, const unsigned int channels,
@@ -162,7 +165,7 @@ void OpenCLScheduler<net_t>::push_input_convolution(
     const std::vector<float>& means,
     const std::vector<float>& variances) {
 
-    for (const auto& opencl_net : m_networks) {
+    for (const auto& opencl_net : m_networks) { //it pushes the same weights and channels onto every OpenCL network
         const auto tuners = opencl_net->getOpenCL().get_sgemm_tuners();
 
         const auto mwg = tuners[0];
@@ -173,13 +176,14 @@ void OpenCLScheduler<net_t>::push_input_convolution(
         const auto k_ceil = ceilMultiple(ceilMultiple(channels, kwg), vwm);
 
         const auto Upad =
-            zeropad_U<net_t>(weights, outputs, channels, m_ceil, k_ceil);
+            zeropad_U<net_t>(weights, outputs, channels, m_ceil, k_ceil); //applies padding to the input weights
         opencl_net->push_input_convolution(filter_size, channels, outputs, Upad,
                                            from_float(means),
-                                           from_float(variances));
+                                           from_float(variances));//this pushes the weights into the input layer
     }
 }
 
+//pushes weights into both layers of a residual block
 template <typename net_t>
 void OpenCLScheduler<net_t>::push_residual(
     const unsigned int filter_size, const unsigned int channels,
@@ -190,7 +194,7 @@ void OpenCLScheduler<net_t>::push_residual(
     const std::vector<float>& weights_2,
     const std::vector<float>& means_2,
     const std::vector<float>& variances_2) {
-    for (const auto& opencl_net : m_networks) {
+    for (const auto& opencl_net : m_networks) { //it pushes the same weights and channels onto every OpenCL network
         const auto tuners = opencl_net->getOpenCL().get_sgemm_tuners();
 
         const auto mwg = tuners[0];
@@ -209,6 +213,7 @@ void OpenCLScheduler<net_t>::push_residual(
     }
 }
 
+//probably applies the weights to the last convolutional layers (heads)
 template <typename net_t>
 void OpenCLScheduler<net_t>::push_convolve(const unsigned int filter_size,
                                            const unsigned int channels,
@@ -220,6 +225,7 @@ void OpenCLScheduler<net_t>::push_convolve(const unsigned int filter_size,
     }
 }
 
+//Pushes all the weights into the network by calling the three functions created above
 template <typename net_t>
 void OpenCLScheduler<net_t>::push_weights(
     const unsigned int filter_size, const unsigned int channels,
@@ -253,6 +259,7 @@ void OpenCLScheduler<net_t>::push_weights(
     push_convolve(1, outputs, Network::OUTPUTS_VALUE, weights->m_conv_val_w);
 }
 
+//creates a forward pass through the network
 template <typename net_t>
 void OpenCLScheduler<net_t>::forward(const std::vector<float>& input,
                                      std::vector<float>& output_pol,
@@ -262,13 +269,13 @@ void OpenCLScheduler<net_t>::forward(const std::vector<float>& input,
     std::unique_lock<std::mutex> lk(entry->mutex);
     {
         std::unique_lock<std::mutex> lk(m_mutex);
-        m_forward_queue.push_back(entry);
+        m_forward_queue.push_back(entry); //adds the forward request queue entry into the queue
 
         if (m_single_eval_in_progress.load()) {
             m_waittime += 2;
         }
     }
-    m_cv.notify_one();
+    m_cv.notify_one(); //notifies one of the worker threads that there is a forward pass request to work on
     entry->cv.wait(lk);
 
     if (m_draining) {
@@ -280,6 +287,7 @@ void OpenCLScheduler<net_t>::forward(const std::vector<float>& input,
 struct batch_stats_t batch_stats;
 #endif
 
+//does the actual forward propagation when something is added to the queue
 template <typename net_t>
 void OpenCLScheduler<net_t>::batch_worker(const size_t gnum) {
     constexpr auto in_size = Network::INPUT_CHANNELS * BOARD_SIZE * BOARD_SIZE;
@@ -308,7 +316,7 @@ void OpenCLScheduler<net_t>::batch_worker(const size_t gnum) {
     // while that single eval was being processed, it means that we made
     // the wrong decision.  Wait 2ms longer next time.
 
-    auto pickup_task = [this]() {
+    auto pickup_task = [this]() { //loops to wait for task to pick up
         std::list<std::shared_ptr<ForwardQueueEntry>> inputs;
         size_t count = 0;
 
@@ -387,7 +395,7 @@ void OpenCLScheduler<net_t>::batch_worker(const size_t gnum) {
 
         // run the NN evaluation
         m_networks[gnum]->forward(batch_input, batch_output_pol,
-                                  batch_output_val, context, count);
+                                  batch_output_val, context, count); //runs the forward function specified in the OpenCL_Networks class
 
         // Get output and copy back
         index = 0;

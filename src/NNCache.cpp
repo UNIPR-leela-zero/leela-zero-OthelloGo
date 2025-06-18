@@ -44,23 +44,25 @@ const size_t NNCache::ENTRY_SIZE;
 
 NNCache::NNCache(const int size) : m_size(size) {}
 
+//Looks up a cache entry based on a hash, each entry contains a NetResult
 bool NNCache::lookup(const std::uint64_t hash, Netresult& result) {
     std::lock_guard<std::mutex> lock(m_mutex);
     ++m_lookups;
 
-    auto iter = m_cache.find(hash);
+    auto iter = m_cache.find(hash); 
     if (iter == m_cache.end()) {
         return false; // Not found.
     }
 
-    const auto& entry = iter->second;
+    const auto& entry = iter->second; //since the entry is the second element in m_cache and it's the one that contains the netresult
 
     // Found it.
     ++m_hits;
-    result = entry->result;
-    return true;
+    result = entry->result; //the result is returned
+    return true; //lookup was successful
 }
 
+//adds a new element in the cache, associating the hash of the board with the netresult
 void NNCache::insert(const std::uint64_t hash, const Netresult& result) {
     std::lock_guard<std::mutex> lock(m_mutex);
 
@@ -92,6 +94,7 @@ void NNCache::clear() {
     m_order.clear();
 }
 
+//estimates max cache size based on settings
 void NNCache::set_size_from_playouts(const int max_playouts) {
     // cache hits are generally from last several moves so setting cache
     // size based on playouts increases the hit rate while balancing memory

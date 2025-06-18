@@ -82,13 +82,8 @@ public:
     void set_state(int vertex, vertex_t content);
     std::pair<int, int> get_xy(int vertex) const;
 
-    bool is_suicide(int i, int color) const;
-    int count_pliberties(int i) const;
-    bool is_eye(int color, int vtx) const;
+    std::pair<float, float> area_score(float komi) const;
 
-    float area_score(float komi) const;
-
-    int get_prisoners(int side) const;
     bool black_to_move() const;
     bool white_to_move() const;
     int get_to_move() const;
@@ -98,7 +93,6 @@ public:
     int text_to_move(std::string move) const;
     std::string move_to_text_sgf(int move) const;
     std::string get_stone_list() const;
-    std::string get_string(int vertex) const;
 
     void reset_board(int size);
     void display_board(int lastmove = -1);
@@ -110,33 +104,24 @@ protected:
     /*
         bit masks to detect eyes on neighbors
     */
-    static const std::array<int,      2> s_eyemask;
     static const std::array<vertex_t, 4> s_cinvert; /* color inversion */
 
     std::array<vertex_t, NUM_VERTICES>           m_state;      /* board contents */
-    std::array<unsigned short, NUM_VERTICES + 1> m_next;       /* next stone in string */
-    std::array<unsigned short, NUM_VERTICES + 1> m_parent;     /* parent node of string */
-    std::array<unsigned short, NUM_VERTICES + 1> m_libs;       /* liberties per string parent */
-    std::array<unsigned short, NUM_VERTICES + 1> m_stones;     /* stones per string parent */
     std::array<unsigned short, NUM_VERTICES>     m_neighbours; /* counts of neighboring stones */
-    std::array<int, 4>                           m_dirs;       /* movement directions 4 way */
-    std::array<int, 2>                           m_prisoners;  /* prisoners per color */
+    std::array<int, 8>                           m_dirs;       /* movement directions 4 way */
     std::array<unsigned short, NUM_VERTICES>     m_empty;      /* empty intersections */
     std::array<unsigned short, NUM_VERTICES>     m_empty_idx;  /* intersection indices */
     int m_empty_cnt;                                           /* count of empties */
 
-    int m_tomove;
+    int m_tomove;    /* player to move */
     int m_numvertices;
 
     int m_boardsize;
     int m_sidevertices;
 
-    int calc_reach_color(int color) const;
-
     int count_neighbours(int color, int i) const;
-    void merge_strings(int ip, int aip);
     void add_neighbour(int i, int color);
-    void remove_neighbour(int i, int color);
+    void flip_neighbour(int i, int color);
     void print_columns();
 };
 

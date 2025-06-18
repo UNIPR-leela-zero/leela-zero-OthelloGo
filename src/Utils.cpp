@@ -50,18 +50,26 @@
 
 Utils::ThreadPool thread_pool;
 
+// Valori memorizzati in tabella (ne determina la dimensione)
 auto constexpr z_entries = 1000;
 std::array<float, z_entries> z_lookup;
 
+// Creazione tabella di valori critici della distribuzione t di Student
 void Utils::create_z_table() {
+    // Scorre i vari gradi di libertà
     for (auto i = 1; i < z_entries + 1; i++) {
+        // Distribuzione t di Student
         boost::math::students_t dist(i);
+        // Calcolo dei valori critici in base alla distribuzione e
+        // il livello di significatività cfg_ci_alpha.
         auto z =
             boost::math::quantile(boost::math::complement(dist, cfg_ci_alpha));
         z_lookup[i - 1] = z;
     }
 }
 
+// Restituisce un valore critico in base al numero di 
+// gradi di libertà v.
 float Utils::cached_t_quantile(const int v) {
     if (v < 1) {
         return z_lookup[0];
@@ -75,14 +83,17 @@ float Utils::cached_t_quantile(const int v) {
     return z_lookup[z_entries - 1];
 }
 
+// Verifica se ci sono dati in input disponibili
 bool Utils::input_pending() {
+// Sistemi POSIX: il SO supporta select()
 #ifdef HAVE_SELECT
     fd_set read_fds;
-    FD_ZERO(&read_fds);
-    FD_SET(0, &read_fds);
+    FD_ZERO(&read_fds);                 // Tutti i bit vengono azzerati
+    FD_SET(0, &read_fds);               // Viene settato il bit corrispondente all'input utilizzato
     struct timeval timeout{0, 0};
-    select(1, &read_fds, nullptr, nullptr, &timeout);
+    select(1, &read_fds, nullptr, nullptr, &timeout);       
     return FD_ISSET(0, &read_fds);
+// Sistemi Windows: il SO non supporta select()
 #else
     static int init = 0, pipe;
     static HANDLE inh;
@@ -91,14 +102,17 @@ bool Utils::input_pending() {
     if (!init) {
         init = 1;
         inh = GetStdHandle(STD_INPUT_HANDLE);
+        // Verifica se lo standard input è una pipe
         pipe = !GetConsoleMode(inh, &dw);
         if (!pipe) {
+            // Disabilitati input da mouse e gestione eventi in finestra
             SetConsoleMode(inh,
                            dw & ~(ENABLE_MOUSE_INPUT | ENABLE_WINDOW_INPUT));
             FlushConsoleInputBuffer(inh);
         }
     }
 
+    // Controllo dati in lettura in base alla presenza di pipe
     if (pipe) {
         if (!PeekNamedPipe(inh, nullptr, 0, nullptr, &dw, nullptr)) {
             myprintf("Nothing at other end - exiting\n");
@@ -120,21 +134,26 @@ bool Utils::input_pending() {
 
 static std::mutex IOmutex;
 
+// Gestione output
 static void myprintf_base(const char* const fmt, va_list ap) {
     va_list ap2;
     va_copy(ap2, ap);
 
+    // Stampa sulla console di errore
     vfprintf(stderr, fmt, ap);
 
     if (cfg_logfile_handle) {
         std::lock_guard<std::mutex> lock(IOmutex);
+        // Stampa su file di log
         vfprintf(cfg_logfile_handle, fmt, ap2);
     }
     va_end(ap2);
 }
 
+// Stampa messaggi 
 void Utils::myprintf(const char* const fmt, ...) {
     if (cfg_quiet) {
+        // Modalità silenziosa, nessuna stampa
         return;
     }
 
@@ -144,6 +163,7 @@ void Utils::myprintf(const char* const fmt, ...) {
     va_end(ap);
 }
 
+// Stampa messaggi di errore formattati
 void Utils::myprintf_error(const char* const fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
@@ -152,18 +172,22 @@ void Utils::myprintf_error(const char* const fmt, ...) {
 }
 
 static void gtp_fprintf(FILE* const file, const std::string& prefix,
-                        const char* const fmt, va_list ap) {
-    fprintf(file, "%s ", prefix.c_str());
-    vfprintf(file, fmt, ap);
+    const char* const fmt, va_list ap) {
+    // Stampa del prefisso
+    fprintf(file, "%s ", prefix.c_str());  
+    // Stampa del messaggio da file specificato
+    vfprintf(file, fmt, ap);                    
     fprintf(file, "\n\n");
 }
 
 static void gtp_base_printf(const int id, std::string prefix,
                             const char* const fmt, va_list ap) {
+    // Aggiunto ID al prefisso se diverso di -1
     if (id != -1) {
         prefix += std::to_string(id);
     }
     gtp_fprintf(stdout, prefix, fmt, ap);
+    // Instradamento dell'output al file di log
     if (cfg_logfile_handle) {
         std::lock_guard<std::mutex> lock(IOmutex);
         gtp_fprintf(cfg_logfile_handle, prefix, fmt, ap);
@@ -173,10 +197,12 @@ static void gtp_base_printf(const int id, std::string prefix,
 void Utils::gtp_printf(const int id, const char* const fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
+    // Stampa seguendo le specifiche del protocollo GTP
     gtp_base_printf(id, "=", fmt, ap);
     va_end(ap);
 }
 
+// Nessun prefisso applicato
 void Utils::gtp_printf_raw(const char* const fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
@@ -191,6 +217,7 @@ void Utils::gtp_printf_raw(const char* const fmt, ...) {
     }
 }
 
+// Stampa messaggi di errore con la formattazione GTP
 void Utils::gtp_fail_printf(const int id, const char* const fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
@@ -198,15 +225,19 @@ void Utils::gtp_fail_printf(const int id, const char* const fmt, ...) {
     va_end(ap);
 }
 
+// L'input viene registrato nel file di log
 void Utils::log_input(const std::string& input) {
+    // Controllo configurazione file di log
     if (cfg_logfile_handle) {
         std::lock_guard<std::mutex> lock(IOmutex);
         fprintf(cfg_logfile_handle, ">>%s\n", input.c_str());
     }
 }
 
+// Calcola il multiplo più piccolo di un numero a
 size_t Utils::ceilMultiple(const size_t a, const size_t b) {
     if (a % b == 0) {
+        // a è un multiplo di b
         return a;
     }
 
@@ -214,12 +245,15 @@ size_t Utils::ceilMultiple(const size_t a, const size_t b) {
     return ret;
 }
 
+// Stampa il percorso completo di un file all'interno della directory specifica
 std::string Utils::leelaz_file(const std::string& file) {
 #if defined(_WIN32) || defined(__ANDROID__)
+    // Usa la directory corrente se il SO è Windows o Android
     boost::filesystem::path dir(boost::filesystem::current_path());
 #else
     // https://stackoverflow.com/a/26696759
     const char* homedir;
+    // Utilizzo home directory utente
     if ((homedir = getenv("HOME")) == nullptr) {
         struct passwd* pwd;
         // NOLINTNEXTLINE(runtime/threadsafe_fn)
@@ -229,8 +263,11 @@ std::string Utils::leelaz_file(const std::string& file) {
         homedir = pwd->pw_dir;
     }
     boost::filesystem::path dir(homedir);
+    // Creazione directory specificata
     dir /= ".local/share/leela-zero";
 #endif
+    // Viene aggiunto il nome del file alla directory 
+    // per creare il percorso completo.
     boost::filesystem::create_directories(dir);
     dir /= file;
     return dir.string();

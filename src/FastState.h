@@ -44,8 +44,9 @@ public:
     void reset_board();
 
     void play_move(int vertex);
+    void play_move(int color, int vertex);
     bool is_move_legal(int color, int vertex) const;
-
+    bool has_legal_moves(const int color) const;
     void set_komi(float komi);
     float get_komi() const;
     void set_handicap(int hcap);
@@ -56,7 +57,7 @@ public:
     void set_passes(int val);
     void increment_passes();
 
-    float final_score() const;
+    std::pair<float, float> final_score() const;
     std::uint64_t get_symmetry_hash(int symmetry) const;
 
     size_t get_movenum() const;
@@ -69,12 +70,9 @@ public:
     float m_komi;
     int m_handicap;
     int m_passes;
-    int m_komove;
     size_t m_movenum;
     int m_lastmove;
-
-protected:
-    void play_move(int color, int vertex);
+    
 };
 
 #endif

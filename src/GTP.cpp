@@ -56,49 +56,50 @@
 #include "Utils.h"
 
 using namespace Utils;
+//This file defines two classes declared in the header file: AnalyzeTags, which is used to parse the configuration tags, and GTP, used to handle play
 
 // Configuration flags
-bool cfg_gtp_mode;
-bool cfg_allow_pondering;
-unsigned int cfg_num_threads;
-unsigned int cfg_batch_size;
-int cfg_max_playouts;
-int cfg_max_visits;
-size_t cfg_max_memory;
-size_t cfg_max_tree_size;
-int cfg_max_cache_ratio_percent;
-TimeManagement::enabled_t cfg_timemanage;
-int cfg_lagbuffer_cs;
-int cfg_resignpct;
-int cfg_noise;
-int cfg_random_cnt;
-int cfg_random_min_visits;
-float cfg_random_temp;
-std::uint64_t cfg_rng_seed;
-bool cfg_dumbpass;
+bool cfg_gtp_mode; //Indicates whether the AI is operating in GTP mode
+bool cfg_allow_pondering; //Determines if the AI can think during opp turn
+unsigned int cfg_num_threads; //Specifies number of threads used for parallel processing
+unsigned int cfg_batch_size; //Specifies size of input batches used 
+int cfg_max_playouts; //Maximum number of playouts allowed
+int cfg_max_visits; //Maximum number of visits during search
+size_t cfg_max_memory; //Maximum memory allowed
+size_t cfg_max_tree_size; //Maximum size of search tree
+int cfg_max_cache_ratio_percent;  //Percentage of memory allocated for the NNCache
+TimeManagement::enabled_t cfg_timemanage; //Configuration for TimeManagement
+int cfg_lagbuffer_cs; //Lag buffer size in centiseconds, used for network latency compensation
+int cfg_resignpct; //Percentage at which the ai decides to resign the game (if best evaluation is lower)
+int cfg_noise; //Noise parameter for MCTS 
+int cfg_random_cnt; //Number of random playouts before using the neural network for evaluation
+int cfg_random_min_visits; //Minimum number of visits before using random playouts
+float cfg_random_temp; //Parameter for the level of random playouts (these are used for exploration purposes)
+std::uint64_t cfg_rng_seed; //Seed for the rng
+bool cfg_dumbpass; //Determines if the AI should make simple evaluations to pass
 #ifdef USE_OPENCL
-std::vector<int> cfg_gpus;
-bool cfg_sgemm_exhaustive;
-bool cfg_tune_only;
+std::vector<int> cfg_gpus; //List of gpu IDs used for computation
+bool cfg_sgemm_exhaustive; //Flag indicating whether the OpenCL SGEMM kernel should be exhaustively tested
+bool cfg_tune_only; //Flag indicating whether to perform kernel tuning only
 #ifdef USE_HALF
-precision_t cfg_precision;
+precision_t cfg_precision; //Precision used for calculations (only applicable if half-precision support is enabled)
 #endif
 #endif
-float cfg_puct;
-float cfg_logpuct;
+float cfg_puct; //Exploration parameter, if higher encourages more exploration
+float cfg_logpuct; //Logarithm of puct
 float cfg_logconst;
 float cfg_softmax_temp;
 float cfg_fpu_reduction;
 float cfg_fpu_root_reduction;
 float cfg_ci_alpha;
 float cfg_lcb_min_visit_ratio;
-std::string cfg_weightsfile;
-std::string cfg_logfile;
-FILE* cfg_logfile_handle;
-bool cfg_quiet;
+std::string cfg_weightsfile; //File path to the neural network weights file
+std::string cfg_logfile; //File path to the log file
+FILE* cfg_logfile_handle; //File handle for the log
+bool cfg_quiet; //Determines if program suppresses output
 std::string cfg_options_str;
-bool cfg_benchmark;
-bool cfg_cpu_only;
+bool cfg_benchmark; //Flag indicating whether it's running in benchmark mode
+bool cfg_cpu_only; //Flag indicating whether the AI should only use the CPU
 AnalyzeTags cfg_analyze_tags;
 
 /* Parses tags for the lz-analyze GTP command and friends */
@@ -111,8 +112,8 @@ AnalyzeTags::AnalyzeTags(std::istringstream& cmdstream, const GameState& game) {
     auto avoid_not_pass_resign_b = false, avoid_not_pass_resign_w = false;
     auto allow_b = false, allow_w = false;
 
-    while (true) {
-        cmdstream >> std::ws;
+    while (true) { 
+        cmdstream >> std::ws; //discards white spaces from the command stream
         if (isdigit(cmdstream.peek())) {
             tag = "interval";
         } else {
@@ -124,47 +125,47 @@ AnalyzeTags::AnalyzeTags(std::istringstream& cmdstream, const GameState& game) {
             }
         }
 
-        if (tag == "avoid" || tag == "allow") {
+        if (tag == "avoid" || tag == "allow") { //parses the avoid and allow commands, which take a vertex rectangle in the form of A1:B1, and allows or denies all moves within that range
             std::string textcolor, textmoves;
             size_t until_movenum;
             cmdstream >> textcolor;
-            cmdstream >> textmoves;
+            cmdstream >> textmoves; //contains a string of moves separated by a comma
             cmdstream >> until_movenum;
             if (cmdstream.fail()) {
                 return;
             }
 
             std::vector<int> moves;
-            std::istringstream movestream(textmoves);
+            std::istringstream movestream(textmoves); //creates an input stream where the contents are the textmoves variable moves
             while (!movestream.eof()) {
                 std::string textmove;
-                getline(movestream, textmove, ',');
-                auto sepidx = textmove.find_first_of(':');
-                if (sepidx != std::string::npos) {
-                    if (!(sepidx == 2 || sepidx == 3)) {
+                getline(movestream, textmove, ','); //separates the moves, each move pair is put into textmove
+                auto sepidx = textmove.find_first_of(':'); //finds the : within the move pair
+                if (sepidx != std::string::npos) { //if the semicolon is found
+                    if (!(sepidx == 2 || sepidx == 3)) { //if the semicolon is not in a valid position, it breaks
                         moves.clear();
                         break;
                     }
                     auto move1_compressed =
-                        game.board.text_to_move(textmove.substr(0, sepidx));
+                        game.board.text_to_move(textmove.substr(0, sepidx)); //move before the colon
                     auto move2_compressed =
-                        game.board.text_to_move(textmove.substr(sepidx + 1));
+                        game.board.text_to_move(textmove.substr(sepidx + 1)); //move after the colon
                     if (move1_compressed == FastBoard::NO_VERTEX ||
                         move1_compressed == FastBoard::PASS ||
                         move1_compressed == FastBoard::RESIGN ||
                         move2_compressed == FastBoard::NO_VERTEX ||
                         move2_compressed == FastBoard::PASS ||
-                        move2_compressed == FastBoard::RESIGN) {
+                        move2_compressed == FastBoard::RESIGN) { //if the move pair is invalid
                         moves.clear();
                         break;
                     }
-                    auto move1_xy = game.board.get_xy(move1_compressed);
-                    auto move2_xy = game.board.get_xy(move2_compressed);
+                    auto move1_xy = game.board.get_xy(move1_compressed); //coordinates of the first move
+                    auto move2_xy = game.board.get_xy(move2_compressed); //coordinates of the second move
                     auto xmin = std::min(move1_xy.first, move2_xy.first);
                     auto xmax = std::max(move1_xy.first, move2_xy.first);
                     auto ymin = std::min(move1_xy.second, move2_xy.second);
                     auto ymax = std::max(move1_xy.second, move2_xy.second);
-                    for (auto move_x = xmin; move_x <= xmax; move_x++) {
+                    for (auto move_x = xmin; move_x <= xmax; move_x++) { //iterates all the vertexes specified within the range (rectangle defined by input positions)
                         for (auto move_y = ymin; move_y <= ymax; move_y++) {
                             moves.push_back(
                                 game.board.get_vertex(move_x, move_y));
@@ -176,7 +177,7 @@ AnalyzeTags::AnalyzeTags(std::istringstream& cmdstream, const GameState& game) {
                         moves.clear();
                         break;
                     }
-                    moves.push_back(move);
+                    moves.push_back(move); //if there's no semicolon it's a single move which is allowed or denied
                 }
             }
             if (moves.empty()) {
@@ -197,9 +198,9 @@ AnalyzeTags::AnalyzeTags(std::istringstream& cmdstream, const GameState& game) {
             }
             until_movenum += game.get_movenum() - 1;
 
-            for (const auto& move : moves) {
-                if (tag == "avoid") {
-                    add_move_to_avoid(color, move, until_movenum);
+            for (const auto& move : moves) { //iterates the moves vector
+                if (tag == "avoid") { //if the moves are moves to be avoided
+                    add_move_to_avoid(color, move, until_movenum); //adds the move to the moves to avoid list
                     if (move != FastBoard::PASS && move != FastBoard::RESIGN) {
                         if (color == FastBoard::BLACK) {
                             avoid_not_pass_resign_b = true;
@@ -208,7 +209,7 @@ AnalyzeTags::AnalyzeTags(std::istringstream& cmdstream, const GameState& game) {
                         }
                     }
                 } else {
-                    add_move_to_allow(color, move, until_movenum);
+                    add_move_to_allow(color, move, until_movenum); //otherwise it adds it to the allow list
                     if (color == FastBoard::BLACK) {
                         allow_b = true;
                     } else {
@@ -268,6 +269,7 @@ size_t AnalyzeTags::post_move_count() const {
     return m_min_moves;
 }
 
+//checks is a move is to be avoided
 bool AnalyzeTags::is_to_avoid(const int color, const int vertex,
                               const size_t movenum) const {
     for (auto& move : m_moves_to_avoid) {
@@ -280,25 +282,26 @@ bool AnalyzeTags::is_to_avoid(const int color, const int vertex,
         auto active_allow = false;
         for (auto& move : m_moves_to_allow) {
             if (color == move.color && movenum <= move.until_move) {
-                active_allow = true;
+                active_allow = true; //if there are any moves that are specifically allowed
                 if (vertex == move.vertex) {
                     return false;
                 }
             }
         }
-        if (active_allow) {
+        if (active_allow) { //avoid all moves that are not those explicitly allowed
             return true;
         }
     }
     return false;
 }
 
-bool AnalyzeTags::has_move_restrictions() const {
+bool AnalyzeTags::has_move_restrictions() const { //checks if there are any moves to avoid or allow
     return !m_moves_to_avoid.empty() || !m_moves_to_allow.empty();
 }
 
-std::unique_ptr<Network> GTP::s_network;
+std::unique_ptr<Network> GTP::s_network; //declares pointer to the network
 
+//function that gets the pointer to the network and sets the max memory parameters, initializing the GTP
 void GTP::initialize(std::unique_ptr<Network>&& net) {
     s_network = std::move(net);
 
@@ -381,6 +384,7 @@ void GTP::setup_default_parameters() {
     cfg_rng_seed = seed1 ^ seed2;
 }
 
+//list of all commands
 const std::string GTP::s_commands[] = {
     "protocol_version",
     "name",
@@ -390,21 +394,17 @@ const std::string GTP::s_commands[] = {
     "list_commands",
     "boardsize",
     "clear_board",
-    "komi",
     "play",
     "genmove",
     "showboard",
     "undo",
     "final_score",
-    "final_status_list",
     "time_settings",
     "time_left",
     "fixed_handicap",
     "last_move",
     "move_history",
     "clear_cache",
-    "place_free_handicap",
-    "set_free_handicap",
     "loadsgf",
     "printsgf",
     "kgs-genmove_cleanup",
@@ -432,39 +432,11 @@ const std::string GTP::s_options[] = {
     ""
 };
 
-std::string GTP::get_life_list(const GameState& game, const bool live) {
-    std::vector<std::string> stringlist;
-    std::string result;
-    const auto& board = game.board;
 
-    if (live) {
-        for (int i = 0; i < board.get_boardsize(); i++) {
-            for (int j = 0; j < board.get_boardsize(); j++) {
-                int vertex = board.get_vertex(i, j);
-
-                if (board.get_state(vertex) != FastBoard::EMPTY) {
-                    stringlist.push_back(board.get_string(vertex));
-                }
-            }
-        }
-    }
-
-    // remove multiple mentions of the same string
-    // unique reorders and returns new iterator, erase actually deletes
-    std::sort(begin(stringlist), end(stringlist));
-    stringlist.erase(std::unique(begin(stringlist), end(stringlist)),
-                     end(stringlist));
-
-    for (size_t i = 0; i < stringlist.size(); i++) {
-        result += (i == 0 ? "" : "\n") + stringlist[i];
-    }
-
-    return result;
-}
 
 void GTP::execute(GameState& game, const std::string& xinput) {
     std::string input;
-    static auto search = std::make_unique<UCTSearch>(game, *s_network);
+    static auto search = std::make_unique<UCTSearch>(game, *s_network); //initializes the search tree
 
     bool transform_lowercase = true;
 
@@ -505,9 +477,9 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         return;
     } else if (input == "exit") {
         exit(EXIT_SUCCESS);
-    } else if (input.find("#") == 0) {
+    } else if (input.find("#") == 0) { //allows to ignore comments in the input
         return;
-    } else if (std::isdigit(input[0])) {
+    } else if (std::isdigit(input[0])) { //separates the id from the command if there is an id in front
         std::istringstream strm(input);
         char spacer;
         strm >> id;
@@ -530,11 +502,11 @@ void GTP::execute(GameState& game, const std::string& xinput) {
     } else if (command == "quit") {
         gtp_printf(id, "");
         exit(EXIT_SUCCESS);
-    } else if (command.find("known_command") == 0) {
+    } else if (command.find("known_command") == 0) { //checks if a command is present in the list of known commands
         std::istringstream cmdstream(command);
         std::string tmp;
 
-        cmdstream >> tmp; /* remove known_command */
+        cmdstream >> tmp; /* remove "known_command" */
         cmdstream >> tmp;
 
         for (int i = 0; s_commands[i].size() > 0; i++) {
@@ -553,21 +525,20 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         }
         gtp_printf(id, outtmp.c_str());
         return;
-    } else if (command.find("boardsize") == 0) {
+    } else if (command.find("boardsize") == 0) { //resets a board with the desired size, but in the current version it only accepts the predefined board size
         std::istringstream cmdstream(command);
         std::string stmp;
         int tmp;
 
-        cmdstream >> stmp; // eat boardsize
+        cmdstream >> stmp; // eat "boardsize"
         cmdstream >> tmp;
 
         if (!cmdstream.fail()) {
             if (tmp != BOARD_SIZE) {
                 gtp_fail_printf(id, "unacceptable size");
             } else {
-                float old_komi = game.get_komi();
                 Training::clear_training();
-                game.init_game(tmp, old_komi);
+                game.init_game(tmp, KOMI);
                 gtp_printf(id, "");
             }
         } else {
@@ -575,33 +546,14 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         }
 
         return;
-    } else if (command.find("clear_board") == 0) {
+    } else if (command.find("clear_board") == 0) { //clears the board
         Training::clear_training();
         game.reset_game();
         search = std::make_unique<UCTSearch>(game, *s_network);
         assert(UCTNodePointer::get_tree_size() == 0);
         gtp_printf(id, "");
         return;
-    } else if (command.find("komi") == 0) {
-        std::istringstream cmdstream(command);
-        std::string tmp;
-        float komi = KOMI;
-        float old_komi = game.get_komi();
-
-        cmdstream >> tmp; // eat komi
-        cmdstream >> komi;
-
-        if (!cmdstream.fail()) {
-            if (komi != old_komi) {
-                game.set_komi(komi);
-            }
-            gtp_printf(id, "");
-        } else {
-            gtp_fail_printf(id, "syntax not understood");
-        }
-
-        return;
-    } else if (command.find("play") == 0) {
+    } else if (command.find("play") == 0) { //plays the move specifying color and vertex
         std::istringstream cmdstream(command);
         std::string tmp;
         std::string color, vertex;
@@ -621,18 +573,18 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         }
         return;
     } else if (command.find("genmove") == 0
-               || command.find("lz-genmove_analyze") == 0) {
-        auto analysis_output = command.find("lz-genmove_analyze") == 0;
+               || command.find("lz-genmove_analyze") == 0) { //generates a move for the specified player
+        auto analysis_output = command.find("lz-genmove_analyze") == 0; //if it's lz-genmove-analyze, it sets the flag to analyze later
 
         std::istringstream cmdstream(command);
         std::string tmp;
-        cmdstream >> tmp; // eat genmove
+        cmdstream >> tmp; // eat "genmove"
 
         int who;
         AnalyzeTags tags;
 
         if (analysis_output) {
-            tags = AnalyzeTags{cmdstream, game};
+            tags = AnalyzeTags{cmdstream, game}; //uses AnalyzeTags to analyze the tags in the input, like avoid or allow moves
             if (tags.invalid()) {
                 gtp_fail_printf(id, "cannot parse analyze tags");
                 return;
@@ -662,9 +614,13 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         }
         // start thinking
         {
+            if (game.get_passes() >= 2) {
+                return;
+            }
             game.set_to_move(who);
             // Outputs winrate and pvs for lz-genmove_analyze
-            int move = search->think(who);
+            
+            int move = search->think(who); //gets the move from the search tree
             game.play_move(move);
 
             std::string vertex = game.move_to_text(move);
@@ -688,11 +644,11 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         }
         cfg_analyze_tags = {};
         return;
-    } else if (command.find("lz-analyze") == 0) {
+    } else if (command.find("lz-analyze") == 0) { //ponders without making moves
         std::istringstream cmdstream(command);
         std::string tmp;
 
-        cmdstream >> tmp; // eat lz-analyze
+        cmdstream >> tmp; // eat "lz-analyze"
         AnalyzeTags tags{cmdstream, game};
         if (tags.invalid()) {
             gtp_fail_printf(id, "cannot parse analyze tags");
@@ -705,7 +661,7 @@ void GTP::execute(GameState& game, const std::string& xinput) {
             gtp_printf_raw("=\n");
         }
         // Now start pondering.
-        if (!game.has_resigned()) {
+        if (!game.has_resigned() && game.get_passes() < 2) {
             cfg_analyze_tags = tags;
             // Outputs winrate and pvs through gtp
             game.set_to_move(tags.who());
@@ -719,7 +675,7 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         std::istringstream cmdstream(command);
         std::string tmp;
 
-        cmdstream >> tmp; // eat kgs-genmove
+        cmdstream >> tmp; // eat "kgs-genmove"
         cmdstream >> tmp;
 
         if (!cmdstream.fail()) {
@@ -732,10 +688,10 @@ void GTP::execute(GameState& game, const std::string& xinput) {
                 gtp_fail_printf(id, "syntax error");
                 return;
             }
-            game.set_passes(0);
+            game.set_passes(0); //sets the passes to 0 
             {
                 game.set_to_move(who);
-                int move = search->think(who, UCTSearch::NOPASS);
+                int move = search->think(who, UCTSearch::NOPASS); //generates a move but doesn't allow to pass
                 game.play_move(move);
 
                 std::string vertex = game.move_to_text(move);
@@ -751,40 +707,29 @@ void GTP::execute(GameState& game, const std::string& xinput) {
             gtp_fail_printf(id, "syntax not understood");
         }
         return;
-    } else if (command.find("undo") == 0) {
+    } else if (command.find("undo") == 0) {//fixes the board to previous state
         if (game.undo_move()) {
             gtp_printf(id, "");
         } else {
             gtp_fail_printf(id, "cannot undo");
         }
         return;
-    } else if (command.find("showboard") == 0) {
+    } else if (command.find("showboard") == 0) {//displays the board
         gtp_printf(id, "");
         game.display_state();
         return;
     } else if (command.find("final_score") == 0) {
-        float ftmp = game.final_score();
+        auto ftmp = game.final_score();
         /* white wins */
-        if (ftmp < -0.1) {
-            gtp_printf(id, "W+%3.1f", float(fabs(ftmp)));
-        } else if (ftmp > 0.1) {
-            gtp_printf(id, "B+%3.1f", ftmp);
+        if (ftmp.first < ftmp.second) {
+            gtp_printf(id, "W+%.1f", ftmp.second);
+        } else if (ftmp.first > ftmp.second) {
+            gtp_printf(id, "B+%.1f", ftmp.first);
         } else {
             gtp_printf(id, "0");
         }
         return;
-    } else if (command.find("final_status_list") == 0) {
-        if (command.find("alive") != std::string::npos) {
-            std::string livelist = get_life_list(game, true);
-            gtp_printf(id, livelist.c_str());
-        } else if (command.find("dead") != std::string::npos) {
-            std::string deadlist = get_life_list(game, false);
-            gtp_printf(id, deadlist.c_str());
-        } else {
-            gtp_printf(id, "");
-        }
-        return;
-    } else if (command.find("time_settings") == 0) {
+    }  else if (command.find("time_settings") == 0) { //sets up time
         std::istringstream cmdstream(command);
         std::string tmp;
         int maintime, byotime, byostones;
@@ -800,7 +745,7 @@ void GTP::execute(GameState& game, const std::string& xinput) {
             gtp_fail_printf(id, "syntax not understood");
         }
         return;
-    } else if (command.find("time_left") == 0) {
+    } else if (command.find("time_left") == 0) { //sets up time left for the player we want
         std::istringstream cmdstream(command);
         std::string tmp, color;
         int time, stones;
@@ -826,7 +771,7 @@ void GTP::execute(GameState& game, const std::string& xinput) {
             if (cfg_allow_pondering) {
                 // KGS sends this after our move
                 // now start pondering
-                if (!game.has_resigned()) {
+                if (!game.has_resigned() && game.get_passes() < 2) {
                     search->ponder();
                 }
             }
@@ -834,23 +779,28 @@ void GTP::execute(GameState& game, const std::string& xinput) {
             gtp_fail_printf(id, "syntax not understood");
         }
         return;
-    } else if (command.find("auto") == 0) {
+    } else if (command.find("auto") == 0) { //function lets program play on its own
         do {
-            int move = search->think(game.get_to_move(), UCTSearch::NORMAL);
-            game.play_move(move);
-            game.display_state();
+            if (game.get_passes() < 2) {
+                int move = search->think(game.get_to_move(), UCTSearch::NORMAL);
+                game.play_move(move);
+                game.display_state();
+            } 
 
         } while (game.get_passes() < 2 && !game.has_resigned());
 
         return;
-    } else if (command.find("go") == 0 && command.size() < 6) {
+    } else if (command.find("go") == 0 && command.size() < 6) { //plays one move on its own
+        if (game.get_passes() >= 2) {
+            return;
+        }
         int move = search->think(game.get_to_move());
         game.play_move(move);
 
         std::string vertex = game.move_to_text(move);
         myprintf("%s\n", vertex.c_str());
         return;
-    } else if (command.find("heatmap") == 0) {
+    } else if (command.find("heatmap") == 0) { //shows the value for each move
         std::istringstream cmdstream(command);
         std::string tmp;
         std::string symmetry;
@@ -883,12 +833,12 @@ void GTP::execute(GameState& game, const std::string& xinput) {
 
         gtp_printf(id, "");
         return;
-    } else if (command.find("fixed_handicap") == 0) {
+    } else if (command.find("fixed_handicap") == 0) { //sets up handicap stones for second
         std::istringstream cmdstream(command);
         std::string tmp;
         int stones;
 
-        cmdstream >> tmp; // eat fixed_handicap
+        cmdstream >> tmp; // eat "fixed_handicap"
         cmdstream >> stones;
 
         if (!cmdstream.fail() && game.set_fixed_handicap(stones)) {
@@ -898,7 +848,7 @@ void GTP::execute(GameState& game, const std::string& xinput) {
             gtp_fail_printf(id, "Not a valid number of handicap stones");
         }
         return;
-    } else if (command.find("last_move") == 0) {
+    } else if (command.find("last_move") == 0) { //displays last move played
         auto last_move = game.get_last_move();
         if (last_move == FastBoard::NO_VERTEX) {
             gtp_fail_printf(id, "no previous move known");
@@ -908,7 +858,7 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         auto color = game.get_to_move() == FastBoard::WHITE ? "black" : "white";
         gtp_printf(id, "%s %s", color, coordinate.c_str());
         return;
-    } else if (command.find("move_history") == 0) {
+    } else if (command.find("move_history") == 0) {//gets the state history, then checks last move for each of these to display history of moves
         gtp_printf_raw("=%s %s",
                        id == -1 ? "" : std::to_string(id).c_str(),
                        game.get_movenum() == 0 ? "\n" : "");
@@ -930,53 +880,12 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         s_network->nncache_clear();
         gtp_printf(id, "");
         return;
-    } else if (command.find("place_free_handicap") == 0) {
-        std::istringstream cmdstream(command);
-        std::string tmp;
-        int stones;
-
-        cmdstream >> tmp; // eat place_free_handicap
-        cmdstream >> stones;
-
-        if (!cmdstream.fail()) {
-            game.place_free_handicap(stones, *s_network);
-            auto stonestring = game.board.get_stone_list();
-            gtp_printf(id, "%s", stonestring.c_str());
-        } else {
-            gtp_fail_printf(id, "Not a valid number of handicap stones");
-        }
-
-        return;
-    } else if (command.find("set_free_handicap") == 0) {
-        std::istringstream cmdstream(command);
-        std::string tmp;
-
-        cmdstream >> tmp; // eat set_free_handicap
-
-        do {
-            std::string vertex;
-
-            cmdstream >> vertex;
-
-            if (!cmdstream.fail()) {
-                if (!game.play_textmove("black", vertex)) {
-                    gtp_fail_printf(id, "illegal move");
-                } else {
-                    game.set_handicap(game.get_handicap() + 1);
-                }
-            }
-        } while (!cmdstream.fail());
-
-        std::string stonestring = game.board.get_stone_list();
-        gtp_printf(id, "%s", stonestring.c_str());
-
-        return;
-    } else if (command.find("loadsgf") == 0) {
+    }  else if (command.find("loadsgf") == 0) { //loads a game state from an sgf file
         std::istringstream cmdstream(command);
         std::string tmp, filename;
         int movenum;
 
-        cmdstream >> tmp; // eat loadsgf
+        cmdstream >> tmp; // eat "loadsgf"
         cmdstream >> filename;
 
         if (!cmdstream.fail()) {
@@ -1018,7 +927,7 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         // Do nothing. Particularly, don't ponder.
         gtp_printf(id, "");
         return;
-    } else if (command.find("kgs-time_settings") == 0) {
+    } else if (command.find("kgs-time_settings") == 0) { //sets the type of time control
         // none, absolute, byoyomi, or canadian
         std::istringstream cmdstream(command);
         std::string tmp;
@@ -1052,12 +961,12 @@ void GTP::execute(GameState& game, const std::string& xinput) {
             gtp_fail_printf(id, "syntax not understood");
         }
         return;
-    } else if (command.find("netbench") == 0) {
+    } else if (command.find("netbench") == 0) { //benchmarks the neural network
         std::istringstream cmdstream(command);
         std::string tmp;
         int iterations;
 
-        cmdstream >> tmp; // eat netbench
+        cmdstream >> tmp; // eat "netbench"
         cmdstream >> iterations;
 
         if (!cmdstream.fail()) {
@@ -1068,11 +977,11 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         gtp_printf(id, "");
         return;
 
-    } else if (command.find("printsgf") == 0) {
+    } else if (command.find("printsgf") == 0) { //prints the game into an sgf file
         std::istringstream cmdstream(command);
         std::string tmp, filename;
 
-        cmdstream >> tmp; // eat printsgf
+        cmdstream >> tmp; // eat "printsgf"
         cmdstream >> filename;
 
         auto sgf_text = SGFTree::state_to_string(game, 0);
@@ -1090,7 +999,7 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         }
 
         return;
-    } else if (command.find("load_training") == 0) {
+    } else if (command.find("load_training") == 0) { 
         std::istringstream cmdstream(command);
         std::string tmp, filename;
 
@@ -1277,7 +1186,7 @@ std::pair<bool, std::string> GTP::set_max_memory(
 }
 
 void GTP::execute_setoption(UCTSearch& search, const int id,
-                            const std::string& command) {
+                            const std::string& command) { //sets up other options, like maximum number of visits, playout, lagbuffer, enable or disable pondering, resign percentage, etc
     std::istringstream cmdstream(command);
     std::string tmp, name_token;
 

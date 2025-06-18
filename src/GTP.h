@@ -78,6 +78,7 @@ private:
     size_t m_min_moves{0};
 };
 
+extern bool cfg_inv_start_pos;
 extern bool cfg_gtp_mode;
 extern bool cfg_allow_pondering;
 extern unsigned int cfg_num_threads;

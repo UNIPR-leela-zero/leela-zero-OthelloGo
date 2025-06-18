@@ -143,6 +143,7 @@ static void parse_commandline(const int argc, const char* const argv[]) {
     gen_desc.add_options()
         ("help,h", "Show commandline options.")
         ("gtp,g", "Enable GTP mode.")
+        ("std-othello", "Standard Othello starting position (default is flipped).")
         ("threads,t", po::value<unsigned int>()->default_value(0),
                       "Number of threads to use. Select 0 to let leela-zero pick a reasonable default.")
         ("playouts,p", po::value<int>(),
@@ -313,6 +314,10 @@ static void parse_commandline(const int argc, const char* const argv[]) {
         printf("By default, Leela Zero looks for it in %s.\n",
                cfg_weightsfile.c_str());
         exit(EXIT_FAILURE);
+    }
+
+    if (vm.count("std-othello")) {
+        cfg_inv_start_pos = false;
     }
 
     if (vm.count("gtp")) {

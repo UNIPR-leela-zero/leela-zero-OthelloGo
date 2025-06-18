@@ -59,6 +59,7 @@ using namespace Utils;
 //This file defines two classes declared in the header file: AnalyzeTags, which is used to parse the configuration tags, and GTP, used to handle play
 
 // Configuration flags
+bool cfg_inv_start_pos; //If true, the starting position is inverted (black and white are swapped)
 bool cfg_gtp_mode; //Indicates whether the AI is operating in GTP mode
 bool cfg_allow_pondering; //Determines if the AI can think during opp turn
 unsigned int cfg_num_threads; //Specifies number of threads used for parallel processing
@@ -320,6 +321,7 @@ void GTP::initialize(std::unique_ptr<Network>&& net) {
 }
 
 void GTP::setup_default_parameters() {
+    cfg_inv_start_pos = true; //since we had position inversion in the past, we set it to true by default
     cfg_gtp_mode = false;
     cfg_allow_pondering = true;
 

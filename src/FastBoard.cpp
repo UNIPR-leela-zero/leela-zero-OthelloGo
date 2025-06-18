@@ -41,6 +41,7 @@
 #include "FastBoard.h"
 
 #include "Utils.h"
+#include "GTP.h"
 
 using namespace Utils;
 
@@ -145,11 +146,11 @@ void FastBoard::reset_board(const int size) {
             int vertex = get_vertex(i, j);
             
             if (i == size / 2-1 && j == size / 2-1 || i == size / 2  && j == size / 2 ) { //pedine bianche iniziali
-                m_state[vertex] = BLACK;
+                m_state[vertex] = cfg_inv_start_pos ? BLACK : WHITE;
                 center_piece_position[count++] = vertex;
             }
             else if (i == size / 2 && j == size / 2 -1 || i == size / 2 -1 && j == size / 2) { //pedine nere iniziali
-                m_state[vertex] = WHITE;
+                m_state[vertex] = cfg_inv_start_pos ? WHITE : BLACK;
                 center_piece_position[count++] = vertex;
             }
             else {

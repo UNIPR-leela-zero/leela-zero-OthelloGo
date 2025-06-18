@@ -206,7 +206,7 @@ void UCTNode::prepare_root_node(Network& network, const int color,
 
     if (cfg_noise) {
         // Adjust the Dirichlet noise's alpha constant to the board size
-        auto alpha = 0.03f * 361.0f / NUM_INTERSECTIONS;
+        auto alpha = 0.5f; // for Othello
         dirichlet_noise(0.25f, alpha);
     }
 }

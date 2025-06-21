@@ -414,8 +414,8 @@ void CPUPipe::forward(const std::vector<float>& input,
 
     // Residual tower
     auto conv_in = std::vector<float>(output_channels * NUM_INTERSECTIONS);
-    auto res = std::vector<float>(output_channels * NUM_INTERSECTIONS);
-    for (auto i = size_t{1}; i < m_weights->m_conv_weights.size(); i += 2) {
+    auto res = std::vector<float>(output_channels * NUM_INTERSECTIONS, 0.0f);
+    for (auto i = size_t{1}; i < m_weights->m_conv_weights.size(); i += 1) {
         auto output_channels = m_input_channels;
         std::swap(conv_out, conv_in);
         winograd_convolve3(output_channels, conv_in,
@@ -423,16 +423,11 @@ void CPUPipe::forward(const std::vector<float>& input,
         batchnorm<NUM_INTERSECTIONS>(output_channels, conv_out,
                                      m_weights->m_batchnorm_means[i].data(),
                                      m_weights->m_batchnorm_stddevs[i].data());
-
-        std::swap(conv_in, res);
-        std::swap(conv_out, conv_in);
-        winograd_convolve3(output_channels, conv_in,
-                           m_weights->m_conv_weights[i + 1], V, M, conv_out);
-        batchnorm<NUM_INTERSECTIONS>(
-            output_channels, conv_out,
-            m_weights->m_batchnorm_means[i + 1].data(),
-            m_weights->m_batchnorm_stddevs[i + 1].data(), res.data());
+        for (std::size_t i = 0, n = res.size(); i < n; ++i)
+            res[i] += conv_out[i];
     }
+    std::swap(conv_out, res);
+
     convolve<1>(Network::OUTPUTS_POLICY, conv_out, m_conv_pol_w, m_conv_pol_b,
                 output_pol);//this computates the fully connected convolutional layers
     convolve<1>(Network::OUTPUTS_VALUE, conv_out, m_conv_val_w, m_conv_val_b,

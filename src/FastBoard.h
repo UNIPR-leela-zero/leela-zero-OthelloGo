@@ -87,6 +87,7 @@ public:
     bool is_eye(int color, int vtx) const;
 
     float area_score(float komi) const;
+
     int get_prisoners(int side) const;
     bool black_to_move() const;
     bool white_to_move() const;

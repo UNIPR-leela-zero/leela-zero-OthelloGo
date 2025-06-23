@@ -47,6 +47,7 @@ public:
 
     void reset_board(int size);
     void display_board(int lastmove = -1);
+
     bool legal_moves_present(int color) const;
     bool is_play_legal(int color, int i) const;
     int flippable_direction(int color, int start, int dir) const;

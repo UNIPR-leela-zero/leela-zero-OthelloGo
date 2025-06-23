@@ -122,8 +122,6 @@ void FastBoard::set_state(const int x, const int y,
     set_state(get_vertex(x, y), content);
 }
 
-
-
 // Resets the board to zero given the size.
 void FastBoard::reset_board(const int size) {
     m_boardsize = size;

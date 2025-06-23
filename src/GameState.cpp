@@ -143,6 +143,7 @@ bool GameState::play_textmove(std::string color, const std::string& vertex) {
             && board.get_state(move) != FastBoard::EMPTY)) {
         return false;
     }
+
     set_to_move(who);
     play_move(move);
 

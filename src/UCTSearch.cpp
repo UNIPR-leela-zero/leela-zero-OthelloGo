@@ -571,7 +571,7 @@ int UCTSearch::get_best_move(const passflag_t passflag) {
                 myprintf("Pass is the only acceptable move.\n");
             }
         }
-    } else if (!cfg_dumbpass) {
+    } else if (!IS_OTHELLO && !cfg_dumbpass) {
         const auto relative_score =
             (color == FastBoard::BLACK ? 1 : -1) * m_rootstate.final_score();
         if (bestmove == FastBoard::PASS) {

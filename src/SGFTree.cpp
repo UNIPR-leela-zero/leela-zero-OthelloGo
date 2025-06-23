@@ -518,7 +518,11 @@ std::string SGFTree::state_to_string(GameState& pstate, const int compcolor) {
 
     // Create SGF header containing necessary information.
     // GM[1] is Go, GM[2] is othello.
-    header.append("(;GM[1]FF[4]RU[Chinese]");
+    if (IS_OTHELLO) {
+        header.append("(;GM[2]FF[4]");
+    } else {
+        header.append("(;GM[1]FF[4]RU[Chinese]");
+    }
     header.append("DT[" + std::string(timestr) + "]");
     header.append("SZ[" + std::to_string(size) + "]");
     header.append("KM[" + str(boost::format("%.1f") % komi) + "]");

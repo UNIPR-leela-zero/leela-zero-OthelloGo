@@ -44,9 +44,12 @@
 #include <Eigen/Dense>
 #endif
 
+#include <boost/format.hpp>
 #include "CPUPipe.h"
 #include "Im2Col.h"
 #include "Network.h"
+#include "Utils.h"
+
 
 #ifndef USE_BLAS
 // Eigen helpers
@@ -385,6 +388,27 @@ void batchnorm(const size_t channels,
     }
 }
 
+
+void show(const std::vector<float>& result, int channel=0) {
+    std::vector<std::string> display_map;
+    std::string line;
+
+    for (unsigned int y = 0; y < BOARD_SIZE; y++) {
+        for (unsigned int x = 0; x < BOARD_SIZE; x++) {
+            const auto value = result[channel * NUM_INTERSECTIONS + y * BOARD_SIZE + x];
+            line += boost::str(boost::format("%3f ") % value);
+        }
+
+        display_map.push_back(line);
+        line.clear();
+    }
+
+    for (int i = display_map.size() - 1; i >= 0; --i) {
+        Utils::myprintf("%s\n", display_map[i].c_str());
+    }
+}
+
+
 //This does the forwarding in the convolutional network: it applies convolution to the input data, applies batch normalization to the output, then for each pair of convolutional layers in the 
 //residual tower it applies batch normalization to the first convolutional layer output, then applies it again to the output of the second convolutional layer and finally it adds the original input to the output.
 //After it does all this, it applies fully connected convolutiona llayers to obtain policy and value outputs
@@ -408,10 +432,13 @@ void CPUPipe::forward(const std::vector<float>& input,
 
     winograd_convolve3(output_channels, input, m_weights->m_conv_weights[0], V,
                        M, conv_out);
+    show(conv_out);
+
     batchnorm<NUM_INTERSECTIONS>(output_channels, conv_out,
                                  m_weights->m_batchnorm_means[0].data(),
                                  m_weights->m_batchnorm_stddevs[0].data());
-
+    show(conv_out);
+ 
     // Residual tower
     auto conv_in = std::vector<float>(output_channels * NUM_INTERSECTIONS);
     auto res = std::vector<float>(output_channels * NUM_INTERSECTIONS, 0.0f);

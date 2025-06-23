@@ -253,9 +253,9 @@ int FullBoard::flippable_direction(int color, int start, int dir) const {
         return FastBoard::NO_VERTEX;
     }
 
-// Continue in the same direction until you find:
-// - an EMPTY or INVAL → invalid
-// - a disc of the same colour → valid flip
+    // Continue in the same direction until you find:
+    // - an EMPTY or INVAL → invalid
+    // - a disc of the same colour → valid flip
     while (true) {
         tmp_vtx += dir;
 
@@ -272,17 +272,16 @@ int FullBoard::flippable_direction(int color, int start, int dir) const {
 
 //checks if a play is legal
 bool FullBoard::is_play_legal(const int color, const int i) const {
-    assert(i >= 0 && i < NUM_VERTICES &&
-           i != FastBoard::PASS &&
+    assert(i != FastBoard::PASS &&
            i != FastBoard::RESIGN &&
-           m_state[i] == EMPTY);  // All conditions in one assert
+           i >= 0 && i < NUM_VERTICES &&
+           m_state[i] == EMPTY);
 
     for (int k = 0; k < 8; k++) {
         if (flippable_direction(color, i, m_dirs[k]) != FastBoard::NO_VERTEX) {
             return true;
         }
     }
-
     return false;
 }
 

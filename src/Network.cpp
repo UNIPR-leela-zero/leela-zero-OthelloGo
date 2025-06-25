@@ -632,9 +632,11 @@ std::vector<float> innerproduct(const std::vector<float>& input,
                 0.0f, &output[0], 1);
 #else
     EigenVectorMap<float> y(output.data(), outputs);
+
     y.noalias() =
         ConstEigenMatrixMap<float>(weights.data(), inputs, outputs).transpose()
-        * ConstEigenVectorMap<float>(input.data(), inputs);
+    * ConstEigenVectorMap<float>(input.data(), inputs);
+    
 #endif
     //end portion that calculates the output vector 
     for (unsigned int o = 0; o < outputs; o++) {
@@ -644,7 +646,7 @@ std::vector<float> innerproduct(const std::vector<float>& input,
         }
         output[o] = val;
     }
-
+    
     return output;
 }
 
@@ -828,6 +830,26 @@ Network::Netresult Network::get_output(
 
     return result;
 }
+
+void show_head(const std::vector<float>& result, int channel=0) {
+    std::vector<std::string> display_map;
+    std::string line;
+
+    for (unsigned int y = 0; y < BOARD_SIZE; y++) {
+        for (unsigned int x = 0; x < BOARD_SIZE; x++) {
+            const auto value = result[channel * NUM_INTERSECTIONS + y * BOARD_SIZE + x];
+            line += boost::str(boost::format("%3f ") % value);
+        }
+
+        display_map.push_back(line);
+        line.clear();
+    }
+
+    for (int i = display_map.size() - 1; i >= 0; --i) {
+        Utils::myprintf("%s\n", display_map[i].c_str());
+    }
+}
+
 //this function is called by get_output and it produces the Netresult object for the final output of the network, gathering features, doing forward propagation, 
 // doing batch normalization on the outputs then doing calculations with innerproduct, then calling the softmax function.
 Network::Netresult Network::get_output_internal(const GameState* const state,
@@ -854,20 +876,38 @@ Network::Netresult Network::get_output_internal(const GameState* const state,
     // Get the moves
     batchnorm<NUM_INTERSECTIONS>(OUTPUTS_POLICY, policy_data,
                                  m_bn_pol_w1.data(), m_bn_pol_w2.data());
+
+    // qui arriva una parte delicata prendere per ogni canale di output (riga di 128) gli indici alternati
+    // a causa di un flattening nel codice python che allena la rete sono disallineati in maniera complicata
+    // i pesi riorganizzati (dim_out, dim_in) e gli input
+    
+    const int size = 65 * 128;
+    std::array<float, size> reorganized_weights{};
+
+    for (size_t c = 0; c < 65; c++){
+        for (size_t i = 0; i < 64; ++i){
+            reorganized_weights[c * 128 + i] = m_ip_pol_w[c * 128 + 2*i];             // even: 0,2,4,6...
+            reorganized_weights[c * 128 + (i + 64)] = m_ip_pol_w[c * 128 + 2*i + 1];  // odd:  1,3,5,7...
+        }
+    }
+
     const auto policy_out =
-        innerproduct<OUTPUTS_POLICY * NUM_INTERSECTIONS, POTENTIAL_MOVES,
-                     false>(policy_data, m_ip_pol_w, m_ip_pol_b);
+    innerproduct<OUTPUTS_POLICY * NUM_INTERSECTIONS, POTENTIAL_MOVES,
+    false>(policy_data, reorganized_weights, m_ip_pol_b);
+    
     const auto outputs = softmax(policy_out, cfg_softmax_temp);
 
     // Now get the value
     batchnorm<NUM_INTERSECTIONS>(OUTPUTS_VALUE, value_data, m_bn_val_w1.data(),
                                  m_bn_val_w2.data());
+
     const auto winrate_data =
         innerproduct<OUTPUTS_VALUE * NUM_INTERSECTIONS, VALUE_LAYER, true>(
             value_data, m_ip1_val_w, m_ip1_val_b);
+
     const auto winrate_out = innerproduct<VALUE_LAYER, 1, false>(
         winrate_data, m_ip2_val_w, m_ip2_val_b);
-
+    
     // Map TanH output range [-1..1] to [0..1] range
     const auto winrate = (1.0f + std::tanh(winrate_out[0])) / 2.0f;
 

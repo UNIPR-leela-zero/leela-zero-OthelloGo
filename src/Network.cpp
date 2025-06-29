@@ -881,19 +881,19 @@ Network::Netresult Network::get_output_internal(const GameState* const state,
     // a causa di un flattening nel codice python che allena la rete sono disallineati in maniera complicata
     // i pesi riorganizzati (dim_out, dim_in) e gli input
     
-    const int size = 65 * 128;
-    std::array<float, size> reorganized_weights{};
+    // const int size = 65 * 128;
+    // std::array<float, size> reorganized_weights{};
 
-    for (size_t c = 0; c < 65; c++){
-        for (size_t i = 0; i < 64; ++i){
-            reorganized_weights[c * 128 + i] = m_ip_pol_w[c * 128 + 2*i];             // even: 0,2,4,6...
-            reorganized_weights[c * 128 + (i + 64)] = m_ip_pol_w[c * 128 + 2*i + 1];  // odd:  1,3,5,7...
-        }
-    }
+    // for (size_t c = 0; c < 65; c++){
+    //     for (size_t i = 0; i < 64; ++i){
+    //         reorganized_weights[c * 128 + i] = m_ip_pol_w[c * 128 + 2*i];             // even: 0,2,4,6...
+    //         reorganized_weights[c * 128 + (i + 64)] = m_ip_pol_w[c * 128 + 2*i + 1];  // odd:  1,3,5,7...
+    //     }
+    // }
 
     const auto policy_out =
     innerproduct<OUTPUTS_POLICY * NUM_INTERSECTIONS, POTENTIAL_MOVES,
-    false>(policy_data, reorganized_weights, m_ip_pol_b);
+    false>(policy_data, m_ip_pol_w, m_ip_pol_b);
     
     const auto outputs = softmax(policy_out, cfg_softmax_temp);
 

@@ -254,14 +254,14 @@ void SGFTree::populate_states() {
     }
 
     // result
-    // If the result string contains the word "Time", the result is not available (EMPTY).
+    // If the result string contains the word "Time", the result is not available (INVAL).
     // If it starts with "W+" or "B+", there's a winner, otherwise, it's invalid.
     it = m_properties.find("RE");
     if (it != end(m_properties)) {
         const auto result = it->second;
         if (boost::algorithm::find_first(result, "Time")) {
             // std::cerr << "Skipping: " << result << std::endl;
-            m_winner = FastBoard::EMPTY;
+            m_winner = FastBoard::INVAL;
         }
         else {
             if (boost::algorithm::starts_with(result, "W+")) {
@@ -269,6 +269,9 @@ void SGFTree::populate_states() {
             }
             else if (boost::algorithm::starts_with(result, "B+")) {
                 m_winner = FastBoard::BLACK;
+            }
+            else if (boost::algorithm::starts_with(result, "0")) {
+                m_winner = FastBoard::EMPTY;
             }
             else {
                 m_winner = FastBoard::INVAL;
@@ -278,7 +281,7 @@ void SGFTree::populate_states() {
         }
     }
     else {
-        m_winner = FastBoard::EMPTY;
+        m_winner = FastBoard::INVAL;
     }
 
     // handicap stones
@@ -599,11 +602,11 @@ std::string SGFTree::state_to_string(GameState& pstate, const int compcolor) {
     if (!state->has_resigned()) {
         auto score = state->final_score();
 
-        if (score.first > score.second) {
-            header.append("RE[W+" + str(boost::format("%d") % score.first) + "]");
+        if (score.first > score.second + 0.0001f) {
+            header.append("RE[B+" + str(boost::format("%d") % score.first) + "]");
         }
-        else if (score.first < score.second) {
-            header.append("RE[B+" + str(boost::format("%d") % score.second) + "]");
+        else if (score.first < score.second - 0.0001f) {
+            header.append("RE[W+" + str(boost::format("%d") % score.second) + "]");
         }
         else {
             header.append("RE[0]");

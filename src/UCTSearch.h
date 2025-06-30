@@ -57,9 +57,9 @@ public:
         return SearchResult(eval);
     }
     static SearchResult from_score(const float board_score) {
-        if (board_score > 0.0f) {
+        if (board_score > 0.0001f) {
             return SearchResult(1.0f);
-        } else if (board_score < 0.0f) {
+        } else if (board_score < -0.0001f) {
             return SearchResult(0.0f);
         } else {
             return SearchResult(0.5f);

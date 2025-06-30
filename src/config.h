@@ -50,7 +50,7 @@ static constexpr auto BOARD_SIZE = 8;
 static constexpr auto NUM_INTERSECTIONS = BOARD_SIZE * BOARD_SIZE;
 static constexpr auto POTENTIAL_MOVES = NUM_INTERSECTIONS + 1; // including pass
 
-static constexpr auto KOMI = 0.5f;
+static constexpr auto KOMI = 0.0f;
 
 /*
  * Features

@@ -90,6 +90,10 @@ static const std::string sourceCode_convolve3 =
     #include "kernels/convolve3.opencl"
 ;
 
+static const std::string sourceCode_add_buffer =
+    #include "kernels/add_buffer.opencl"
+;
+
 const std::string sourceCode_sgemm =
     "#if TCE == 1\n" // Enable tensorcore
     #include "kernels/clblast/hgemm_tensorcore.opencl"
@@ -118,6 +122,8 @@ void OpenCL<net_t>::ensure_context_initialized(OpenCLContext& opencl_context) {
             cl::Kernel(m_program, "out_transform_fused_bn");
         opencl_context.m_out_transform_bn_in_kernel =
             cl::Kernel(m_program, "out_transform_fused_bn_in");
+        opencl_context.m_add_buffer =
+            cl::Kernel(m_program, "add_buffer");
         opencl_context.m_commandqueue = cl::CommandQueue(m_context, m_device);
         opencl_context.m_is_initialized = true;
     }
@@ -176,6 +182,7 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
                                    * m_ceil * n_ceil * sizeof(net_t);
 
         auto v_zeros = std::vector<net_t>(alloc_vm_size);
+        auto acc_zeros = std::vector<net_t>(alloc_inSize);
 
         opencl_context.m_inBuffer = cl::Buffer(
             m_opencl.m_context,
@@ -207,6 +214,7 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
     cl::Buffer& inBuffer2 = opencl_context.m_inBuffer2;
     cl::Buffer& VBuffer = opencl_context.m_VBuffer;
     cl::Buffer& MBuffer = opencl_context.m_MBuffer;
+    cl::Buffer& AccBuffer = opencl_context.m_AccBuffer;
     cl::CommandQueue& queue = opencl_context.m_commandqueue;
 
     std::vector<net_t> net_t_input(input.size());

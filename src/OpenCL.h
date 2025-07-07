@@ -78,6 +78,7 @@ private:
     cl::Buffer m_inBuffer2;
     cl::Buffer m_VBuffer;
     cl::Buffer m_MBuffer;
+    cl::Buffer m_AccBuffer;
     cl::Buffer m_pinnedOutBuffer_pol;
     cl::Buffer m_pinnedOutBuffer_val;
     bool m_buffers_allocated{false};

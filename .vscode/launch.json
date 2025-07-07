@@ -1,0 +1,60 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug leelaz",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/leelaz",
+            "args": [
+                "--gtp",
+                "--noponder",
+                "--threads", "1"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Debug leelaz with network",
+            "type": "cppdbg", 
+            "request": "launch",
+            "program": "${workspaceFolder}/build/leelaz",
+            "args": [
+                "--weights", "/home/whynotmich/Lavoro/GloNet/rl_training/GloNet_params_per_tutti_policyheadswapped.txt.gz",
+                "--gtp",
+                "--noponder",
+                "--threads", "1"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb"
+        },
+        {
+            "name": "Debug leelaz with gpu",
+            "type": "cppdbg", 
+            "request": "launch",
+            "program": "${workspaceFolder}/build/leelaz",
+            "args": [
+                "--weights", "/home/whynotmich/Lavoro/GloNet/rl_training/GloNet_params_per_tutti_policyheadswapped.txt.gz",
+                "--gtp",
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb"
+        }
+    ]
+}

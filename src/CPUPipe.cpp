@@ -363,7 +363,8 @@ void batchnorm(const size_t channels,
                std::vector<float>& data,
                const float* const means,
                const float* const stddevs,
-               const float* const eltwise = nullptr) {
+               const float* const eltwise = nullptr,
+               const bool activate = true) {
     for (auto c = size_t{0}; c < channels; ++c) {
         const auto mean = means[c];
         const auto scale_stddev = stddevs[c];
@@ -372,7 +373,8 @@ void batchnorm(const size_t channels,
         if (eltwise == nullptr) {
             // Classical BN
             for (auto b = size_t{0}; b < spatial_size; b++) {
-                arr[b] = std::max(0.0f, scale_stddev * (arr[b] - mean));
+                if (activate) arr[b] = std::max(0.0f, scale_stddev * (arr[b] - mean));
+                else arr[b] = scale_stddev * (arr[b] - mean);
             }
         } else {
             // BN + residual add
@@ -410,29 +412,33 @@ void CPUPipe::forward(const std::vector<float>& input,
                        M, conv_out);
     batchnorm<NUM_INTERSECTIONS>(output_channels, conv_out,
                                  m_weights->m_batchnorm_means[0].data(),
-                                 m_weights->m_batchnorm_stddevs[0].data());
+                                 m_weights->m_batchnorm_stddevs[0].data(),
+                                nullptr, false);
 
     // Residual tower
     auto conv_in = std::vector<float>(output_channels * NUM_INTERSECTIONS);
-    auto res = std::vector<float>(output_channels * NUM_INTERSECTIONS);
-    for (auto i = size_t{1}; i < m_weights->m_conv_weights.size(); i += 2) {
+    auto res = std::vector<float>(output_channels * NUM_INTERSECTIONS, 0.0f);
+
+    res = conv_out;
+
+    // activate with relu
+    for (size_t i = 0; i < conv_out.size(); i++) conv_out[i] = std::max(0.0f, conv_out[i]);
+
+    for (auto i = size_t{1}; i < m_weights->m_conv_weights.size(); i += 1) {
         auto output_channels = m_input_channels;
         std::swap(conv_out, conv_in);
+
         winograd_convolve3(output_channels, conv_in,
                            m_weights->m_conv_weights[i], V, M, conv_out);
+        
         batchnorm<NUM_INTERSECTIONS>(output_channels, conv_out,
                                      m_weights->m_batchnorm_means[i].data(),
                                      m_weights->m_batchnorm_stddevs[i].data());
-
-        std::swap(conv_in, res);
-        std::swap(conv_out, conv_in);
-        winograd_convolve3(output_channels, conv_in,
-                           m_weights->m_conv_weights[i + 1], V, M, conv_out);
-        batchnorm<NUM_INTERSECTIONS>(
-            output_channels, conv_out,
-            m_weights->m_batchnorm_means[i + 1].data(),
-            m_weights->m_batchnorm_stddevs[i + 1].data(), res.data());
+        
+        for (size_t i = 0; i < res.size(); i++) res[i] += conv_out[i];
     }
+    std::swap(conv_out, res);
+
     convolve<1>(Network::OUTPUTS_POLICY, conv_out, m_conv_pol_w, m_conv_pol_b,
                 output_pol);//this computates the fully connected convolutional layers
     convolve<1>(Network::OUTPUTS_VALUE, conv_out, m_conv_val_w, m_conv_val_b,

@@ -722,14 +722,23 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         return;
     } else if (command.find("final_score") == 0) {
         auto ftmp = game.final_score();
-        /* white wins */
-        if (ftmp.first < ftmp.second - 0.0001f) {
-            gtp_printf(id, "W+%.1f", ftmp.second);
-        } else if (ftmp.first > ftmp.second + 0.0001f) {
-            gtp_printf(id, "B+%.1f", ftmp.first);
+        float black_score = ftmp.first - ftmp.second;
+        float abs_score_diff = std::abs(black_score);
+        std::string score;
+
+        if (abs_score_diff < 1e-6f) {
+            score = "0";
         } else {
-            gtp_printf(id, "0");
+            score  = (black_score > 0 ? "B+" : "W+");
+            if (abs_score_diff == static_cast<int>(abs_score_diff)) {
+                score += std::to_string(static_cast<int>(abs_score_diff));
+            } else {
+                char buf[8];
+                std::snprintf(buf, sizeof buf, "%.1f", abs_score_diff);
+                score += buf;
+            }
         }
+        gtp_printf(id, "%s", score.c_str());
         return;
     }  else if (command.find("time_settings") == 0) { //sets up time
         std::istringstream cmdstream(command);

@@ -242,7 +242,7 @@ std::pair<float, float> FastBoard::area_score(const float komi) const {
         }
     }
     
-    return std::make_pair(black_count, white_count+komi);
+    return std::make_pair(static_cast<float>(black_count), static_cast<float>(white_count)+komi);
 }
 
 //This function displays the board, marking the last move played

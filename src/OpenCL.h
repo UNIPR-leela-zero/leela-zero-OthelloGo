@@ -74,6 +74,7 @@ private:
     cl::Kernel m_sgemm_kernel;
     cl::Kernel m_out_transform_bn_kernel;
     cl::Kernel m_out_transform_bn_in_kernel;
+    cl::Kernel m_add_buffer_kernel;
     cl::Buffer m_inBuffer;
     cl::Buffer m_inBuffer2;
     cl::Buffer m_VBuffer;
@@ -158,6 +159,11 @@ private:
         add_weights(layer, weights.size(), weights.data());
     }
     void add_weights(size_t layer, size_t size, const net_t* weights);
+
+    void add_buffer(OpenCLContext& opencl_context,
+                    cl::Buffer& source_buffer,
+                    cl::Buffer& dest_buffer,
+                    const size_t size);
 
     void convolve3(OpenCLContext& opencl_context, int channels, int outputs,
                    cl::Buffer& bufferIn,

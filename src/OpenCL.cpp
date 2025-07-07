@@ -122,7 +122,7 @@ void OpenCL<net_t>::ensure_context_initialized(OpenCLContext& opencl_context) {
             cl::Kernel(m_program, "out_transform_fused_bn");
         opencl_context.m_out_transform_bn_in_kernel =
             cl::Kernel(m_program, "out_transform_fused_bn_in");
-        opencl_context.m_add_buffer =
+        opencl_context.m_add_buffer_kernel =
             cl::Kernel(m_program, "add_buffer");
         opencl_context.m_commandqueue = cl::CommandQueue(m_context, m_device);
         opencl_context.m_is_initialized = true;
@@ -197,6 +197,11 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
         opencl_context.m_MBuffer = cl::Buffer(
             m_opencl.m_context,
             CL_MEM_READ_WRITE | CL_MEM_HOST_NO_ACCESS, alloc_vm_size);
+        // Initialize AccBuffer with zeros
+        opencl_context.m_AccBuffer = cl::Buffer(
+            m_opencl.m_context,
+            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, alloc_inSize, acc_zeros.data()
+        );
 
         opencl_context.m_pinnedOutBuffer_pol = cl::Buffer(
             m_opencl.m_context,
@@ -222,6 +227,11 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
 
     const auto inSize = sizeof(net_t) * input.size();
     queue.enqueueWriteBuffer(inBuffer, CL_FALSE, 0, inSize, net_t_input.data()); //feeds the data to opencl
+
+    // for every forward step AccBuffer needs to be filled with zeros
+    size_t buffer_size_bytes = getOpenCL().m_batch_size * 256 * 8 * 8 * sizeof(net_t);
+    net_t zero_value = static_cast<net_t>(0.0);
+    queue.enqueueFillBuffer(AccBuffer, zero_value, 0, buffer_size_bytes);
 
     // Fused in_out transformation kernel is slower with big batch_sizes than
     // calling out and in transformations separately.
@@ -337,6 +347,33 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
     queue.enqueueUnmapMemObject(opencl_context.m_pinnedOutBuffer_val,
                                 pinnedOutBufferHost_val);
 }
+
+template <typename net_t>
+void OpenCL_Network<net_t>::add_buffer(OpenCLContext& opencl_context,
+                                      cl::Buffer& source_buffer,
+                                      cl::Buffer& dest_buffer,
+                                      const size_t size) {
+    cl::Kernel& add_kernel = opencl_context.m_add_buffer_kernel;
+    cl::CommandQueue& queue = opencl_context.m_commandqueue;
+
+    try {
+        add_kernel.setArg(0, source_buffer);
+        add_kernel.setArg(1, dest_buffer);
+        add_kernel.setArg(2, static_cast<int>(size));
+
+        // Calcola work group size ottimale
+        auto work_group_size = std::min(size, static_cast<size_t>(256));
+        auto global_size = ((size + work_group_size - 1) / work_group_size) * work_group_size;
+
+        queue.enqueueNDRangeKernel(add_kernel, cl::NullRange,
+                                  cl::NDRange(global_size),
+                                  cl::NDRange(work_group_size));
+    } catch (const cl::Error& e) {
+        std::cerr << "Error in add_buffer: " << e.what() << ": " << e.err() << std::endl;
+        throw;
+    }
+}
+
 //Does the convolution for the input convolution layer and for residual layers
 template <typename net_t>
 void OpenCL_Network<net_t>::convolve3(OpenCLContext& opencl_context,
@@ -878,7 +915,8 @@ void OpenCL<net_t>::initialize(const int channels, const size_t batch_size) {
         m_program = cl::Program(m_context, sourceCode_common + sourceCode_config
                                                + sourceCode_convolve1
                                                + sourceCode_convolve3
-                                               + sourceCode_sgemm);
+                                               + sourceCode_sgemm
+                                               + sourceCode_add_buffer);
     } catch (const cl::Error& e) {
         myprintf("Error getting kernels: %s: %d", e.what(), e.err());
         throw std::runtime_error("Error getting OpenCL kernels.");

@@ -187,9 +187,9 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
         opencl_context.m_inBuffer = cl::Buffer(
             m_opencl.m_context,
             CL_MEM_READ_WRITE, alloc_inSize);
-        opencl_context.m_inBuffer2 = cl::Buffer(
-            m_opencl.m_context,
-            CL_MEM_READ_WRITE, alloc_inSize);
+        // opencl_context.m_inBuffer2 = cl::Buffer(
+        //     m_opencl.m_context,
+        //     CL_MEM_READ_WRITE, alloc_inSize);
         opencl_context.m_VBuffer = cl::Buffer(
             m_opencl.m_context,
             CL_MEM_READ_WRITE | CL_MEM_HOST_NO_ACCESS | CL_MEM_COPY_HOST_PTR,
@@ -216,7 +216,7 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
     }
 
     cl::Buffer& inBuffer = opencl_context.m_inBuffer;
-    cl::Buffer& inBuffer2 = opencl_context.m_inBuffer2;
+    // cl::Buffer& inBuffer2 = opencl_context.m_inBuffer2;
     cl::Buffer& VBuffer = opencl_context.m_VBuffer;
     cl::Buffer& MBuffer = opencl_context.m_MBuffer;
     cl::Buffer& AccBuffer = opencl_context.m_AccBuffer;
@@ -262,11 +262,17 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
                       conv_weights,
                       nullptr,
                       bn_weights,
-                      skip_in_trans, skip_next_in_trans, true,
+                      false, false, true,
+                    //   skip_in_trans, skip_next_in_trans, true,
                       batch_size);
+            
+            queue.finish();
+            const auto num_elements = layer.outputs * NUM_INTERSECTIONS * batch_size;
+            add_buffer(opencl_context, inBuffer, AccBuffer, num_elements);
 
             skip_in_trans = skip_next_in_trans;
         } else if (layer.is_residual_block) {
+            queue.finish();
             assert(layer.channels == layer.outputs);
             assert(niter != cend(m_layers));
             auto conv1_weights = begin(layer.weights);
@@ -277,31 +283,44 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
                       layer.channels,
                       layer.outputs,
                       inBuffer,
-                      inBuffer2,
+                      inBuffer,
                       VBuffer,
                       MBuffer,
                       conv1_weights,
                       nullptr,
                       bn1_weights,
-                      skip_in_trans, use_inout, false,
+                      false, false, true,
+                    //   skip_in_trans, use_inout, false,
                       batch_size);
+            
+            // devo aggiungere inBuffer al buffer corrente di AccBuffer
+            queue.finish();
+            const auto num_elements = layer.outputs * NUM_INTERSECTIONS * batch_size;
+            add_buffer(opencl_context, inBuffer, AccBuffer, num_elements);
 
             auto skip_next_in_trans = false;
             if (niter->is_residual_block) {
                 skip_next_in_trans = use_inout;
             }
+            queue.finish();
             convolve3(opencl_context,
                       layer.channels,
                       layer.outputs,
-                      inBuffer2,
+                      inBuffer,
                       inBuffer,
                       VBuffer,
                       MBuffer,
                       conv2_weights,
-                      &inBuffer,
+                      nullptr,
                       bn2_weights,
-                      use_inout, skip_next_in_trans, true,
+                      false, false, true,
+                    //   use_inout, skip_next_in_trans, true,
                       batch_size);
+            
+            // devo aggiungere inBuffer al buffer corrente di AccBuffer
+            queue.finish();
+            add_buffer(opencl_context, inBuffer, AccBuffer, num_elements);
+
             skip_in_trans = skip_next_in_trans;
         } else {
             assert(layer.is_convolve1);
@@ -313,9 +332,10 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
                 out_buffer = opencl_context.m_pinnedOutBuffer_pol;
             }
 
+            queue.finish();
             convolve1(opencl_context, layer.channels,
                       layer.outputs,
-                      inBuffer,
+                      AccBuffer,
                       out_buffer,
                       VBuffer,
                       begin(layer.weights),

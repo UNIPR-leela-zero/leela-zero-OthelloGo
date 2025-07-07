@@ -76,7 +76,7 @@ private:
     cl::Kernel m_out_transform_bn_in_kernel;
     cl::Kernel m_add_buffer_kernel;
     cl::Buffer m_inBuffer;
-    cl::Buffer m_inBuffer2;
+    // cl::Buffer m_inBuffer2;
     cl::Buffer m_VBuffer;
     cl::Buffer m_MBuffer;
     cl::Buffer m_AccBuffer;

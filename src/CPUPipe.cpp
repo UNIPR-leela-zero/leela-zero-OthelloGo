@@ -413,7 +413,7 @@ void CPUPipe::forward(const std::vector<float>& input,
     batchnorm<NUM_INTERSECTIONS>(output_channels, conv_out,
                                  m_weights->m_batchnorm_means[0].data(),
                                  m_weights->m_batchnorm_stddevs[0].data(),
-                                nullptr, false);
+                                nullptr, true);
 
     // Residual tower
     auto conv_in = std::vector<float>(output_channels * NUM_INTERSECTIONS);
@@ -422,7 +422,7 @@ void CPUPipe::forward(const std::vector<float>& input,
     res = conv_out;
 
     // activate with relu
-    for (size_t i = 0; i < conv_out.size(); i++) conv_out[i] = std::max(0.0f, conv_out[i]);
+    // for (size_t i = 0; i < conv_out.size(); i++) conv_out[i] = std::max(0.0f, conv_out[i]);
 
     for (auto i = size_t{1}; i < m_weights->m_conv_weights.size(); i += 1) {
         auto output_channels = m_input_channels;

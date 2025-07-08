@@ -60,6 +60,9 @@ public:
     std::pair<float, float> final_score() const;
     std::uint64_t get_symmetry_hash(int symmetry) const;
 
+    bool is_first_move() const;
+    int get_rnd_first_move() const;
+
     size_t get_movenum() const;
     int get_last_move() const;
     void display_state();

@@ -37,6 +37,7 @@
 
 #include "FastBoard.h"
 #include "GTP.h"
+#include "Random.h"
 #include "Utils.h"
 #include "Zobrist.h"
 
@@ -175,5 +176,44 @@ int FastState::get_handicap() const {
 
 std::uint64_t FastState::get_symmetry_hash(const int symmetry) const {
     return board.calc_symmetry_hash(symmetry);
+}
+
+
+inline constexpr std::array<std::pair<int,int>, 4>
+make_candidate_squares(int mid, bool inv) {
+    using P = std::pair<int,int>;
+    return inv
+        ? std::array<P,4>{ { {mid-2, mid},   {mid,   mid-2},
+                             {mid-1, mid+1}, {mid+1, mid-1} } }
+        : std::array<P,4>{ { {mid-2, mid-1}, {mid-1, mid-2},
+                             {mid,   mid+1}, {mid+1, mid  } } };
+}
+
+
+
+bool FastState::is_first_move() const {
+    if (get_movenum() > 0 || get_to_move() != FastBoard::BLACK)
+        return false;
+
+    const int mid = board.get_boardsize() / 2;
+    const auto squares = make_candidate_squares(mid, cfg_inv_start_pos);
+
+    for (const auto& p : squares) {
+        if (!is_move_legal(FastBoard::BLACK, board.get_vertex(p.first, p.second))) return false;
+    }
+
+    return true;
+}
+
+
+int FastState::get_rnd_first_move() const {
+    const int mid = board.get_boardsize() / 2;
+    const auto squares = make_candidate_squares(mid, cfg_inv_start_pos);
+
+    auto& rng  = Random::get_Rng();
+    std::size_t idx = rng.randuint64(squares.size());
+
+    const auto& p = squares[idx];
+    return board.get_vertex(p.first, p.second);
 }
 

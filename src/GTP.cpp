@@ -809,7 +809,9 @@ void GTP::execute(GameState& game, const std::string& xinput) {
         if (game.get_passes() >= 2) {
             return;
         }
-        int move = search->think(game.get_to_move());
+        int move = game.is_first_move() ?
+            game.get_rnd_first_move() :
+            search->think(game.get_to_move());
         game.play_move(move);
 
         std::string vertex = game.move_to_text(move);

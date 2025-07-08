@@ -50,10 +50,10 @@ def bias_variable(name, shape, dtype):
 
 def conv2d(x, W):
     x = tf.transpose(x, [0, 2, 3, 1])
-    print("Transposed shape:", x.shape)  # Should print (128, 8, 8, 18)
+    # print("Transposed shape:", x.shape)  # Should print (128, 8, 8, 18)
     result=tf.nn.conv2d(x, W, data_format='NHWC',
                         strides=[1, 1, 1, 1], padding='SAME')
-    print("Result:", result.shape)
+    # print("Result:", result.shape)
     result = tf.transpose(result, [0, 3, 1, 2] )
     return result
 
@@ -118,10 +118,13 @@ class Timer:
         return e
 
 class TFProcess:
-    def __init__(self, residual_blocks, residual_filters):
+    def __init__(self, residual_blocks, residual_filters, learning_rate=0.02):
         # Network structure
         self.residual_blocks = residual_blocks
         self.residual_filters = residual_filters
+
+        # Learning rate
+        self.learning_rate = learning_rate
 
         # model type: full precision (fp32) or mixed precision (fp16)
         self.model_dtype = tf.float32
@@ -195,7 +198,8 @@ class TFProcess:
         # You need to change the learning rate here if you are training
         # from a self-play training set, for example start with 0.005 instead.
         opt = tf.train.MomentumOptimizer(
-            learning_rate=0.02/MICROBATCHES, momentum=0.9, use_nesterov=True)
+            learning_rate=self.learning_rate/MICROBATCHES,
+            momentum=0.9, use_nesterov=True)
 
         opt = LossScalingOptimizer(opt, scale=self.loss_scale)
 
@@ -434,7 +438,7 @@ class TFProcess:
         timer = Timer()
 
         start_step=tf.train.global_step(self.session, self.global_step)
-        print(f"Starting at step: {start_step}")
+        print(f"Starting at step: {start_step}. Using learning rate {self.learning_rate}.")
         while True:
             batch = next(train_data)
             # Measure losses and compute gradients for this batch.
@@ -557,7 +561,7 @@ class TFProcess:
         # later on.
         # Convert from NCHW to NHWC
         net = tf.transpose(net, [0, 2, 3, 1])
-        print("Transposed shape:", net.shape)  # Should print (128, 8, 8, 18)
+        # print("Transposed shape:", net.shape)  # Should print (128, 8, 8, 18)
         scope = self.get_batchnorm_key()
         with tf.variable_scope(scope,
                                custom_getter=float32_variable_storage_getter):
@@ -568,7 +572,7 @@ class TFProcess:
                     training=self.training,
                     reuse=self.reuse_var)
         
-        print("Result:", net.shape)
+        # print("Result:", net.shape)
         net = tf.transpose(net, [0, 3, 1, 2] )
 
         for v in ['beta', 'moving_mean', 'moving_variance' ]:
@@ -621,7 +625,7 @@ class TFProcess:
         # NCHW format
         # batch, 18 channels, 8 x 8
         x_planes = tf.reshape(planes, [-1, 18, 8, 8])
-        print("Reshaped tensor shape:", x_planes.shape)  # Should print (128, 18, 8, 8)
+        # print("Reshaped tensor shape:", x_planes.shape)  # Should print (128, 18, 8, 8)
         
 
         # Input convolution

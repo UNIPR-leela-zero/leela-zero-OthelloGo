@@ -49,8 +49,9 @@ def run_game(i, delay=None):
     if delay:
         time.sleep(delay)
 
+    resign_percent = 0 if i % 7 == 0 else resign_pct
     p = subprocess.Popen(
-        [leelaz, '-w', network] + leelaz_args,
+        [leelaz, '-w', network] + leelaz_args + ['-r', str(resign_percent)],
         stdout=subprocess.PIPE,
         stdin=subprocess.PIPE,
         bufsize=1,
@@ -59,7 +60,7 @@ def run_game(i, delay=None):
     skip_credentials(p)
 
     turn_player='black'
-    winner=''
+    winner=None
     pass_counter=0
     num_moves=0
     
@@ -73,8 +74,10 @@ def run_game(i, delay=None):
             #print("Played "+new_move+" for "+turn_player)
             if turn_player=='black':
                 winner='w'
+                score='W+R'
             else:
                 winner='b'
+                score='B+R'
             break
 
         if "pass" in new_move:
@@ -100,12 +103,16 @@ def run_game(i, delay=None):
     p.stdin.flush()
     final_score= p.stdout.readline()
     #print("Final score is "+final_score)
-    if(winner==''):
+    if(winner==None):
         # print(f"Victory by double pass after {num_moves} moves")
         # print(final_score)
-        winner='b'
-        if 'W' in final_score:
-            winner='w'
+        score = final_score.lstrip("= ").strip()
+        if 'B' in final_score:
+            winner = 'b'
+        elif 'W' in final_score:
+            winner = 'w'
+        else:
+            winner = '0'
     # p.stdin.write('final_score\n')
     # p.stdin.flush()
 
@@ -119,7 +126,7 @@ def run_game(i, delay=None):
     # # Determine the winner
     # winner = line[16].lower()
     # print("Winner: "+ (winner))
-    assert winner == 'w' or winner == 'b'
+    assert winner == 'w' or winner == 'b' or winner == '0'
 
     # Prints the sgf file of the match
     command = f'printsgf {i}_al.sgf\n'
@@ -140,7 +147,7 @@ def run_game(i, delay=None):
 
     # Edits the SGF
     sgf_edit(f"{i}_al.sgf", num_moves)
-    return i, winner
+    return i, score
 
 
 # Creates the leela_files directory
@@ -180,8 +187,8 @@ with ThreadPoolExecutor(max_workers=max_parallel) as pool:
     futures = {pool.submit(run_game, i, wait): i for (i, wait) in zip(game_indices, delays)}
 
     for f in as_completed(futures):
-        i, winner = f.result()
-        print(f"✓ finished game {i}  (winner: {winner})")
+        i, score = f.result()
+        print(f"✓ finished game {i}/{target_games} [{current_gen}]  (result: {score})")
 
 elapsed = time.perf_counter() - start
 

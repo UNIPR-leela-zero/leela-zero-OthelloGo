@@ -45,6 +45,9 @@ RAM_BATCH_SIZE = 128
 # games in the shuffle buffer.
 DOWN_SAMPLE = 2
 
+# Default learning rate
+LEARNING_RATE = 0.02
+
 def get_chunks(data_prefix):
     return glob.glob(data_prefix + "*.gz")
 
@@ -127,7 +130,9 @@ def main():
     parser.add_argument("--logbase", default='leelalogs', type=str,
         help="Log file prefix (for tensorboard) (default: %(default)s)")
     parser.add_argument("--sample", default=DOWN_SAMPLE, type=int,
-        help="Rate of data down-sampling to use (default: %(default)d)")
+        help="Rate of data down-sampling to use (default: %(default)s)")
+    parser.add_argument("--rate", default=LEARNING_RATE, type=float,
+        help="Learning rate of momentum optimizer to use (default: %(default)s)")
     args = parser.parse_args()
 
     blocks = args.blocks or args.blockspref
@@ -164,7 +169,7 @@ def main():
                               sample=args.sample,
                               batch_size=RAM_BATCH_SIZE).parse()
 
-    tfprocess = TFProcess(blocks, filters)
+    tfprocess = TFProcess(blocks, filters, learning_rate=args.rate)
     tfprocess.init(RAM_BATCH_SIZE,
                    logbase=args.logbase,
                    macrobatch=BATCH_SIZE // RAM_BATCH_SIZE)

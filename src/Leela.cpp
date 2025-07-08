@@ -202,17 +202,17 @@ static void parse_commandline(const int argc, const char* const argv[]) {
         ("randomvisits", po::value<int>()->default_value(cfg_random_min_visits),
                          "Don't play random moves if they have <= x visits.")
         ("randomtemp", po::value<float>()->default_value(cfg_random_temp),
-                       "Temperature to use for random move selection.");
-#ifdef USE_TUNER
-    po::options_description tuner_desc("Tuning options");
-    tuner_desc.add_options()
+                       "Temperature to use for random move selection.")
+// #ifdef USE_TUNER
+//     po::options_description tuner_desc("Tuning options");
+//     tuner_desc.add_options()
         ("puct", po::value<float>())
         ("logpuct", po::value<float>())
         ("logconst", po::value<float>())
         ("softmax_temp", po::value<float>())
         ("fpu_reduction", po::value<float>())
         ("ci_alpha", po::value<float>());
-#endif
+// #endif
     // These won't be shown, we use them to catch incorrect usage of the
     // command line.
     po::options_description ignore("Ignored options");

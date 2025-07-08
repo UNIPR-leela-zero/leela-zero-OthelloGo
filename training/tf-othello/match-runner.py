@@ -35,6 +35,7 @@ import subprocess
 import tarfile
 import csv
 import hashlib
+import gzip
 import os
 from typing import List, Tuple, Dict
 
@@ -45,16 +46,20 @@ from typing import List, Tuple, Dict
 try:
     from config import (
         leelaz,
+        match_args,
         edax,
         kalmia,
         egaroucid,
         rundir,
         results_root,
+        save_gen_dir_,
+        network,
+        adri_gen_dir_
     )
 except ImportError as exc:
     raise RuntimeError("config.py with engine paths is required") from exc
 
-LEELA_DEFAULT_VISITS = 1000  # default visits for Leela
+LEELA_DEFAULT_VISITS = 10000  # default visits for Leela
 SGF_HEADER = "(;GM[2]FF[4]SZ[8]"
 SGF_FOOTER = ")\n"
 
@@ -90,11 +95,20 @@ def send_cmd(proc: subprocess.Popen, cmd: str) -> Tuple[str, List[str]]:
 
 
 def sha256_short(path: str | Path, n: int = 8) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(8192), b""):
-            h.update(chunk)
-    return h.hexdigest()[:n]
+    path = Path(path)
+    sha_path = path.with_suffix('.sha256')
+    if not sha_path.exists():
+        print(f"{sha_path} not found. Will compute hash on the fly.")
+        h = hashlib.sha256()
+        with gzip.open(path, "rb") as f:
+            for chunk in iter(lambda: f.read(8192), b""):
+                h.update(chunk)
+        sha256sum = h.hexdigest()
+        sha_path.write_text(sha256sum+" "+path.name)
+    else:
+        sha256sum = sha_path.read_text().strip().split()[0]
+
+    return sha256sum[:n]
 
 
 # ---------------------------------------------------------------------------
@@ -108,25 +122,36 @@ class Engine:
     category: str
     extra: List[str] = field(default_factory=list)
     proc: subprocess.Popen | None = field(init=False, default=None)
+    cwd: str | Path | None = None
+
+    def reset(self):
+        send_cmd(self.proc, "boardsize 8")
+        send_cmd(self.proc, "clear_board")
+        if self.category.startswith("leelaz") or self.category.startswith("lz"):
+            send_cmd(self.proc, "clear_cache")
 
     def start(self):
         if self.proc is not None:
             return
         self.proc = subprocess.Popen(
             [self.exe, *self.extra],
-            cwd=rundir,
+            cwd=self.cwd,
             text=True,
             bufsize=1,
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             # stderr=subprocess.STDOUT,
         )
-        send_cmd(self.proc, "boardsize 8")
-        send_cmd(self.proc, "clear_board")
-
-    def restart(self):
-        self.close()
-        self.start()
+        self.reset()
+        
+    def restart(self, soft=False):
+        if self.proc is None:
+            self.start()
+        elif soft:
+            self.reset()
+        else:
+            self.close()
+            self.start()
 
     def close(self):
         if self.proc is None:
@@ -144,6 +169,9 @@ class Engine:
         return header.strip()
 
     def play_move(self, colour: str, move: str):
+        # send_cmd(self.proc, "showboard")
+        # h, p = send_cmd(self.proc, f"play {colour} {move}")
+        # print(f"play {colour} {move} ---> <{h}> ({p})")
         send_cmd(self.proc, f"play {colour} {move}")
 
     def final_score(self) -> str:
@@ -155,27 +183,58 @@ class Engine:
 
 
 class LeelaEngine(Engine):
-    def __init__(self, net_path: str | Path, visits: int = LEELA_DEFAULT_VISITS):
+    def __init__(self,
+                 net_path: str | Path,
+                 visits: int = LEELA_DEFAULT_VISITS,
+                 exe: str | Path = None,
+                 **kwargs):
         wsl_path = win_to_wsl_path(net_path)
         wsl_path = Path(wsl_path)
         net_hash = sha256_short(wsl_path)
-        category = f"leelaz-{net_hash}"
+        if exe is None:
+            exe = leelaz
+            name = "Leela-Zero"
+            category = "leelaz"
+        else:
+            code = Path(exe).parts[-2] # adri, flip, ...
+            name = "LZ-" + code + "-" + net_hash
+            category = "lz" + code + "-" + net_hash
         super().__init__(
-            name=f"LeelaZero-{net_hash}",
-            exe=leelaz,
+            name=name,
+            exe=exe,
             category=category,
-            extra=match_args + ["-w", str(net_path), "-v", str(visits)],
+            extra=match_args + ["-w", str(net_path), "-v", str(visits)] + ["--std-othello"],
+            **kwargs
         )
 
 
 class EdaxEngine(Engine):
-    def __init__(self):
-        super().__init__("edax", edax, "edax")
+    def __init__(self,
+                 level: int | None = None):
+        code = "max" if level is None else str(level)
+        category = "edax-" + code
+        name = "Edax-" + code
+        extra = ["--gtp", "-vv"]
+        if level is not None:
+            extra += ["-l", str(level)]
+        super().__init__(name=name,
+                         exe=edax,
+                         category=category,
+                         extra=extra,
+                         cwd="/mnt/d/lzo/bin/edax/"
+                         )
 
 
 class KalmiaEngine(Engine):
-    def __init__(self):
-        super().__init__("kalmia", kalmia, "kalmia")
+    def __init__(self, strength: str):
+        assert strength in ["custom", "easy", "normal", "proffesional", "superhuman"]
+        category = f"kalmia-{strength}"
+        super().__init__("kalmia",
+            exe="/mnt/d/lzo/bin/kalmia/Kalmia",
+            category=category,
+            extra=["--mode", "gtp", "--difficulty", strength],
+            cwd="/mnt/d/lzo/bin/kalmia/"
+        )
 
 
 class EgaroucidEngine(Engine):
@@ -210,12 +269,19 @@ class GameResult:
 
 
 class Game:
-    def __init__(self, black: Engine, white: Engine, no: int, match_id: str, out_dir: Path):
+    def __init__(self,
+                 black: Engine,
+                 white: Engine,
+                 no: int,
+                 match_id: str,
+                 out_dir: Path,
+                 soft_restart: bool = False):
         self.B = black
         self.W = white
         self.no = no
         self.mid = match_id
         self.out = out_dir
+        self.soft_restart = soft_restart
 
     def _sgf(self, seq, res_tag):
         parts = [SGF_HEADER, f"PB[{self.B.name}]", f"PW[{self.W.name}]", f"RE[{res_tag}]"]
@@ -228,34 +294,41 @@ class Game:
 
     def play(self) -> GameResult:
         # fresh engines
-        self.B.restart()
-        self.W.restart()
+        self.B.restart(self.soft_restart)
+        self.W.restart(self.soft_restart)
 
         history = []  # ("B"|"W", move)
         to_move = "black"
         passes = 0
         moves = 0
+        discs = 4
         resigned = False
 
         while True:
             eng = self.B if to_move == "black" else self.W
             opp = self.W if to_move == "black" else self.B
 
-            mv = eng.genmove(to_move)
+            mv = eng.genmove(to_move).lower()
+            if mv.startswith("wrong"):
+                break
             moves += 1
+            # print(f"[{to_move} {mv}]")
             history.append(("B" if to_move == "black" else "W", mv))
+            # print(history)
 
-            lo = mv.lower()
             # mirror the move to the opponent so its board state matches
-            if lo == "pass":
+            if mv == "pass":
                 opp.play_move(to_move, "pass")
-            elif lo != "resign":
+            elif mv != "resign":
                 opp.play_move(to_move, mv)
+                discs += 1
+                if discs == 64:
+                    break
 
-            if lo == "resign":
+            if mv == "resign":
                 resigned = True
                 break
-            if lo == "pass":
+            if mv == "pass":
                 passes += 1
                 if passes == 2:
                     break
@@ -270,6 +343,8 @@ class Game:
             res_a = self.B.final_score()
             res_b = self.W.final_score()
 
+        if res_a.startswith("unknown"):
+            res_a = res_b
         sgf_txt = self._sgf(history, res_a)
         fn = f"{self.mid}_g{self.no:03d}_{self.B.short()}-B_{self.W.short()}-W.sgf"
         fp = self.out / fn
@@ -291,6 +366,7 @@ class MatchRunner:
     B: Engine
     games: int = 100
     root: Path = Path(results_root)
+    soft: bool = False
 
     def run(self) -> Tuple[str, List[Dict]]:
         assert self.games % 2 == 0, "games must be even"
@@ -302,7 +378,7 @@ class MatchRunner:
         rows: List[Dict] = []
         for g in range(self.games):
             blk, wht = (self.A, self.B) if g % 2 == 0 else (self.B, self.A)
-            result = Game(blk, wht, g + 1, mid, tmp).play()
+            result = Game(blk, wht, g + 1, mid, tmp, self.soft).play()
             winner = blk.name if result.res_a.startswith('B') else wht.name
             print(f"Game {g+1} won by {winner} with score {result.res_a}")
             rows.append({
@@ -341,16 +417,16 @@ class MatchRunner:
 # ---------------------------------------------------------------------------
 
 def _work(spec):
-    A, B, n, r = spec
-    mid, rows = MatchRunner(A, B, n, Path(r)).run()
+    A, B, n, r, soft = spec
+    mid, rows = MatchRunner(A, B, n, Path(r), soft).run()
     return rows
 
 
-def run_batch(pairs: List[Tuple[Engine, Engine]], games: int = 100, workers: int = 1, csv_out: str | Path | None = None):
+def run_batch(pairs: List[Tuple[Engine, Engine]], games: int = 100, workers: int = 1, csv_out: str | Path | None = None, soft: bool = False):
     if csv_out is None:
         csv_out = Path(results_root) / "results.csv"
 
-    specs = [(a, b, games, str(results_root)) for a, b in pairs]
+    specs = [(a, b, games, str(results_root), soft) for a, b in pairs]
     all_rows: List[Dict] = []
 
     if workers == 1:
@@ -367,9 +443,10 @@ def run_batch(pairs: List[Tuple[Engine, Engine]], games: int = 100, workers: int
         *sorted({k for r in all_rows for k in r if k.endswith("_result")}),
         "move_count", "sgf_file",
     ]
-    with open(csv_out, "w", newline="", encoding="utf-8") as f:
+    with open(csv_out, "a", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fields)
-        writer.writeheader()
+        if os.path.getsize(csv_out) == 0:
+            writer.writeheader()
         writer.writerows(all_rows)
 
     print(f"Batch finished – csv saved to {csv_out}")
@@ -378,15 +455,36 @@ def run_batch(pairs: List[Tuple[Engine, Engine]], games: int = 100, workers: int
 # ---------------------------------------------------------------------------
 # Demo
 # ---------------------------------------------------------------------------
+
+
+def elys_net(gen: int | None = None):
+    if gen is None:
+        return network
+    else:
+        return save_gen_dir_ + f"\\{gen}\\leelaz-model-{gen*4000}.txt.gz"
+
+def adri_net(gen: int = 300):
+    return adri_gen_dir_ + f"\\{gen}\\{gen}gen.txt.gz"
+
+
 if __name__ == "__main__":
     from config import *
 
-    leela1  = LeelaEngine(save_gen_dir_ + "\\1\\leelaz-model-4000.txt.gz")
-    leela4  = LeelaEngine(save_gen_dir_ + "\\4\\leelaz-model-16000.txt.gz")
-    leela15 = LeelaEngine(save_gen_dir_ + "\\15\\leelaz-model-60000.txt.gz")
-    leela58 = LeelaEngine(save_gen_dir_ + "\\58\\leelaz-model-232000.txt.gz")
+    # adri50  = LeelaEngine(adri_net(50))
+    kalmia_easy = KalmiaEngine("easy")
+    kalmia_normal = KalmiaEngine("normal")
+    kalmia_pro = KalmiaEngine("proffesional")
+    kalmia_super = KalmiaEngine("superhuman")
+    default = LeelaEngine(elys_net())
+    default109 = LeelaEngine(elys_net(109))
+    adrieng = LeelaEngine(elys_net(), exe=lzadri)
+    std_othello = LeelaEngine(elys_net(), exe=lzflip)
+    # std_othello109 = LeelaEngine(elys_net(109), exe=lzflip)
+    edax_default = EdaxEngine()
+    edax_lvl20 = EdaxEngine(20)
+
     # edax_engine = EdaxEngine()
 
     run_batch([
-        (leela15, leela4)
-    ], games=10, workers=2)
+        (EdaxEngine(10), LeelaEngine(elys_net()))
+    ], games=20, workers=1, soft=True)

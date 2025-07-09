@@ -1,6 +1,7 @@
 import subprocess
 import os
 import time
+import tarfile
 from config import *
 
 # imports for multithread execution
@@ -170,8 +171,12 @@ nums = [0] + [int(x.replace("tmp", "").replace(".0.gz", "")) for x in dirlist if
 max_num = max(nums)
 print(f"Current number of games {max_num}.")
 
-current_gen   = max_num // games_per_generation
-missing_games = -max_num % games_per_generation
+# current_gen   = max_num // games_per_generation
+current_gen   = 1 + max([int(x) for x in os.listdir(save_gen_dir) if x.isnumeric()])
+with tarfile.open(os.path.join(archive_path, f'{current_gen}_gen.tar')) as f:
+    prev_games = max([int(m.name.lstrip('tmp').split('.')[0]) for m in f.getmembers()])
+# missing_games = -max_num % games_per_generation
+missing_games = prev_games + games_per_generation - max_num
 games_to_play = missing_games or games_per_generation
 target_games  = max_num + games_to_play
 

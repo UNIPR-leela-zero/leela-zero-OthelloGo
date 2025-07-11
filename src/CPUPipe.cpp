@@ -435,13 +435,13 @@ void CPUPipe::forward(const std::vector<float>& input,
                                      m_weights->m_batchnorm_means[i].data(),
                                      m_weights->m_batchnorm_stddevs[i].data());
         
-        for (size_t i = 0; i < res.size(); i++) res[i] += conv_out[i];
+        for (size_t i = 0; i < res.size(); ++i) res[i] += conv_out[i];
     }
-    std::swap(conv_out, res);
+    // std::swap(conv_out, res);
 
-    convolve<1>(Network::OUTPUTS_POLICY, conv_out, m_conv_pol_w, m_conv_pol_b,
+    convolve<1>(Network::OUTPUTS_POLICY, res, m_conv_pol_w, m_conv_pol_b,
                 output_pol);//this computates the fully connected convolutional layers
-    convolve<1>(Network::OUTPUTS_VALUE, conv_out, m_conv_val_w, m_conv_val_b,
+    convolve<1>(Network::OUTPUTS_VALUE, res, m_conv_val_w, m_conv_val_b,
                 output_val);
 }
 

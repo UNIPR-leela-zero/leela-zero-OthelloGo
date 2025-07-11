@@ -862,11 +862,25 @@ Network::Netresult Network::get_output_internal(const GameState* const state,
     // Now get the value
     batchnorm<NUM_INTERSECTIONS>(OUTPUTS_VALUE, value_data, m_bn_val_w1.data(),
                                  m_bn_val_w2.data());
+    
+    // for (size_t i = 0; i < 30; i++) printf("Value data[%ld] after batch norm: %f\n", i, value_data[i]);
+    // for (size_t i = 0; i < m_bn_val_w1.size(); i++) printf("mean[%ld]: %f\n", i, m_bn_val_w1[i]);
+    // for (size_t i = 0; i < m_bn_val_w2.size(); i++) printf("std[%ld]: %f\n", i, m_bn_val_w2[i]);
+    // for (auto& x : value_data) x = -x;
+    // for (size_t i = 0; i < value_data.size(); i++) value_data[i] = - value_data[i];
+    // for (size_t i = 0; i < 64; i++) printf("Value data[%ld] after batch norm: %f\n", i, value_data[i]);
+
+
     const auto winrate_data =
         innerproduct<OUTPUTS_VALUE * NUM_INTERSECTIONS, VALUE_LAYER, true>(
             value_data, m_ip1_val_w, m_ip1_val_b);
+
+    // for (size_t i = 0; i < 30; i++) printf("value data[%ld] after first dense layer: %f\n", i, winrate_data[i]);
+    // for (size_t i = 0; i < 30; i++) printf("m_ip1_val_w[%ld] after first dense layer: %f\n", i, m_ip1_val_w[i]);
+    // for (size_t i = 0; i < 30; i++) printf("m_ip1_val_b[%ld] after first dense layer: %f\n", i, m_ip1_val_b[i]);
+
     const auto winrate_out = innerproduct<VALUE_LAYER, 1, false>(
-        winrate_data, m_ip2_val_w, m_ip2_val_b);
+        winrate_data, m_ip2_val_w, m_ip2_val_b);    
 
     // Map TanH output range [-1..1] to [0..1] range
     const auto winrate = (1.0f + std::tanh(winrate_out[0])) / 2.0f;

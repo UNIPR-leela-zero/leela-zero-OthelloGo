@@ -153,15 +153,18 @@ class Engine:
             self.close()
             self.start()
 
-    def close(self):
+    def close(self, soft=False):
         if self.proc is None:
             return
-        try:
-            send_cmd(self.proc, "quit")
-        except Exception:
-            pass
-        self.proc.kill()
-        self.proc = None
+        elif soft:
+            self.reset()
+        else:
+            try:
+                send_cmd(self.proc, "quit")
+            except Exception:
+                pass
+            self.proc.kill()
+            self.proc = None
 
     # ---- gameplay helpers -------------------------------------------------
     def genmove(self, colour: str) -> str:
@@ -210,13 +213,16 @@ class LeelaEngine(Engine):
 
 class EdaxEngine(Engine):
     def __init__(self,
-                 level: int | None = None):
+                 level: int | None = None,
+                 book: bool | None = None):
         code = "max" if level is None else str(level)
         category = "edax-" + code
         name = "Edax-" + code
         extra = ["--gtp", "-vv"]
         if level is not None:
             extra += ["-l", str(level)]
+        if book is not None:
+            extra += ["-book-usage", "on" if book else "off"]
         super().__init__(name=name,
                          exe=edax,
                          category=category,
@@ -351,8 +357,8 @@ class Game:
         with open(fp, "w", encoding="utf-8") as f:
             f.write(sgf_txt)
 
-        self.B.close()
-        self.W.close()
+        self.B.close(self.soft_restart)
+        self.W.close(self.soft_restart)
         return GameResult(moves, res_a, res_b, fp)
 
 
@@ -486,5 +492,7 @@ if __name__ == "__main__":
     # edax_engine = EdaxEngine()
 
     run_batch([
-        (EdaxEngine(10), LeelaEngine(elys_net()))
+        # (LeelaEngine(adri_net(), visits=1000), LeelaEngine(elys_net(), visits=1000)),
+        (EdaxEngine(10, book=False), LeelaEngine(elys_net(), visits=1000)),
+        (EdaxEngine(7, book=False), LeelaEngine(elys_net(), visits=1000))
     ], games=20, workers=1, soft=True)

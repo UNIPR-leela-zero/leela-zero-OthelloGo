@@ -116,7 +116,7 @@ axs[1].plot(*conv(step, val_loss, window=window), c='red',        lw=0.5)
 axs[1].set_xlabel('step')
 axs[1].set_ylabel('Value Loss')
 #axs[1].set_title('Value Loss vs. Step')
-axs[1].set_ylim(0.14, 0.21)
+axs[1].set_ylim(0.13, 0.21)
 axs[1].grid(True)
 
 if m == 3:
@@ -124,7 +124,7 @@ if m == 3:
     axs[2].plot(*conv(step, accuracy, window=window), c='green',     lw=0.5)
     axs[2].set_xlabel('step')
     axs[2].set_ylabel('Accuracy')
-    axs[2].set_ylim(0.65, 0.75)
+    axs[2].set_ylim(0.66, 0.76)
     axs[2].grid(True)
 
 fig.tight_layout()

@@ -446,13 +446,14 @@ class TFProcess:
             stats.add(losses)
             # fetch the current global step.
             steps = tf.train.global_step(self.session, self.global_step)
-            if steps % self.macrobatch == (self.macrobatch-1):
+            current_steps = steps - start_step
+            if current_steps % self.macrobatch == (self.macrobatch-1):
                 # Apply the accumulated gradients to the weights.
                 self.session.run([self.train_op])
                 # Clear the accumulated gradient.
                 self.session.run([self.clear_op])
 
-            if steps % info_steps == 0:
+            if current_steps % info_steps == 0:
                 speed = info_steps * self.batch_size / timer.elapsed()
                 print("step {}, policy={:g} mse={:g} reg={:g} total={:g} ({:g} pos/s)".format(
                     steps, stats.mean('policy'), stats.mean('mse'), stats.mean('reg'),
@@ -463,7 +464,7 @@ class TFProcess:
                     tf.Summary(value=summaries), steps)
                 stats.clear()
 
-            if steps % 1000 == 0:
+            if current_steps % 1000 == 0:
                 test_stats = Stats()
                 test_batches = 800 # reduce sample mean variance by ~28x
                 for _ in range(0, test_batches):
@@ -479,7 +480,7 @@ class TFProcess:
                         test_stats.mean('accuracy')*100.0,
                         test_stats.mean('mse')))
 
-            if steps % (1000 * MICROBATCHES) == 0:
+            if current_steps % (1000 * MICROBATCHES) == 0:
                 # Write out current model and checkpoint
                 # path = os.path.join(os.getcwd(), "leelaz-model")
                 save_path = self.saver.save(self.session, path,

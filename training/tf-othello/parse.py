@@ -133,6 +133,8 @@ def main():
         help="Rate of data down-sampling to use (default: %(default)s)")
     parser.add_argument("--rate", default=LEARNING_RATE, type=float,
         help="Learning rate of momentum optimizer to use (default: %(default)s)")
+    parser.add_argument("--batchsize", default=BATCH_SIZE, type=int,
+        help="Virtual batch size to use (default: %(default)s)")
     args = parser.parse_args()
 
     blocks = args.blocks or args.blockspref
@@ -172,7 +174,7 @@ def main():
     tfprocess = TFProcess(blocks, filters, learning_rate=args.rate)
     tfprocess.init(RAM_BATCH_SIZE,
                    logbase=args.logbase,
-                   macrobatch=BATCH_SIZE // RAM_BATCH_SIZE)
+                   macrobatch=args.batchsize // RAM_BATCH_SIZE)
 
     #benchmark1(tfprocess)
 

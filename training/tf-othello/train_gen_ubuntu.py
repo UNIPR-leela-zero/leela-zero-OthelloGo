@@ -31,7 +31,8 @@ while True:
                       "--train", os.path.join(dirname, ""),
                       "--test", os.path.join(test_dir, ""),
                       "--restore", os.path.join(curr_gen_dir, last_model),
-                      "--rate", str(rate)]
+                      "--rate", str(rate),
+                      "--batchsize", str(batch_size)]
         subprocess.run(['python', parse] + parse_args)
 
         os.system(f"for f in {white_networks}/leelaz-model-*.txt ; do sha256sum $f > $f.sha256 ; done")

@@ -39,6 +39,7 @@ while True:
         # -q flag to suppress error message of gzip not being able to write the Unix metadata
         os.system(f"gzip -q {white_networks}/leelaz-model-*.txt")
         os.system(f"cp {white_networks}/leelaz-model-*.txt.gz {best_network}")
+        os.system(f"cp {white_networks}/leelaz-model-*.txt.gz {ramdisk_network}")
         new_gen_dir = os.path.join(save_gen_dir, str(curr_gen+1))
         os.makedirs(new_gen_dir)
         os.system(f"mv {white_networks}/* {new_gen_dir}")

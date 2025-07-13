@@ -10,13 +10,14 @@ blocks               = 20
 filters              = 256
 
 # Number of iterations for auto-leela
-games_per_generation = 1600      # 2500
+games_per_generation = 3200      # 2500
 max_parallel         = 4
 training_window      = "auto"    # 5
 learning_rate        = "auto"    # 0.02
+batch_size           = 1024      # 512
 visits               = 300       # 150
 random_moves         = 25        # 10
-resign_pct           = 5
+resign_pct           = 0
 resign_pct_match     = 0
 puct                 = 1.5       # 0.5
 logpuct              = 0.001     # 0.015
@@ -51,7 +52,8 @@ LZO = "/mnt/d/lzo"
 LZO_ = "D:\\lzo"
 lzo_aincrad = "/mnt/d/lzo-aincrad"
 lzo_aincrad_ = "D:\\lzo-aincrad"
-
+RAMDISK = "/mnt/r"
+RAMDISK_ = "R:"
 
 #################################
 #################################
@@ -71,9 +73,11 @@ adri_files_ = lzo_aincrad_ + "\\leela_files"
 # training scripts path
 tf_othello = "/home/cs-project/repo/leela-zero-othello/training/tf-othello"
 # best-network weights path
-network = leela_files_ + "\\current_promoted\\best-network.gz"
+# network = leela_files_ + "\\current_promoted\\best-network.gz"
+network = RAMDISK_ + "\\current_promoted\\best-network.gz"
 # general best-network files path
 best_network = leela_files + "/current_promoted/best-network.gz"
+ramdisk_network = RAMDISK + "/current_promoted/best-network.gz"
 # leelaz program path
 leelaz = LZO + "/bin/leelaz.exe"
 lzadri = LZO + "/bin/adri/leelaz.exe"

@@ -90,9 +90,13 @@ static const std::string sourceCode_convolve3 =
     #include "kernels/convolve3.opencl"
 ;
 
-static const std::string sourceCode_add_buffer =
-    #include "kernels/add_buffer.opencl"
+static const std::string sourceCode_winograd_glonet =
+    #include "kernels/winograd_glonet.opencl"
 ;
+
+// static const std::string sourceCode_add_buffer =
+//     #include "kernels/add_buffer.opencl"
+// ;
 
 const std::string sourceCode_sgemm =
     "#if TCE == 1\n" // Enable tensorcore
@@ -122,8 +126,12 @@ void OpenCL<net_t>::ensure_context_initialized(OpenCLContext& opencl_context) {
             cl::Kernel(m_program, "out_transform_fused_bn");
         opencl_context.m_out_transform_bn_in_kernel =
             cl::Kernel(m_program, "out_transform_fused_bn_in");
-        opencl_context.m_add_buffer_kernel =
-            cl::Kernel(m_program, "add_buffer");
+        // opencl_context.m_add_buffer_kernel =
+        //     cl::Kernel(m_program, "add_buffer");
+        opencl_context.m_winograd_add_kernel =
+            cl::Kernel(m_program, "winograd_add");
+        opencl_context.m_winograd_final_transform_kernel = 
+            cl::Kernel(m_program, "winograd_final_transform");
         opencl_context.m_commandqueue = cl::CommandQueue(m_context, m_device);
         opencl_context.m_is_initialized = true;
     }
@@ -180,9 +188,14 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
                                   * max_channels * sizeof(net_t);
         const auto alloc_vm_size = getOpenCL().m_batch_size * WINOGRAD_TILE
                                    * m_ceil * n_ceil * sizeof(net_t);
+        // Calcola dimensioni per buffer Winograd
+        const auto winograd_size = getOpenCL().m_batch_size * WINOGRAD_TILE * 
+                                m_ceil * n_ceil * sizeof(net_t);
+        
 
         auto v_zeros = std::vector<net_t>(alloc_vm_size);
         auto acc_zeros = std::vector<net_t>(alloc_inSize);
+        auto winograd_zeros = std::vector<net_t>(winograd_size / sizeof(net_t), static_cast<net_t>(0));
 
         opencl_context.m_inBuffer = cl::Buffer(
             m_opencl.m_context,
@@ -202,6 +215,11 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
             m_opencl.m_context,
             CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, alloc_inSize, acc_zeros.data()
         );
+        
+        // Alloca buffer per accumulo Winograd (inizializzato a zero)
+        opencl_context.m_WinogradAccBuffer = cl::Buffer(
+            m_opencl.m_context,
+            CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, winograd_size, winograd_zeros.data());
 
         opencl_context.m_pinnedOutBuffer_pol = cl::Buffer(
             m_opencl.m_context,
@@ -219,6 +237,7 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
     // cl::Buffer& inBuffer2 = opencl_context.m_inBuffer2;
     cl::Buffer& VBuffer = opencl_context.m_VBuffer;
     cl::Buffer& MBuffer = opencl_context.m_MBuffer;
+    cl::Buffer& WinoAccBuffer = opencl_context.m_WinogradAccBuffer;
     cl::Buffer& AccBuffer = opencl_context.m_AccBuffer;
     cl::CommandQueue& queue = opencl_context.m_commandqueue;
 
@@ -228,103 +247,72 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
     const auto inSize = sizeof(net_t) * input.size();
     queue.enqueueWriteBuffer(inBuffer, CL_FALSE, 0, inSize, net_t_input.data()); //feeds the data to opencl
 
-    // for every forward step AccBuffer needs to be filled with zeros
+    // for every forward step AccBuffer and WinoAccBuffer needs to be filled with zeros
     size_t buffer_size_bytes = getOpenCL().m_batch_size * 256 * 8 * 8 * sizeof(net_t);
-    net_t zero_value = static_cast<net_t>(0.0);
-    queue.enqueueFillBuffer(AccBuffer, zero_value, 0, buffer_size_bytes);
+    net_t zero_value_acc = static_cast<net_t>(0.0);
+    queue.enqueueFillBuffer(AccBuffer, zero_value_acc, 0, buffer_size_bytes);
 
-    // Fused in_out transformation kernel is slower with big batch_sizes than
-    // calling out and in transformations separately.
-    // This condition could be tunable in future.
-    auto use_inout = (batch_size == 1);
-
-    auto skip_in_trans = false;
-    for (auto iter = cbegin(m_layers); iter != cend(m_layers); iter++) { //does forward propagation
+    net_t zero_value_wino = static_cast<net_t>(0.0);
+    const auto winograd_buffer_size = getOpenCL().m_batch_size * WINOGRAD_TILE * 
+                                      m_ceil * n_ceil * sizeof(net_t);
+    queue.enqueueFillBuffer(WinoAccBuffer, zero_value_wino, 0, winograd_buffer_size);
+    
+    bool first_layer = true;
+    for (auto iter = cbegin(m_layers); iter != cend(m_layers); iter++) {
         const auto& layer = *iter;
         const auto niter = std::next(iter);
 
         if (layer.is_input_convolution) {
-            assert(niter != cend(m_layers));
             auto conv_weights = begin(layer.weights);
             auto bn_weights = begin(layer.weights) + 1;
-            auto skip_next_in_trans = false;
-            if (niter->is_residual_block) {
-                skip_next_in_trans = use_inout;
-            }
 
-            convolve3(opencl_context,
-                      layer.channels,
-                      layer.outputs,
-                      inBuffer,
-                      inBuffer,
-                      VBuffer,
-                      MBuffer,
-                      conv_weights,
-                      nullptr,
-                      bn_weights,
-                      false, false, true,
-                    //   skip_in_trans, skip_next_in_trans, true,
-                      batch_size);
+            // Convoluzioni parziali (senza out_transform)
+            convolve3_partial(opencl_context,
+                             layer.channels, layer.outputs,
+                             inBuffer, VBuffer, MBuffer,
+                             conv_weights, first_layer, batch_size);
             
-            queue.finish();
-            const auto num_elements = layer.outputs * NUM_INTERSECTIONS * batch_size;
-            add_buffer(opencl_context, inBuffer, AccBuffer, num_elements);
-
-            skip_in_trans = skip_next_in_trans;
+            // Accumula nel dominio Winograd
+            winograd_accumulate(opencl_context, MBuffer, 
+                               WinoAccBuffer,
+                               layer.outputs, bn_weights, batch_size);
+            
+            first_layer = false;
+            
         } else if (layer.is_residual_block) {
-            queue.finish();
-            assert(layer.channels == layer.outputs);
-            assert(niter != cend(m_layers));
+            // Primo convoluzione del residual block
             auto conv1_weights = begin(layer.weights);
-            auto   bn1_weights = begin(layer.weights) + 1;
+            auto bn1_weights = begin(layer.weights) + 1;
+            
+            convolve3_partial(opencl_context,
+                             layer.channels, layer.outputs,
+                             inBuffer, VBuffer, MBuffer,
+                             conv1_weights, false, batch_size);
+            
+            winograd_accumulate(opencl_context, MBuffer,
+                               WinoAccBuffer,
+                               layer.outputs, bn1_weights, batch_size);
+            
+            // Secondo convoluzione del residual block
             auto conv2_weights = begin(layer.weights) + 3;
-            auto   bn2_weights = begin(layer.weights) + 4;
-            convolve3(opencl_context,
-                      layer.channels,
-                      layer.outputs,
-                      inBuffer,
-                      inBuffer,
-                      VBuffer,
-                      MBuffer,
-                      conv1_weights,
-                      nullptr,
-                      bn1_weights,
-                      false, false, true,
-                    //   skip_in_trans, use_inout, false,
-                      batch_size);
+            auto bn2_weights = begin(layer.weights) + 4;
             
-            // devo aggiungere inBuffer al buffer corrente di AccBuffer
-            queue.finish();
-            const auto num_elements = layer.outputs * NUM_INTERSECTIONS * batch_size;
-            add_buffer(opencl_context, inBuffer, AccBuffer, num_elements);
-
-            auto skip_next_in_trans = false;
-            if (niter->is_residual_block) {
-                skip_next_in_trans = use_inout;
-            }
-            queue.finish();
-            convolve3(opencl_context,
-                      layer.channels,
-                      layer.outputs,
-                      inBuffer,
-                      inBuffer,
-                      VBuffer,
-                      MBuffer,
-                      conv2_weights,
-                      nullptr,
-                      bn2_weights,
-                      false, false, true,
-                    //   use_inout, skip_next_in_trans, true,
-                      batch_size);
+            convolve3_partial(opencl_context,
+                             layer.channels, layer.outputs,
+                             inBuffer, VBuffer, MBuffer,
+                             conv2_weights, false, batch_size);
             
-            // devo aggiungere inBuffer al buffer corrente di AccBuffer
-            queue.finish();
-            add_buffer(opencl_context, inBuffer, AccBuffer, num_elements);
-
-            skip_in_trans = skip_next_in_trans;
+            winograd_accumulate(opencl_context, MBuffer,
+                               WinoAccBuffer,
+                               layer.outputs, bn2_weights, batch_size);
+            
         } else {
-            assert(layer.is_convolve1);
-
+            // Transform finale dal dominio Winograd al spaziale
+            winograd_final_transform(opencl_context,
+                                   WinoAccBuffer,
+                                   AccBuffer, layer.channels, batch_size);
+            
+            // Continua con convolve1 come prima
             cl::Buffer out_buffer;
             if (niter == cend(m_layers)) {
                 out_buffer = opencl_context.m_pinnedOutBuffer_val;
@@ -334,14 +322,11 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
 
             queue.finish();
             convolve1(opencl_context, layer.channels,
-                      layer.outputs,
-                      AccBuffer,
-                      out_buffer,
-                      VBuffer,
-                      begin(layer.weights),
-                      batch_size);
+                      layer.outputs, AccBuffer, out_buffer,
+                      VBuffer, begin(layer.weights), batch_size);
         }
     }
+
 
     auto pinnedOutBufferHost_pol =
         queue.enqueueMapBuffer(opencl_context.m_pinnedOutBuffer_pol, CL_FALSE,
@@ -369,30 +354,155 @@ void OpenCL_Network<net_t>::forward(const std::vector<float>& input,
 }
 
 template <typename net_t>
-void OpenCL_Network<net_t>::add_buffer(OpenCLContext& opencl_context,
-                                      cl::Buffer& source_buffer,
-                                      cl::Buffer& dest_buffer,
-                                      const size_t size) {
-    cl::Kernel& add_kernel = opencl_context.m_add_buffer_kernel;
+void OpenCL_Network<net_t>::convolve3_partial(OpenCLContext& opencl_context,
+                                              const int channels, const int outputs,
+                                              cl::Buffer& bufferIn,
+                                              cl::Buffer& bufferV,
+                                              cl::Buffer& bufferM,
+                                              const weight_slice_t weights,
+                                              const bool is_first_layer,
+                                              const int batch_size) {
+    
+    cl::Kernel& in_transform_kernel = opencl_context.m_in_transform_kernel;
+    cl::Kernel& sgemm_kernel = opencl_context.m_sgemm_kernel;
     cl::CommandQueue& queue = opencl_context.m_commandqueue;
 
+    // Parametri del tuner
+    auto mwg = m_opencl.m_sgemm_tuners.mwg;
+    auto nwg = m_opencl.m_sgemm_tuners.nwg;
+    auto kwg = m_opencl.m_sgemm_tuners.kwg;
+    auto vwm = m_opencl.m_sgemm_tuners.vwm;
+    auto vwn = m_opencl.m_sgemm_tuners.vwn;
+    auto mdimc = m_opencl.m_sgemm_tuners.mdimc;
+    auto ndimc = m_opencl.m_sgemm_tuners.ndimc;
+    auto tce = m_opencl.m_sgemm_tuners.tce;
+    auto mdima = m_opencl.m_sgemm_tuners.mdima;
+    auto ndimb = m_opencl.m_sgemm_tuners.ndimb;
+    auto wavefront_size = m_opencl.m_wavefront_size;
+
+    constexpr auto tiles = WINOGRAD_P;
+    auto wgs = ceilMultiple(batch_size * tiles, wavefront_size);
+
+    auto m_ceil = int(ceilMultiple(ceilMultiple(outputs, mwg), vwm));
+    auto n_ceil = int(ceilMultiple(ceilMultiple(batch_size * tiles, nwg), vwn));
+    auto k_ceil = int(ceilMultiple(ceilMultiple(channels, kwg), vwm));
+
+    // Input transform (solo se è il primo layer)
+    if (is_first_layer) {
+        try {
+            in_transform_kernel.setArg(0, bufferIn);
+            in_transform_kernel.setArg(1, bufferV);
+            in_transform_kernel.setArg(2, channels);
+            in_transform_kernel.setArg(3, k_ceil);
+            in_transform_kernel.setArg(4, n_ceil);
+            in_transform_kernel.setArg(5, batch_size);
+
+            queue.enqueueNDRangeKernel(in_transform_kernel, cl::NullRange,
+                                       cl::NDRange(wgs, channels));
+        } catch (const cl::Error& e) {
+            std::cerr << "Error in convolve3_partial/in: " << e.what() << ": "
+                      << e.err() << std::endl;
+            throw;
+        }
+    }
+
+    // SGEMM
     try {
-        add_kernel.setArg(0, source_buffer);
-        add_kernel.setArg(1, dest_buffer);
-        add_kernel.setArg(2, static_cast<int>(size));
+        sgemm_kernel.setArg(0, m_ceil);
+        sgemm_kernel.setArg(1, n_ceil);
+        sgemm_kernel.setArg(2, k_ceil);
+        sgemm_kernel.setArg(3, weights[0]);
+        sgemm_kernel.setArg(4, bufferV);
+        sgemm_kernel.setArg(5, bufferM);
 
-        // Calcola work group size ottimale
-        auto work_group_size = std::min(size, static_cast<size_t>(256));
-        auto global_size = ((size + work_group_size - 1) / work_group_size) * work_group_size;
+        cl::NDRange local_sgemm = {mdimc, ndimc, 1};
+        cl::NDRange size_sgemm = {(m_ceil * mdimc) / mwg,
+                                  (n_ceil * ndimc) / nwg,
+                                  cl::size_type(WINOGRAD_TILE)};
 
-        queue.enqueueNDRangeKernel(add_kernel, cl::NullRange,
-                                  cl::NDRange(global_size),
-                                  cl::NDRange(work_group_size));
+        if (tce) {
+            local_sgemm = {32 * mdimc / mdima, ndimc / ndimb, 1};
+            size_sgemm = {32 * m_ceil / mdima * mdimc / mwg,
+                          n_ceil / ndimb * ndimc / nwg,
+                          cl::size_type(WINOGRAD_TILE)};
+        }
+        
+        queue.enqueueNDRangeKernel(sgemm_kernel, cl::NullRange,
+                                   size_sgemm, local_sgemm);
     } catch (const cl::Error& e) {
-        std::cerr << "Error in add_buffer: " << e.what() << ": " << e.err() << std::endl;
+        std::cerr << "Error in convolve3_partial/sgemm: " << e.what() << ": " << e.err()
+                  << std::endl;
         throw;
     }
 }
+
+// Nuova funzione: accumulo nel dominio Winograd
+template <typename net_t>
+void OpenCL_Network<net_t>::winograd_accumulate(OpenCLContext& opencl_context,
+                                                cl::Buffer& source_buffer,
+                                                cl::Buffer& accumulation_buffer,
+                                                const int outputs,
+                                                const weight_slice_t bn_weights,
+                                                const int batch_size) {
+    
+    cl::Kernel& winograd_add_kernel = opencl_context.m_winograd_add_kernel;
+    cl::CommandQueue& queue = opencl_context.m_commandqueue;
+
+    try {
+        winograd_add_kernel.setArg(0, source_buffer);
+        winograd_add_kernel.setArg(1, accumulation_buffer);
+        winograd_add_kernel.setArg(2, bn_weights[0]); // means
+        winograd_add_kernel.setArg(3, bn_weights[1]); // stddivs
+        winograd_add_kernel.setArg(4, outputs);
+        winograd_add_kernel.setArg(5, batch_size);
+
+        // Calcola dimensioni ottimali per il kernel
+        const auto total_elements = WINOGRAD_TILE * outputs * batch_size * WINOGRAD_P;
+        auto work_group_size = std::min(total_elements, static_cast<size_t>(256));
+        auto global_size = ((total_elements + work_group_size - 1) / work_group_size) * work_group_size;
+
+        queue.enqueueNDRangeKernel(winograd_add_kernel, cl::NullRange,
+                                  cl::NDRange(global_size),
+                                  cl::NDRange(work_group_size));
+    } catch (const cl::Error& e) {
+        std::cerr << "Error in winograd_accumulate: " << e.what() << ": " << e.err() << std::endl;
+        throw;
+    }
+}
+
+// Nuova funzione: trasformazione finale dal dominio Winograd
+template <typename net_t>
+void OpenCL_Network<net_t>::winograd_final_transform(OpenCLContext& opencl_context,
+                                                     cl::Buffer& winograd_buffer,
+                                                     cl::Buffer& output_buffer,
+                                                     const int channels,
+                                                     const int batch_size) {
+    
+    cl::Kernel& final_transform_kernel = opencl_context.m_winograd_final_transform_kernel;
+    cl::CommandQueue& queue = opencl_context.m_commandqueue;
+
+    try {
+        final_transform_kernel.setArg(0, winograd_buffer);
+        final_transform_kernel.setArg(1, output_buffer);
+        final_transform_kernel.setArg(2, channels);
+        final_transform_kernel.setArg(3, batch_size);
+
+        // Usa parametri simili a out_transform_bn
+        cl::NDRange local_out = {32, 2};
+        constexpr auto tiles = WINOGRAD_P;
+        cl::NDRange global_out = {
+            ceilMultiple(channels, local_out[0]),
+            ceilMultiple(tiles * batch_size, local_out[1])};
+
+        queue.enqueueNDRangeKernel(final_transform_kernel, cl::NullRange,
+                                   global_out, local_out);
+    } catch (const cl::Error& e) {
+        std::cerr << "Error in winograd_final_transform: " << e.what() << ": " << e.err()
+                  << std::endl;
+        throw;
+    }
+}
+
 
 //Does the convolution for the input convolution layer and for residual layers
 template <typename net_t>
@@ -936,7 +1046,7 @@ void OpenCL<net_t>::initialize(const int channels, const size_t batch_size) {
                                                + sourceCode_convolve1
                                                + sourceCode_convolve3
                                                + sourceCode_sgemm
-                                               + sourceCode_add_buffer);
+                                               + sourceCode_winograd_glonet);
     } catch (const cl::Error& e) {
         myprintf("Error getting kernels: %s: %d", e.what(), e.err());
         throw std::runtime_error("Error getting OpenCL kernels.");

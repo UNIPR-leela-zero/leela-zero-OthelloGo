@@ -74,12 +74,13 @@ private:
     cl::Kernel m_sgemm_kernel;
     cl::Kernel m_out_transform_bn_kernel;
     cl::Kernel m_out_transform_bn_in_kernel;
-    cl::Kernel m_add_buffer_kernel;
     cl::Buffer m_inBuffer;
-    // cl::Buffer m_inBuffer2;
+    cl::Buffer m_AccBuffer;
+    cl::Buffer m_WinogradAccBuffer;  // Nuovo buffer per accumulo Winograd
+    cl::Kernel m_winograd_add_kernel; // Kernel per addizione nel dominio Winograd
+    cl::Kernel m_winograd_final_transform_kernel; // Transform finale
     cl::Buffer m_VBuffer;
     cl::Buffer m_MBuffer;
-    cl::Buffer m_AccBuffer;
     cl::Buffer m_pinnedOutBuffer_pol;
     cl::Buffer m_pinnedOutBuffer_val;
     bool m_buffers_allocated{false};
@@ -160,10 +161,27 @@ private:
     }
     void add_weights(size_t layer, size_t size, const net_t* weights);
 
-    void add_buffer(OpenCLContext& opencl_context,
-                    cl::Buffer& source_buffer,
-                    cl::Buffer& dest_buffer,
-                    const size_t size);
+    void convolve3_partial(OpenCLContext& opencl_context,
+                        const int channels, const int outputs,
+                        cl::Buffer& bufferIn,
+                        cl::Buffer& bufferV,
+                        cl::Buffer& bufferM,
+                        const weight_slice_t weights,
+                        const bool is_first_layer,
+                        const int batch_size);
+
+    void winograd_accumulate(OpenCLContext& opencl_context,
+                            cl::Buffer& source_buffer,
+                            cl::Buffer& accumulation_buffer,
+                            const int outputs,
+                            const weight_slice_t bn_weights,
+                            const int batch_size);
+
+    void winograd_final_transform(OpenCLContext& opencl_context,
+                                cl::Buffer& winograd_buffer,
+                                cl::Buffer& output_buffer,
+                                const int channels,
+                                const int batch_size);
 
     void convolve3(OpenCLContext& opencl_context, int channels, int outputs,
                    cl::Buffer& bufferIn,

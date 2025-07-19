@@ -35,7 +35,8 @@ leelaz_args = ['-v', str(visits),
                # '--fpu_reduction', str(fpu_reduction),
                # '--ci_alpha' , str(ci_alpha),
                '--std-othello',
-               '--noponder', '-n', '-q']
+               '--noponder', '-n', '-q',
+               '-t', '16', '--batchsize', '10']
 
 match_args  = ['-r', str(resign_pct_match),
                '--puct', str(puct),

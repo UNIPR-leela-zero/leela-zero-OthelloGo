@@ -27,7 +27,7 @@ import os
 import random
 import shufflebuffer as sb
 import sys
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import time
 import unittest
 
@@ -135,6 +135,8 @@ def main():
         help="Learning rate of momentum optimizer to use (default: %(default)s)")
     parser.add_argument("--batchsize", default=BATCH_SIZE, type=int,
         help="Virtual batch size to use (default: %(default)s)")
+    parser.add_argument("--workers", default=8, type=int,
+        help="Number of workers to use (default: %(default)s)")
     args = parser.parse_args()
 
     blocks = args.blocks or args.blockspref
@@ -164,11 +166,13 @@ def main():
     train_parser = ChunkParser(FileDataSrc(training),
                                shuffle_size=1<<20, # 2.2GB of RAM.
                                sample=args.sample,
+                               workers=args.workers,
                                batch_size=RAM_BATCH_SIZE).parse()
 
     test_parser = ChunkParser(FileDataSrc(test),
                               shuffle_size=1<<19,
                               sample=args.sample,
+                              workers=args.workers,
                               batch_size=RAM_BATCH_SIZE).parse()
 
     tfprocess = TFProcess(blocks, filters, learning_rate=args.rate)

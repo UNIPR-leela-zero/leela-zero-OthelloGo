@@ -1,4 +1,4 @@
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 
 def float32_variable_storage_getter(getter, name, shape=None, dtype=None,

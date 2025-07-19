@@ -16,7 +16,7 @@ matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
 
-PATTERN      = "*gen/*.tower"
+PATTERN      = "*gen/events.*"
 OUT_CSV      = "merged_scalars.csv"
 OUT_PDF      = "plots.pdf"
 KEEP_TAGS    = {"Policy Loss", "MSE Loss", "Accuracy"}

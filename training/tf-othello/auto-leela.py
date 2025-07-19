@@ -154,12 +154,25 @@ def run_game(i, delay=None):
 # Creates the leela_files directory
 os.makedirs(leela_files, exist_ok=True)
 
-# Creates the Training directory
+# Creates the Training and Test directories
 os.makedirs(dirname, exist_ok=True)
+os.makedirs(test_dir, exist_ok=True)
+
+# Creates the networks directories
+os.makedirs(save_gen_dir, exist_ok=True)
+os.makedirs(current_network_dir, exist_ok=True)
 
 # Creates the sgf archives directory
 os.makedirs(sgf_archive, exist_ok=True)
 os.makedirs(al_sgf, exist_ok=True)
+
+# Creates the data archives directory
+os.makedirs(archive_path, exist_ok=True)
+
+
+if not os.path.isfile(network):
+    print(f"There is no {network} file!")
+    exit(1)
 
 # Collect list of files both in Training and in running directory
 dirlist = os.listdir(dirname) + os.listdir(test_dir) + os.listdir(".")
@@ -172,15 +185,23 @@ max_num = max(nums)
 print(f"Current number of games {max_num}.")
 
 # current_gen   = max_num // games_per_generation
-current_gen   = 1 + max([int(x) for x in os.listdir(save_gen_dir) if x.isnumeric()])
-with tarfile.open(os.path.join(archive_path, f'{current_gen}_gen.tar')) as f:
+prev_networks = [int(x) for x in os.listdir(save_gen_dir) if x.isnumeric()]
+current_gen   = 1 + max(prev_networks) if len(prev_networks)>0 else 1
+print(f"Current generation {current_gen}")
+
+prev_data_dirs = [x.split('_')[0] for x in os.listdir(archive_path)]
+prev_data_gens = [int(x) for x in prev_data_dirs if x.isnumeric()]
+if len(prev_data_gens)>0:
+    with tarfile.open(os.path.join(archive_path, f'{max(prev_data_gens)}_gen.tar')) as f:
     prev_games = max([int(m.name.lstrip('tmp').split('.')[0]) for m in f.getmembers()])
+else:
+    prev_games = 0
 # missing_games = -max_num % games_per_generation
 missing_games = prev_games + games_per_generation - max_num
 games_to_play = missing_games or games_per_generation
 target_games  = max_num + games_to_play
 
-print(f"Starting {games_to_play} games for generation {current_gen+1}.")
+print(f"Starting {games_to_play} games for generation {current_gen}.")
 game_indices  = range(max_num+1, target_games+1)
 print(f"Up to {max_parallel} games to be played in parallel.")
 delays = len(game_indices) * [None]
@@ -193,7 +214,7 @@ with ThreadPoolExecutor(max_workers=max_parallel) as pool:
 
     for f in as_completed(futures):
         i, score = f.result()
-        print(f"✓ finished game {i}/{target_games} [{current_gen}]  (result: {score})")
+        print(f"✓ finished game {i}/{target_games} [{current_gen}]  (result: {score})", flush=True)
 
 elapsed = time.perf_counter() - start
 
@@ -203,11 +224,11 @@ print(f"{elapsed/games_to_play:g} seconds per game")
 print("Tidying up files...")
 
 # Zip the sgfs and remove them
-full_path = os.path.join(al_sgf, f"{current_gen+1}_gen")
+full_path = os.path.join(al_sgf, f"{current_gen}_gen")
 os.system(f"tar -czf {full_path}.tar.gz *.sgf --remove-files")
 
 # Zip the training data
-full_path = os.path.join(archive_path, f"{current_gen+1}_gen")
+full_path = os.path.join(archive_path, f"{current_gen}_gen")
 os.system(f"tar -cf {full_path}.tar *.0.gz")
 
 # Move the training data in Training and Test

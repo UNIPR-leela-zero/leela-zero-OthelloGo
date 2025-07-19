@@ -6,6 +6,8 @@ from config import *
 
 # imports for multithread execution
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
+import itertools
 
 
 def wait_for_prompt(process):
@@ -45,21 +47,44 @@ def play(process, turn_player):
             break
     return new_move
 
-
-def run_game(i, delay=None):
-    if delay:
-        time.sleep(delay)
-
-    resign_percent = 0 if i % 7 == 0 else resign_pct
+def load_engine(i):
     p = subprocess.Popen(
-        [leelaz, '-w', network] + leelaz_args + ['-r', str(resign_percent)],
+        [leelaz, '-w', network] + leelaz_args + ['-r', str(resign_pct)]
+        + ['--gpu', str(i%2)],
         stdout=subprocess.PIPE,
         stdin=subprocess.PIPE,
         bufsize=1,
         text=True
     )
     skip_credentials(p)
+    return p
 
+thread_local = threading.local()
+counter      = itertools.count()
+engines = [load_engine(i) for i in range(max_parallel)]
+
+def _get_my_engine():
+    """
+    Return the resource permanently assigned to *this* worker thread.
+    The first time each worker calls it we hand out the next free
+    resource; afterwards the same object is returned instantly.
+    """
+    if not hasattr(thread_local, "res"):          # first call in this thread?
+        idx = next(counter)                       # atomic under the GIL
+        thread_local.res = engines[idx]           # remember for ever
+    return thread_local.res
+
+
+def run_game(i, delay=None):
+    if delay:
+        time.sleep(delay)
+
+    # resign_percent = 0 if i % 7 == 0 else resign_pct
+    p = _get_my_engine()
+    p.stdin.write('clear_board\n')
+    p.stdin.flush()
+    p.stdin.write('clear_cache\n')
+    p.stdin.flush()
     turn_player='black'
     winner=None
     pass_counter=0
@@ -69,7 +94,6 @@ def run_game(i, delay=None):
         new_move=play(p,turn_player)
         #print("Played "+new_move+" for "+turn_player)
         num_moves+=1
-        #print(new_move)
 
         if "resign" in new_move:
             #print("Played "+new_move+" for "+turn_player)
@@ -102,7 +126,7 @@ def run_game(i, delay=None):
     wait_for_prompt(p)
     p.stdin.write('final_score\n')
     p.stdin.flush()
-    final_score= p.stdout.readline()
+    final_score= p.stdout.readline().split(":")[-1]
     #print("Final score is "+final_score)
     if(winner==None):
         # print(f"Victory by double pass after {num_moves} moves")
@@ -140,11 +164,11 @@ def run_game(i, delay=None):
     p.stdin.write(command)
     p.stdin.flush()
 
-    # Quit Leela Zero
-    p.stdin.write('quit\n')
-    p.stdin.flush()
+    # # Quit Leela Zero
+    # p.stdin.write('quit\n')
+    # p.stdin.flush()
 
-    time.sleep(0.5)
+    time.sleep(0.1)
 
     # Edits the SGF
     sgf_edit(f"{i}_al.sgf", num_moves)

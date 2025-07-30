@@ -61,8 +61,8 @@ RAMDISK_ = "R:"
 
 rundir    = os.path.join(LZO, "run")
 edax      = os.path.join(LZO, "bin", "edax", "wEdax-x86-64-v3.exe")
-kalmia    = "/opt/kalmia/Kalmia"
-egaroucid = os.path.join(LZO, "bin", "egaroucid")
+kalmia    = os.path.join(LZO, "bin", "kalmia", "Kalmia")
+#egaroucid = os.path.join(LZO, "bin", "egaroucid")
 
 results_root = LZO + "/results"    # where results/SGFs are stored
 
@@ -79,6 +79,7 @@ network = RAMDISK_ + "\\current_promoted\\best-network.gz"
 # general best-network files path
 best_network = leela_files + "/current_promoted/best-network.gz"
 ramdisk_network = RAMDISK + "/current_promoted/best-network.gz"
+dummy_network = LZO_ + "\\nets\\rnd.txt.gz"
 # leelaz program path
 leelaz = LZO + "/bin/leelaz.exe"
 lzadri = LZO + "/bin/adri/leelaz.exe"

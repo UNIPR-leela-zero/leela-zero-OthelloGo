@@ -77,10 +77,10 @@ def guess_path_flavor(path: str) -> str:
     Returns:
         "windows", "posix", or "unknown"
     """
-    if "\\" in path:
+    if "\\" in str(path):
         # Windows uses backslashes — POSIX never does
         return "windows"
-    if "/" in path:
+    if "/" in str(path):
         # POSIX uses forward slashes — Windows can too, but usually doesn't
         return "posix"
     return "unknown"
@@ -230,7 +230,7 @@ class LeelaEngine(Engine):
     def __init__(self,
                  net_path: str | Path = dummy_network,
                  visits: int = LEELA_DEFAULT_VISITS,
-                 exe: str | Path = None,
+                 exe: str | Path | None = None,
                  cpu_only: bool = False,
                  name: str | None = None,
                  **kwargs):
@@ -243,11 +243,11 @@ class LeelaEngine(Engine):
 
         if exe is None:
             exe = leelaz
-            code = "default"
+            self.code = "default"
             self.std_othello = True
         else:
-            code = Path(exe).parts[-2] # adri, flip, ...
-            self.std_othello = not (code == "adri")
+            self.code = Path(exe).parts[-2] # adri, flip, ...
+            self.std_othello = not (self.code == "adri")
             if not self.std_othello:
                 print("Warning: LZ-adri can play only with itself, because of its flipped starting position.")
 
@@ -259,7 +259,7 @@ class LeelaEngine(Engine):
         net_hash = sha256_short(net_path_linux)
 
         if name is None:
-            name = "LZ-" + code + "-" + net_hash + "-" + str(visits)
+            name = "LZ-" + self.code + "-" + net_hash + "-" + str(visits)
         extra = match_args + ["-w", str(self.net_path), "-v", str(self.visits)]
         if self.std_othello:
             extra += ["--std-othello"]
@@ -298,7 +298,7 @@ class LeelaEngine(Engine):
         clone = LeelaEngine(
             net_path=self.net_path,
             visits=self.visits,
-            exe=self.exe,
+            exe=self.exe if self.code != "default" else None,
             cpu_only=self.cpu_only,
             name=self.name,
         )
@@ -604,10 +604,12 @@ class MatchRunner:
         stats["wins_A"] = stats["wins_A_black"] + stats["wins_A_white"]
         stats["draws"]  = stats["draws_AB"]     + stats["draws_BA"]
         stats["wins_B"] = stats["wins_B_black"] + stats["wins_B_white"]
-        stats["rate_A_black"] = (stats["wins_A_black"] + stats["draws_AB"]) / stats["games_AB"]
-        stats["rate_A_white"] = (stats["wins_A_white"] + stats["draws_BA"]) / stats["games_BA"]
+        stats["rate_A_black"] = (stats["wins_A_black"] + stats["draws_AB"] / 2) / stats["games_AB"]
+        stats["rate_A_white"] = (stats["wins_A_white"] + stats["draws_BA"] / 2) / stats["games_BA"]
         stats["rate_B_white"] = 1 - stats["rate_A_black"]
         stats["rate_B_black"] = 1 - stats["rate_A_white"]
+        stats["rate_A"] = (stats["wins_A"] + stats["draws"] / 2) / stats["games"]
+        stats["rate_B"] = 1 - stats["rate_A"]
         self.match_results.update(stats)
 
     def get_game_stats(self, g, black, white, game_result):
@@ -665,7 +667,7 @@ class MatchRunner:
                                 pgn_score = "0-1" if blk else "1-0"
                             # minimal PGN file that can be parsed by bayeselo according to
                             # https://www.yuzeh.com/etc/2019-04-07-bayeselo-for-games
-                            fpgn.write(f'[White "{white}"][Black "{black}"][Result "{pgn_score}"] 1. c4 Nf6')
+                            fpgn.write(f'[White "{white.short()}"][Black "{black.short()}"][Result "{pgn_score}"] 1. c4 Nf6\n')
 
                             if black.name == self.A.name:
                                 points_AB = [x + int(y) for (x,y) in zip(points_AB, game_result.point)]
@@ -677,6 +679,7 @@ class MatchRunner:
                         engA.close(); engB.close()
 
         self.update_match_results(points_AB, points_BA)
+        print(self.match_results)
         with open(self.matches_csv_out, "a", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=list(self.match_results))
             if os.path.getsize(self.matches_csv_out) == 0:
@@ -722,19 +725,21 @@ if __name__ == "__main__":
     from config import *
 
     # adri50  = LeelaEngine(adri_net(50))
-    kalmia_easy = KalmiaEngine("easy")
-    kalmia_normal = KalmiaEngine("normal")
-    kalmia_pro = KalmiaEngine("proffesional")
-    kalmia_super = KalmiaEngine("superhuman")
-    default = LeelaEngine(elys_net())
-    default109 = LeelaEngine(elys_net(109))
-    adrieng = LeelaEngine(elys_net(), exe=lzadri)
-    std_othello = LeelaEngine(elys_net(), exe=lzflip)
+    # kalmia_easy = KalmiaEngine("easy")
+    # kalmia_normal = KalmiaEngine("normal")
+    # kalmia_pro = KalmiaEngine("proffesional")
+    # kalmia_super = KalmiaEngine("superhuman")
+    # default = LeelaEngine(elys_net())
+    # default109 = LeelaEngine(elys_net(109))
+    # adrieng = LeelaEngine(elys_net(), exe=lzadri)
+    # std_othello = LeelaEngine(elys_net(), exe=lzflip)
     # std_othello109 = LeelaEngine(elys_net(109), exe=lzflip)
-    edax_default = EdaxEngine()
-    edax_lvl20 = EdaxEngine(20)
+    # edax_default = EdaxEngine()
+    # edax_lvl20 = EdaxEngine(20)
 
     # edax_engine = EdaxEngine()
 
-    MatchRunner(EdaxEngine(10, book=False), LeelaEngine(elys_net(), visits=1000),
-                games=20, soft=True).run()
+    for gen in range(1,526,15):
+        print(f"Generation {gen}")
+        MatchRunner(EdaxEngine(5, book=False), LeelaEngine(elys_net(gen), visits=400),
+                    games=20, soft=True, max_parallel=4).run()
